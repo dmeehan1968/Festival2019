@@ -1,8 +1,8 @@
 module.exports = (req, res) => {
   const db = req.app.get('db')
-  const Event = db.models.event
+  const Events = db.models.events
   return new Promise(resolve => {
-    Event.findAll().then(events => {
+    Events.findAll({ include: [ 'contact', 'bookingcontact', 'venue', 'preferred_image' ] }).then(events => {
       res.json(events)
     })
   })
