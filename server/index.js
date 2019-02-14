@@ -64,7 +64,6 @@ async function boot(context) {
 }
 
 async function routes(context) {
-  context.app.get('/', require('../sample/hello-world'))
   context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
     console.error(err.message)
