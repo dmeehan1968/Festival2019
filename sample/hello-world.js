@@ -1,5 +1,3 @@
-function helloWorld(req, res) {
+module.exports = (req, res) => {
   res.send('Hello World')
 }
-
-module.exports = helloWorld
