@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 const Sequelize = require('sequelize')
+const fs = require('fs')
+const path = require('path')
 
 async function boot(context) {
   context.app = express()
@@ -9,22 +11,19 @@ async function boot(context) {
     dialect: 'mysql',
     operatorsAliases: false,
   })
-  context.Event = db.define('event', {
-    id: {
-      type: Sequelize.INTEGER,
-      field: 'id',
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    title: {
-      type: Sequelize.STRING,
-      field: 'title',
+  const models = path.join(__dirname, '../models')
+  fs.readdirSync(models).forEach(filename => {
+    if (!/_relatesto_/.test(filename)) {
+      const matchExtension = /\.[^\\.]+$/
+      filename = filename.replace(matchExtension, '')
+      db.import(path.join(models, filename))
     }
-  }, {
-    tableName: 'events'
   })
-  context.Event.removeAttribute('createdAt')
-  context.Event.removeAttribute('updatedAt')
+  db.models.events.belongsTo(db.models.contacts, { as: 'contact', foreignKey: 'contact_id' })
+  db.models.events.belongsTo(db.models.contacts, { as: 'bookingcontact', foreignKey: 'bookingcontact_id' })
+  db.models.events.belongsTo(db.models.venues, { as: 'venue', foreignKey: 'venue_id' })
+  db.models.events.belongsTo(db.models.images, { as: 'preferred_image', foreignKey: 'preferred_image_id' })
+  db.sync({ alter: false })
   context.app.set('db', db)
   return context
 }
