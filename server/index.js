@@ -60,12 +60,12 @@ async function boot(context) {
   context.app = express()
   return database(context)
     .then(db => context.app.set('db', db))
-    .then(() => context)
+    .then(routes.bind(null, context))
 }
 
 async function routes(context) {
   context.app.get('/', require('../sample/hello-world'))
-  context.app.get('/events', require('../routes/events'))
+  context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
     console.error(err.message)
     res.json({ success: false, error: err.message })
@@ -87,6 +87,5 @@ function log(context) {
 }
 
 boot({ port: 3000, dbhost: 'localhost', dbschema: '10p_festival2017', dbuser: 'root', dbpass: 'root' })
-  .then(routes)
   .then(listen)
   .then(log)
