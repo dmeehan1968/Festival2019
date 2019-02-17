@@ -6,7 +6,7 @@ class Html extends React.Component {
   render() {
     return (<html>
       <head>
-        <meta charset="utf8" />
+        <meta charSet="utf8" />
         <title>React</title>
       </head>
       <body id="root">
