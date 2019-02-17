@@ -48,6 +48,7 @@ async function database(context) {
     host: context.dbhost,
     dialect: 'mysql',
     operatorsAliases: false,
+    logging: false,
   })
 
   return indexModels(path.join(__dirname, '../models'))
@@ -64,6 +65,7 @@ async function boot(context) {
 }
 
 async function routes(context) {
+  context.app.get('/events', require('../routes/events').get)
   context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
     console.error(err.message)

@@ -5,6 +5,9 @@
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/index.js",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "clean": "rm -rf dist",
     "sequelize": "sequelize-auto --host localhost --database 10p_festival2017 --user root --pass root --dialect mysql --output \"./models\" --additional ./schema-opts.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,11 +16,23 @@
   "dependencies": {
     "express": "^4.16.4",
     "mysql2": "^1.6.5",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "sequelize": "^4.42.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
     "mysql": "^2.16.0",
     "nodemon": "^1.18.10",
-    "sequelize-auto": "^0.4.29"
+    "nodemon-webpack-plugin": "^4.0.7",
+    "sequelize-auto": "^0.4.29",
+    "source-map-support": "^0.5.10",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-node-externals": "^1.7.2"
   }
 }
