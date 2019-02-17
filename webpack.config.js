@@ -5,6 +5,7 @@ const NodemonPlugin = require( 'nodemon-webpack-plugin' )
 
 const clientConfig = {
     entry: './client/index.js',
+    mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'public/client.bundle.js'
@@ -63,4 +64,4 @@ const serverConfig = {
     ]
 }
 
-module.exports = [/*clientConfig, */serverConfig]
+module.exports = [clientConfig, serverConfig]

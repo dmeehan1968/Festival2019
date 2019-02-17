@@ -65,6 +65,7 @@ async function boot(context) {
 }
 
 async function routes(context) {
+  context.app.use(express.static('dist/public'))
   context.app.get('/events', require('../routes/events').get)
   context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
