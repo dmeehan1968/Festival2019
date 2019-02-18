@@ -1,8 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import App from '../app'
+import { createStore } from 'redux'
+import rootReducer from '../app/reducers'
+import { setEvents } from '../app/actions'
 
-ReactDOM.hydrate(
-  <App message="Hello Client"/>,
+const store = createStore(rootReducer)
+store.dispatch(setEvents(window.__INITIAL_STATE__.events))
+
+ReactDOM.hydrate((
+    <Provider store={store}>
+      <App message="Hello Client"/>
+    </Provider>
+  ),
   document.getElementById("root")
 )

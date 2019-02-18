@@ -4,14 +4,6 @@ import { setEvents } from './actions'
 
 class EventList extends React.Component {
 
-  componentDidMount() {
-    console.log('componentDidMount')
-    this.props.setEvents([
-      { title: 'First Event' },
-      { title: 'Second Event' },
-    ])
-  }
-
   render() {
     return (
       <ul>
