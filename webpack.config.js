@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals')
 const NodemonPlugin = require( 'nodemon-webpack-plugin' )
 
 const clientConfig = {
-    entry: './client/index.js',
+    entry: ['react-devtools', './client/index.js'],
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
