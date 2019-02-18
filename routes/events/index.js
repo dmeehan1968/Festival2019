@@ -5,25 +5,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../../app/reducers'
 import { setEvents } from '../../app/actions'
-
-class Html extends React.Component {
-  render() {
-    return (<html>
-      <head>
-        <meta charSet="utf8" />
-        <title>React</title>
-        <script type="text/javascript" dangerouslySetInnerHTML={{__html: this.props.script}} />
-      </head>
-      <body>
-        <div id="root">
-          {this.props.inner}
-          <script type="text/javascript" src="client.bundle.js" />
-        </div>
-      </body>
-    </html>
-)
-  }
-}
+import Html from '../../app/components/Html'
 
 const msg = 'Hello Server'
 
@@ -31,7 +13,8 @@ export function get(req, res, next) {
 
   const db = req.app.get('db')
   db.models.events.findAll().then(events => {
-    return createStore(rootReducer, { events })
+    const plain = event => event.toJSON()
+    return createStore(rootReducer, { events: events.map(plain) })
   }).then(store => {
     const script = `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`
     const app = (
