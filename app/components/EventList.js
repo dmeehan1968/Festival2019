@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setEvents } from './actions'
+import { setEvents } from '../actions'
 
 const EventList = ({ events }) => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import App from '../../app'
+import App from '../../app/components/App'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../../app/reducers'
