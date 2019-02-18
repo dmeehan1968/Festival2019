@@ -9,9 +9,11 @@ class Html extends React.Component {
         <meta charSet="utf8" />
         <title>React</title>
       </head>
-      <body id="root">
-        {this.props.inner}
-        <script type="text/javascript" src="client.bundle.js" />
+      <body>
+        <div id="root">
+          {this.props.inner}
+          <script type="text/javascript" src="client.bundle.js" />
+        </div>
       </body>
     </html>
 )
