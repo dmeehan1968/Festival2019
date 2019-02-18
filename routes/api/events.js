@@ -5,7 +5,7 @@ module.exports = {
     return Events
       .findAll()
       .then(events => {
-        res.json({ success: true, events })
+        res.json({ success: true, events: events.map(event => event.toJSON()) })
       })
       .catch(next)
   }

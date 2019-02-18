@@ -13,8 +13,7 @@ export function get(req, res, next) {
 
   const db = req.app.get('db')
   db.models.events.findAll().then(events => {
-    const plain = event => event.toJSON()
-    return createStore(rootReducer, { events: events.map(plain) })
+    return createStore(rootReducer, { events: events.map(event => event.toJSON()) })
   }).then(store => {
     const script = `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`
     const app = (
