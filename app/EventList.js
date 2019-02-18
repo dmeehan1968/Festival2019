@@ -2,16 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { setEvents } from './actions'
 
-class EventList extends React.Component {
-
-  render() {
-    return (
-      <ul>
-        {this.props.events.length == 0 ? <li>No events</li> : null}
-        {this.props.events.map((event, index) => <li key={index}>{event.title}</li>)}
-      </ul>
-    )
-  }
+const EventList = ({ events }) => {
+  return (
+    <ul>
+      {events.length == 0 ? <li>No events</li> : null}
+      {events.map((event, index) => <li key={index}>{event.title}</li>)}
+    </ul>
+  )
 }
 
 const mapStateToProps = state => ({

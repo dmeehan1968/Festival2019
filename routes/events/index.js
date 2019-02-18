@@ -29,18 +29,18 @@ const msg = 'Hello Server'
 
 export function get(req, res, next) {
 
-  const store = createStore(rootReducer)
-  store.dispatch(setEvents([
-    { title: 'First Event' },
-    { title: 'Second Event' },
-  ]))
+  const db = req.app.get('db')
+  db.models.events.findAll().then(events => {
+    return createStore(rootReducer, { events })
+  }).then(store => {
+    const script = `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`
+    const app = (
+      <Provider store={store}>
+        <App message={msg} />
+      </Provider>
+    )
+    const html = ReactDOMServer.renderToString(<Html inner={app} script={script} />)
+    res.send(html)
+  })
 
-  const script = `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`
-  const app = (
-    <Provider store={store}>
-      <App message={msg} />
-    </Provider>
-  )
-  const html = ReactDOMServer.renderToString(<Html inner={app} script={script} />)
-  res.send(html)
 }

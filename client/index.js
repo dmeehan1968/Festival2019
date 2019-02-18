@@ -6,8 +6,7 @@ import { createStore } from 'redux'
 import rootReducer from '../app/reducers'
 import { setEvents } from '../app/actions'
 
-const store = createStore(rootReducer)
-store.dispatch(setEvents(window.__INITIAL_STATE__.events))
+const store = createStore(rootReducer, window.__INITIAL_STATE__)
 
 ReactDOM.hydrate((
     <Provider store={store}>

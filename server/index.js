@@ -17,6 +17,18 @@ function associateSchema(db) {
   db.sync({ alter: false })
 }
 
+function addScopes(db) {
+  db.models.events.addScope('defaultScope', {
+    include: [ 'contact', 'bookingcontact', {
+      association: 'venue',
+      include: [ 'venuecontact', 'addresscontact', 'disabled', 'toilet', 'dog' ]
+    }, 'preferred_image' ],
+    order: [ 'title' ]
+  }, {
+    override: true
+  })
+}
+
 function stripExtension(file) {
   const matchExtension = /\.[^\\.]+$/
   return file.replace(matchExtension, '')
@@ -54,6 +66,7 @@ async function database(context) {
   return indexModels(path.join(__dirname, '../models'))
     .then(importSchema.bind(null, db))
     .then(associateSchema.bind(null, db))
+    .then(addScopes.bind(null, db))
     .then(() => db)
 }
 
