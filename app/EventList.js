@@ -3,11 +3,20 @@ import { connect } from 'react-redux'
 import { setEvents } from './actions'
 
 class EventList extends React.Component {
+
+  componentDidMount() {
+    console.log('componentDidMount')
+    this.props.setEvents([
+      { title: 'First Event' },
+      { title: 'Second Event' },
+    ])
+  }
+
   render() {
     return (
       <ul>
         {this.props.events.length == 0 ? <li>No events</li> : null}
-        {this.props.events.map(event => <li>{event.title}</li>)}
+        {this.props.events.map((event, index) => <li key={index}>{event.title}</li>)}
       </ul>
     )
   }
