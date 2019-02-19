@@ -5,10 +5,10 @@ import Event from './Event'
 
 const EventList = ({ events }) => {
   return (
-    <article>
+    <section className="eventlist">
       {events.length == 0 ? <section>No events</section> : null}
       {events.map((event, index) => <Event key={index} {...event} />)}
-    </article>
+    </section>
   )
 }
 

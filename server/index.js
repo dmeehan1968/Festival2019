@@ -79,6 +79,8 @@ async function boot(context) {
 
 async function routes(context) {
   context.app.use(express.static('dist/public'))
+  context.app.use('/styles', express.static('styles'))
+  context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
   context.app.get('/events', require('../routes/events').get)
   context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
