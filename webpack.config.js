@@ -12,16 +12,25 @@ const clientConfig = {
     },
     module: {
         rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ['@babel/preset-env','@babel/preset-react']
-                  }
+          {
+            test: /\.less$/,
+            exclude: /node_modules/,
+            use: [
+              'style-loader',
+              'css-loader',
+              'less-loader',
+            ],
+          },
+          {
+              test: /\.(js|jsx)$/,
+              exclude: /node_modules/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env','@babel/preset-react']
                 }
-            }
+              }
+          }
         ]
     }
 }
@@ -42,16 +51,16 @@ const serverConfig = {
     },
     module: {
         rules: [
-            {
-              test: /\.(js|jsx)$/,
-              exclude: /node_modules/,
-              use: {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['@babel/preset-env','@babel/preset-react']
-                }
+          {
+            test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-env','@babel/preset-react']
               }
             }
+          }
         ]
     },
     plugins: [

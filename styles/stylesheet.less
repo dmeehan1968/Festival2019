@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 1rem;
+  background: #eee;
+}
+
+@import "cards.less";
+
+.eventlist {
+  .cards();
+}
+
+.event {
+  .card();
+  .card-hover();
+
+  .image {
+    .card-image();
+  }
+
+  .meta {
+    .card-meta();
+  }
+}

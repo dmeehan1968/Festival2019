@@ -6,7 +6,6 @@ const Html = ({inner, script}) => {
       <meta charSet="utf8" />
       <title>React</title>
       <script type="text/javascript" dangerouslySetInnerHTML={{__html: script}} />
-      <link rel="stylesheet" type="text/css" href="/styles/stylesheet.css" />
     </head>
     <body>
       <main id="root">

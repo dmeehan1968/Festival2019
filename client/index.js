@@ -5,6 +5,7 @@ import App from '../app/components/App'
 import { createStore } from 'redux'
 import rootReducer from '../app/reducers'
 import { setEvents } from '../app/actions'
+import '../styles/stylesheet.less'
 
 const store = createStore(rootReducer, window.__INITIAL_STATE__)
 
