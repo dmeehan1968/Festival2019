@@ -14,18 +14,63 @@ function associateSchema(db) {
   db.models.venues.belongsTo(db.models.tags, { foreignKey: 'disabled_id', as: 'disabled' })
   db.models.venues.belongsTo(db.models.tags, { foreignKey: 'toilet_id', as: 'toilet' })
   db.models.venues.belongsTo(db.models.tags, { foreignKey: 'dog_id', as: 'dog' })
+  db.models.venues.belongsToMany(db.models.tags, {
+    through: 'venue_relatesto_tags',
+    foreignKey: 'venue_id',
+    otherKey: 'tag_id',
+    as: 'tags'
+  })
+  db.models.venues.belongsToMany(db.models.tags, {
+    through: 'venue_relatesto_tags',
+    foreignKey: 'venue_id',
+    otherKey: 'tag_id',
+    as: 'regions'
+  })
+  db.models.tags.belongsTo(db.models.tag_categories, {
+    foreignKey: 'tag_category_id',
+    as: 'categories'
+  })
   db.sync({ alter: false })
 }
 
 function addScopes(db) {
   db.models.events.addScope('defaultScope', {
-    include: [ 'contact', 'bookingcontact', {
-      association: 'venue',
-      include: [ 'venuecontact', 'addresscontact', 'disabled', 'toilet', 'dog' ]
-    }, 'preferred_image' ],
+    include: [
+      'contact',
+      'bookingcontact',
+      {
+        association: 'venue',
+        include: [
+          'venuecontact',
+          'addresscontact',
+          'disabled',
+          'toilet',
+          'dog',
+          {
+            association: 'regions',
+            include: [
+              {
+                association: 'categories',
+                attributes: [],
+                where: {
+                  category: 'region'
+                }
+              }
+            ],
+          }
+        ]
+      },
+      'preferred_image'
+    ],
     order: [ 'title' ]
   }, {
     override: true
+  })
+
+  db.models.events.addScope('eventlist', {
+    attributes: [ 'title', 'subtitle', 'shortdesc' ],
+    include: [ 'preferred_image' ],
+    order: [ 'title' ],
   })
 }
 
@@ -45,7 +90,7 @@ function indexModels(dirname) {
       resolve(files
         .map(file => path.join(dirname, file))
         .map(stripExtension)
-        .filter(excludeRelations)
+        // .filter(excludeRelations)
       )
     })
   })
@@ -106,3 +151,4 @@ function log(context) {
 boot({ port: 3000, dbhost: 'localhost', dbschema: '10p_festival2017', dbuser: 'root', dbpass: 'root' })
   .then(listen)
   .then(log)
+  .catch(e => console.error(`Error: ${e.message}`))

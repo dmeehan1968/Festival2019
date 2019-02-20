@@ -12,7 +12,7 @@ const msg = 'Hello Server'
 export function get(req, res, next) {
 
   const db = req.app.get('db')
-  db.models.events.findAll().then(events => {
+  db.models.events.scope('eventlist').findAll().then(events => {
     return createStore(rootReducer, { events: events.map(event => event.toJSON()) })
   }).then(store => {
     const script = `window.__INITIAL_STATE__ = ${JSON.stringify(store.getState())}`

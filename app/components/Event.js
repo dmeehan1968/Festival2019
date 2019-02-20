@@ -4,7 +4,7 @@ const Event = ({ title, subtitle, shortdesc, preferred_image }) => {
   return (
     <article className="event">
       {preferred_image && preferred_image.filename ? <section className="image">
-        <img src={preferred_image.filename} />
+        <img src={preferred_image.filename} alt={preferred_image.title} />
       </section> : null}
       <section className="meta">
         <h1 className="title">
