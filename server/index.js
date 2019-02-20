@@ -79,10 +79,6 @@ function stripExtension(file) {
   return file.replace(matchExtension, '')
 }
 
-function excludeRelations(file) {
-  return !/_relatesto_/.test(file)
-}
-
 function indexModels(dirname) {
   return new Promise((resolve, reject) => {
     fs.readdir(dirname, (err, files) => {
@@ -90,7 +86,6 @@ function indexModels(dirname) {
       resolve(files
         .map(file => path.join(dirname, file))
         .map(stripExtension)
-        // .filter(excludeRelations)
       )
     })
   })
