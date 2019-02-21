@@ -1,11 +1,12 @@
 import React from 'react'
 
-const Event = ({ title, subtitle, shortdesc, preferred_image }) => {
+const Event = ({ id, title, subtitle, shortdesc, preferred_image }) => {
+  const url = `/events/${id}`
   return (
     <article className="event">
       <section className="meta">
         <h1 className="title">
-          <a href="#">{title}</a>
+          <a href={url}>{title}</a>
         </h1>
         {subtitle ? <h1 className="subtitle">{subtitle}</h1> : null}
         <p className="shortdesc">{shortdesc}</p>

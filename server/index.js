@@ -14,6 +14,7 @@ async function routes(context) {
   context.app.use('/styles', express.static('styles'))
   context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
   context.app.get('/events', require('../routes/events').get)
+  context.app.get('/events/:event', require('../routes/events/id').get)
   context.app.get('/api/events', require('../routes/api/events').get)
   context.app.use((err, req, res, next) => {
     console.error(err.message)
