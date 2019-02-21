@@ -4,13 +4,11 @@ import App from '../../app/components/App'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../../app/reducers'
-import { setEvents } from '../../app/actions'
 import Html from '../../app/components/Html'
 
 const msg = 'Hello Server'
 
 export function get(req, res, next) {
-
   const db = req.app.get('db')
   db.models.events.scope('eventlist').findAll().then(events => {
     return createStore(rootReducer, { events: events.map(event => event.toJSON()) })
