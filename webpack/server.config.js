@@ -4,7 +4,7 @@ const NodemonPlugin = require( 'nodemon-webpack-plugin' )
 
 module.exports = function(config) {
   return {
-      entry: ['@babel/polyfill', './server/index.js'],
+      entry: ['@babel/polyfill', './src/node_modules/server/index.js'],
       target: "node",
       mode: 'development',
       devtool: "source-map",
