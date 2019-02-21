@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setEvents } from '../actions'
-import Event from './Event'
+import EventCard from './EventCard'
 
 const EventList = ({ events }) => {
   return (
     <section className="eventlist">
       {events.length == 0 ? <section>No events</section> : null}
-      {events.map((event, index) => <Event key={index} {...event} />)}
+      {events.map((event, index) => <EventCard key={index} {...event} />)}
     </section>
   )
 }

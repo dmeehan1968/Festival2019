@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-import Event from '../../../app/components/Event'
+// import Event from '../../../app/components/Event'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../../../app/reducers'
