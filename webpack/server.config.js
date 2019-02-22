@@ -1,8 +1,10 @@
 const webpack = require('webpack')
 const nodeExternals = require('webpack-node-externals')
 const NodemonPlugin = require( 'nodemon-webpack-plugin' )
+const validateConfig = require('./validateConfig')
 
 module.exports = function(config) {
+  validateConfig(config)
   return {
       entry: ['@babel/polyfill', './src/node_modules/server/index.js'],
       target: "node",
@@ -20,7 +22,7 @@ module.exports = function(config) {
           rules: [
             {
               test: /\.(js|jsx)$/,
-              exclude: /node_modules/,
+              include: config.includes,
               use: {
                 loader: 'babel-loader',
                 options: {

@@ -1,6 +1,10 @@
+const path = require('path')
+const validateConfig = require('./validateConfig')
+
 module.exports = function(config) {
+  validateConfig(config)
   return {
-      entry: ['react-devtools', './client/index.js'],
+      entry: ['react-devtools', './src/node_modules/client/index.js'],
       mode: 'development',
       output: {
           path: config.distDir,
@@ -10,7 +14,7 @@ module.exports = function(config) {
           rules: [
             {
               test: /\.less$/,
-              exclude: /node_modules/,
+              include: config.includes,
               use: [
                 'style-loader',
                 'css-loader',
@@ -19,7 +23,7 @@ module.exports = function(config) {
             },
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+                include: config.includes,
                 use: {
                   loader: 'babel-loader',
                   options: {
