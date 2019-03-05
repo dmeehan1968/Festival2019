@@ -26,16 +26,19 @@ module.exports = function(config) {
               include: config.includes,
               use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
-                use: [ {
+                use: [
+                  {
                     loader: 'css-loader',
                     options: {
                       modules: true,
                       importLoaders: 1,
-                      sourceMap: false,
+                      sourceMap: true,
                       localIdentName: '[name]_[local]_[contenthash:base64:5]',
                       camelCase: true,
                     },
-                  }, 'less-loader' ],
+                  },
+                  'less-loader',
+                ],
               }),
             },
             {
