@@ -3,6 +3,7 @@ const nodeExternals = require('webpack-node-externals')
 const NodemonPlugin = require( 'nodemon-webpack-plugin' )
 const validateConfig = require('./validateConfig')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const cssLoader = require('./css-loader.config')
 
 module.exports = function(config) {
   validateConfig(config)
@@ -27,16 +28,7 @@ module.exports = function(config) {
               use: ExtractTextPlugin.extract({
                 fallback: 'style-loader',
                 use: [
-                  {
-                    loader: 'css-loader',
-                    options: {
-                      modules: true,
-                      importLoaders: 1,
-                      sourceMap: true,
-                      localIdentName: '[name]_[local]_[contenthash:base64:5]',
-                      camelCase: true,
-                    },
-                  },
+                  cssLoader,
                   'less-loader',
                 ],
               }),
