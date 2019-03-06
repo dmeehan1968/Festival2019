@@ -1,5 +1,6 @@
 const path = require('path')
 const validateConfig = require('./validateConfig')
+const cssLoader = require('./css-loader.config')
 
 module.exports = function(config) {
   validateConfig(config)
@@ -17,16 +18,7 @@ module.exports = function(config) {
               include: config.includes,
               use: [
                 'style-loader',
-                {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    importLoaders: 1,
-                    sourceMap: true,
-                    localIdentName: '[name]_[local]_[contenthash:base64:5]',
-                    camelCase: true,
-                  },
-                },
+                cssLoader,
                 'less-loader',
               ],
             },
