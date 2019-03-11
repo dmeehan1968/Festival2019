@@ -5,8 +5,9 @@ const cssLoader = require('./css-loader.config')
 module.exports = function(config) {
   validateConfig(config)
   return {
-      entry: ['react-devtools', './src/node_modules/client/index.js'],
+      entry: ['@babel/polyfill', 'react-devtools', './src/node_modules/client/index.js'],
       mode: 'development',
+      devtool: "source-map",
       output: {
           path: config.distDir,
           filename: 'public/client.bundle.js'
