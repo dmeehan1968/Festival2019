@@ -24,6 +24,19 @@ module.exports = function(config) {
               ],
             },
             {
+              test: /\.(jpg|png|gif)$/,
+              include: config.includes,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    outputPath: 'public',
+                    publicPath: '/',
+                  },
+                },
+              ],
+            },
+            {
                 test: /\.(js|jsx)$/,
                 include: config.includes,
                 use: {

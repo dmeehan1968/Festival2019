@@ -34,6 +34,18 @@ module.exports = function(config) {
               }),
             },
             {
+              test: /\.(jpg|png|gif)$/,
+              include: config.includes,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    emitFile: false,
+                  },
+                },
+              ],
+            },
+            {
               test: /\.(js|jsx)$/,
               include: config.includes,
               use: {
