@@ -63,6 +63,11 @@ const start = async () => {
       stats: clientConfig.stats,
   };
 
+  app.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', '*');
+      return next();
+  });
+
   app.use(
      webpackDevMiddleware(clientCompiler, {
          publicPath: clientConfig.output.publicPath,
