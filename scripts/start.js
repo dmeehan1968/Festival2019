@@ -68,10 +68,7 @@ const start = async () => {
          publicPath: clientConfig.output.publicPath,
          stats: clientConfig.stats,
          watchOptions,
-         writeToDisk: file => {
-           console.log('writeToDisk:', file)
-           return true
-         },
+         writeToDisk: true,
      })
   );
 
