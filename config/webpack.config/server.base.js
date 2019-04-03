@@ -4,6 +4,7 @@ import loaders from './loaders'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import nodeExternals from 'webpack-node-externals'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 export default {
   name: 'server',
@@ -23,12 +24,17 @@ export default {
     path: paths.serverBuild,
     filename: 'server.bundle.js',
     publicPath: paths.publicPath,
- },
- module: {
-   rules: loaders.server,
- },
- plugins: [
-   new ExtractTextPlugin(path.join(paths.serverBuild, paths.publicPath, 'style.css')),
-   new CleanWebpackPlugin(),
- ]
+   },
+   module: {
+     rules: loaders.server,
+   },
+   plugins: [
+     new CleanWebpackPlugin(),
+     new MiniCssExtractPlugin({
+        filename:
+            process.env.NODE_ENV === 'development' ? 'server.[name].css' : 'server.[name].[contenthash].css',
+        chunkFilename:
+            process.env.NODE_ENV === 'development' ? '[id].css' : '[id].[contenthash].css',
+    }),
+  ]
 }

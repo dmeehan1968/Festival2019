@@ -1,6 +1,7 @@
 import path from 'path'
 import paths from '../paths'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const cssLoaderBase = {
   loader: 'css-loader',
@@ -14,25 +15,22 @@ const cssLoaderBase = {
 }
 
 const lessLoaderClient = {
-  test: /\.less$/,
-  include: paths.src,
-  use: [
-    'style-loader',
-    cssLoaderBase,
-    'less-loader',
-  ],
+    test: /\.less$/,
+    use: [
+      require.resolve('css-hot-loader'),
+      MiniCssExtractPlugin.loader,
+      cssLoaderBase,
+      'less-loader',
+    ],
 }
 
 const lessLoaderServer = {
   test: /\.less$/,
-  include: paths.src,
-  use: ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: [
-      cssLoaderBase,
-      'less-loader',
-    ],
-  }),
+  use: [
+    MiniCssExtractPlugin.loader,
+    cssLoaderBase,
+    'less-loader',
+  ],
 }
 
 
