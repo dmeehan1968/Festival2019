@@ -27,10 +27,8 @@ export default {
    new ManifestPlugin(),
    new CleanWebpackPlugin(),
    new MiniCssExtractPlugin({
-      filename:
-          process.env.NODE_ENV === 'development' ? 'client.[name].css' : 'client.[name].[contenthash].css',
-      chunkFilename:
-          process.env.NODE_ENV === 'development' ? '[id].css' : '[id].[contenthash].css',
+      filename: 'client.[name].css',
+      chunkFilename: '[id].css',
   }),
  ],
 }
