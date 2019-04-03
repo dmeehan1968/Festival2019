@@ -7,7 +7,7 @@ const resolve = (relativePath) => path.resolve(rootPath, relativePath)
 const clientBuild = resolve('build/client')
 const serverBuild = resolve('build/server')
 const src = resolve('src')
-const publicPath = 'static/'
+const publicPath = '/static/'
 
 export default {
   clientBuild,
@@ -16,6 +16,5 @@ export default {
   srcClient: path.join(src, 'node_modules/client'),
   srcServer: path.join(src, 'node_modules/server'),
   publicPath,
-  clientWebroot: path.join(clientBuild, publicPath),
-  serverWebroot: path.join(serverBuild, publicPath),
+  manifestPath: path.join(clientBuild, 'manifest.json'),
 }

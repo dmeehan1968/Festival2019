@@ -37,8 +37,13 @@ const start = async () => {
     ...clientConfig.entry.bundle,
   ]
 
-  clientConfig.output.hotUpdateMainFilename = 'updates/[hash].hot-update.json';
-  clientConfig.output.hotUpdateChunkFilename = 'updates/[id].[hash].hot-update.js';
+  const hotUpdateConfig = {
+    hotUpdateMainFilename: 'updates/[hash].hot-update.json',
+    hotUpdateChunkFilename: 'updates/[id].[hash].hot-update.js',
+  }
+
+  clientConfig.output = { ...clientConfig.output, ...hotUpdateConfig }
+  serverConfig.output = { ...serverConfig.output, ...hotUpdateConfig }
 
   const publicPath = clientConfig.output.publicPath;
 
@@ -79,7 +84,7 @@ const start = async () => {
 
   app.use(webpackHotMiddleware(clientCompiler));
 
-  app.use('/static', express.static(paths.clientBuild));
+  app.use(paths.publicPath, express.static(paths.clientBuild));
 
   app.listen(PORT);
 

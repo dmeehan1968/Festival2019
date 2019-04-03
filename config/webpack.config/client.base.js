@@ -2,6 +2,7 @@ import path from 'path'
 import paths from '../paths'
 import loaders from './loaders.js'
 import ManifestPlugin from 'webpack-manifest-plugin'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
 
 export default {
   name: 'client',
@@ -13,7 +14,7 @@ export default {
     ],
   },
   output: {
-    path: paths.clientWebroot,
+    path: paths.clientBuild,
     filename: 'client.bundle.js',
     publicPath: paths.publicPath,
     chunkFilename: '[name].[chunkhash:8].chunk.js',
@@ -23,5 +24,6 @@ export default {
  },
  plugins: [
    new ManifestPlugin(),
+   new CleanWebpackPlugin(),
  ],
 }

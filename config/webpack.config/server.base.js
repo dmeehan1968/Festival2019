@@ -3,6 +3,7 @@ import paths from '../paths'
 import loaders from './loaders'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import nodeExternals from 'webpack-node-externals'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
 
 export default {
   name: 'server',
@@ -19,14 +20,15 @@ export default {
     nodeExternals(),
   ],
   output: {
-    path: paths.serverWebroot,
-    filename: '../server.bundle.js',
+    path: paths.serverBuild,
+    filename: 'server.bundle.js',
     publicPath: paths.publicPath,
  },
  module: {
    rules: loaders.server,
  },
  plugins: [
-   new ExtractTextPlugin(path.join(paths.serverBuild, paths.publicPath, 'style.css'))
+   new ExtractTextPlugin(path.join(paths.serverBuild, paths.publicPath, 'style.css')),
+   new CleanWebpackPlugin(),
  ]
 }
