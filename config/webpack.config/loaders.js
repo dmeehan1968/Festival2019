@@ -35,15 +35,26 @@ const lessLoaderServer = {
   }),
 }
 
-const fileLoader = {
+const fileLoaderClient = {
   test: /\.(jpg|png|gif)$/,
   include: paths.src,
   use: [
     {
       loader: 'file-loader',
       options: {
-        // outputPath: '',
-        // publicPath: '',
+      },
+    },
+  ],
+}
+
+const fileLoaderServer = {
+  test: /\.(jpg|png|gif)$/,
+  include: paths.src,
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        emitFile: false,
       },
     },
   ],
@@ -65,13 +76,13 @@ const babelLoader = {
 
 const client = [
   lessLoaderClient,
-  fileLoader,
+  fileLoaderClient,
   babelLoader,
 ]
 
 const server = [
   lessLoaderServer,
-  fileLoader,
+  fileLoaderServer,
   babelLoader,
 ]
 
