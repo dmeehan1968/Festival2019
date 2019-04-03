@@ -1,7 +1,6 @@
 import path from 'path'
 import paths from '../paths'
 import loaders from './loaders'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import nodeExternals from 'webpack-node-externals'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'

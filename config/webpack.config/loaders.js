@@ -1,6 +1,5 @@
 import path from 'path'
 import paths from '../paths'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const cssLoaderBase = {
