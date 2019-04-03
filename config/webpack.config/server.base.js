@@ -19,14 +19,14 @@ export default {
     nodeExternals(),
   ],
   output: {
-    path: paths.serverBuild,
-    filename: 'server.bundle.js',
+    path: path.join(paths.serverBuild, paths.publicPath),
+    filename: '../server.bundle.js',
     publicPath: paths.publicPath,
  },
  module: {
    rules: loaders.server,
  },
  plugins: [
-   new ExtractTextPlugin(path.resolve(paths.serverBuild, paths.publicPath, 'style.css'))
+   new ExtractTextPlugin(path.join(paths.serverBuild, paths.publicPath, 'style.css'))
  ]
 }

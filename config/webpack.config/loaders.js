@@ -42,8 +42,8 @@ const fileLoader = {
     {
       loader: 'file-loader',
       options: {
-        outputPath: path.resolve(paths.clientBuild, paths.publicPath),
-        publicPath: '/',
+        // outputPath: '',
+        // publicPath: '',
       },
     },
   ],
