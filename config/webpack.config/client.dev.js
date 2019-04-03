@@ -1,6 +1,5 @@
 import webpack from 'webpack'
 import clientBase from './client.base'
-import WriteFileWebpackPlugin from 'write-file-webpack-plugin'
 
 export default {
   ...clientBase,
@@ -12,7 +11,6 @@ export default {
   },
   plugins: [
     ...clientBase.plugins,
-    // new WriteFileWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
   mode: 'development',

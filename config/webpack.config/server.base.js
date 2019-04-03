@@ -9,7 +9,7 @@ export default {
   target: 'node',
   entry: {
     bundle: [
-      path.resolve(paths.srcServer, 'index.js'),
+      path.join(paths.srcServer, 'index.js'),
     ],
   },
   node: {
@@ -19,7 +19,7 @@ export default {
     nodeExternals(),
   ],
   output: {
-    path: path.join(paths.serverBuild, paths.publicPath),
+    path: paths.serverWebroot,
     filename: '../server.bundle.js',
     publicPath: paths.publicPath,
  },
