@@ -31,10 +31,8 @@ export default {
    plugins: [
      new CleanWebpackPlugin(),
      new MiniCssExtractPlugin({
-        filename:
-            process.env.NODE_ENV === 'development' ? 'server.[name].css' : 'server.[name].[contenthash].css',
-        chunkFilename:
-            process.env.NODE_ENV === 'development' ? '[id].css' : '[id].[contenthash].css',
+        filename: 'server.[name].css',
+        chunkFilename: '[id].css',
     }),
   ]
 }
