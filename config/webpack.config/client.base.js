@@ -13,7 +13,7 @@ export default {
     ],
   },
   output: {
-    path: path.join(paths.clientBuild, paths.publicPath),
+    path: paths.clientWebroot,
     filename: 'client.bundle.js',
     publicPath: paths.publicPath,
     chunkFilename: '[name].[chunkhash:8].chunk.js',
