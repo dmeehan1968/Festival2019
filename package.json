@@ -5,7 +5,8 @@
   "main": "server/index.js",
   "scripts": {
     "build": "NODE_ENV=production babel-node --presets @babel/preset-env scripts/build.js",
-    "start": "NODE_ENV=development babel-node --presets @babel/preset-env scripts/start.js",
+    "start": "NODE_ENV=production babel-node --presets @babel/preset-env build/server/server.bundle.js",
+    "start:dev": "NODE_ENV=development babel-node --presets @babel/preset-env scripts/start.js",
     "clean": "rm -rf build",
     "devtools": "react-devtools",
     "sequelize": "sequelize-auto --host localhost --database 10p_festival2017 --user root --pass root --dialect mysql --output \"./src/node_modules/models\" --additional ./schema-opts.json",
