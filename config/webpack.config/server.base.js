@@ -4,6 +4,7 @@ import loaders from './loaders'
 import nodeExternals from 'webpack-node-externals'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import resolve from './resolve'
 
 export default {
   name: 'server',
@@ -33,5 +34,6 @@ export default {
         filename: 'server.[name].css',
         chunkFilename: '[id].css',
     }),
-  ]
+  ],
+  ...resolve,
 }

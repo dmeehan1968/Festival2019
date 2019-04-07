@@ -4,6 +4,7 @@ import loaders from './loaders.js'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import resolve from './resolve'
 
 export default {
   name: 'client',
@@ -31,4 +32,5 @@ export default {
       chunkFilename: '[id].css',
   }),
  ],
+ ...resolve,
 }

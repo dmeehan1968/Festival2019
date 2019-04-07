@@ -2,7 +2,7 @@ import express from 'express'
 import path from 'path'
 import database from './database'
 import manifest from './manifest'
-import paths from '../../../config/paths'
+import paths from '../../config/paths'
 
 const app = express()
 
