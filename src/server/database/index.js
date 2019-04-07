@@ -34,7 +34,7 @@ export default function database(context) {
   })
 
   // NB: __dirname is relative to 'build' directory, due to babel
-  return getArrayOfModelFilenamesForPath(path.resolve(__dirname, '../../src/node_modules/models'))
+  return getArrayOfModelFilenamesForPath(path.resolve(__dirname, '../../src/models'))
     .then(importModelsFromFilepaths.bind(null, db))
     .then(createAssociationsBetweenModels.bind(null, db))
     .then(() => db.sync({ alter: false }))

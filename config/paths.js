@@ -13,8 +13,8 @@ export default {
   clientBuild,
   serverBuild,
   src,
-  srcClient: path.join(src, 'node_modules/client'),
-  srcServer: path.join(src, 'node_modules/server'),
+  srcClient: path.join(src, 'client'),
+  srcServer: path.join(src, 'server'),
   publicPath,
   manifestPath: path.join(clientBuild, 'manifest.json'),
 }
