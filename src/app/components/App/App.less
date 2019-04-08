@@ -45,16 +45,3 @@
   composes: title from "~app/components/NavBar/NavBar.less";
   color: @--color-brand-orange;
 }
-
-
-.tab-bar {
-  composes: container from "~app/components/TabBar/TabBar.less";
-
-  :global(.far) {
-    font-size: @--text-lg;
-  }
-
-  div:last-child {
-    font-size: @--text-sm;
-  }
-}

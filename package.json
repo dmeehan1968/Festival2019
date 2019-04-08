@@ -47,6 +47,7 @@
     "i": "^0.3.6",
     "moment": "^2.24.0",
     "mysql2": "^1.6.5",
+    "polished": "^3.2.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-helmet": "^5.2.0",
@@ -58,7 +59,8 @@
     "redux-storage-decorator-filter": "^1.1.8",
     "redux-storage-engine-localstorage": "^1.1.4",
     "sequelize": "^4.42.0",
-    "serialize-javascript": "^1.6.1"
+    "serialize-javascript": "^1.6.1",
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
