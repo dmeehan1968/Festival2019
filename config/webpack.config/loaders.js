@@ -56,6 +56,16 @@ const babelLoader = {
         '@babel/preset-env',
         '@babel/preset-react',
       ],
+      plugins: [
+        // [
+          // 'babel-plugin-styled-components',
+          // {
+          //   ssr: false,
+          //   minify: false,
+          //   raw: false,
+          // }
+        // ],
+      ],
     },
   },
 }
