@@ -1,17 +1,16 @@
 import React from 'react'
 
-import styles from './TabBar.less'
+import { TabBarContainer, TabBar, TabBarItem } from './styles'
 
 export default ({
   children,
-  className = styles.container
  }) => {
   return (
-    <nav className={className}>
-      <ul>
-        {React.Children.map(children, (child, key) => (<li key={key}>{child}</li>))}
-      </ul>
-    </nav>
+    <TabBarContainer>
+      <TabBar>
+        {React.Children.map(children, (child, key) => (<TabBarItem key={key}>{child}</TabBarItem>))}
+      </TabBar>
+    </TabBarContainer>
 
   )
 }
