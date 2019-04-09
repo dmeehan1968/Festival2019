@@ -3,11 +3,13 @@ import moment from 'moment'
 import DateTime from 'app/components/DateTime'
 import DateTimeRange from 'app/components/DateTimeRange'
 
+import { Table } from './styles'
+
 export default ({ dates, times }) => {
   dates = dates.map(date => ({ ...date, date: moment(date.date) }))
   times = times.map(time => ({ ...time, start: moment(time.start), end: moment(time.end) }))
   return (
-    <table>
+    <Table>
       <thead>
         <tr>
           {dates.map((d, i) => <td key={i}><DateTime date={d.date} format="ddd Do" /></td>)}
@@ -25,6 +27,6 @@ export default ({ dates, times }) => {
           ))}
         </tr>
       </tbody>
-    </table>
+    </Table>
   )
 }
