@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TabBarContainer = styled.nav`
+export const NavWrapper = styled.nav`
   border-top: 1px solid gray;
   position: absolute;
   top: 0;
@@ -8,7 +8,7 @@ export const TabBarContainer = styled.nav`
   width: 100vw;
 `
 
-export const TabBar = styled.ul`
+export const ListContainer = styled.ul`
   list-style-type: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
@@ -21,7 +21,7 @@ export const TabBar = styled.ul`
   }
 `
 
-export const TabBarItem = styled.li`
+export const ListItem = styled.li`
   width: 100%;
   text-align: center;
 `
