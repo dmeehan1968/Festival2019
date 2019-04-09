@@ -10,19 +10,20 @@ import NavBarAction from 'app/components/NavBarAction'
 import { Link } from 'react-router-dom'
 
 import styles from './Event.less'
+import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
 
 export const EventPage = ({ event = {}, dates = [] }) => {
   const unspecified = { description: 'Unspecified' }
   return (
-    <section className={styles.event}>
+    <EventWrapper>
       <Helmet>
         <title>{event.title}</title>
       </Helmet>
       <NavBarAction id="nav-bar-left-action">
         <Link to="/">&lt; Events</Link>
       </NavBarAction>
-      <section className={styles.eventDetail}>
-        <h1 className={styles.title}>{event.title}</h1>
+      <EventDetailWrapper>
+        <h1>{event.title}</h1>
         <dl>
           <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
@@ -39,12 +40,12 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           <Meta title="Further Info" content={event.furtherinfo} />
           <Meta title="Long Description" content={event.longdesc} />
         </dl>
-      </section>
-      <section className={styles.venueDetail}>
+      </EventDetailWrapper>
+      <VenueDetailWrapper>
         <h2>Venue Information</h2>
         { event.venue && <VenueDetail venue={event.venue} eventTitle={event.title} /> || <p>No Venue Information</p> }
-      </section>
-    </section>
+      </VenueDetailWrapper>
+    </EventWrapper>
   )
 }
 
