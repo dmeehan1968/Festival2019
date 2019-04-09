@@ -1,5 +1,6 @@
 import React from 'react'
 import stringifyClassnames from 'app/helpers/stringifyClassnames'
+import { Term, Definition } from './styles'
 
 export default ({ title, content, className }) => {
   const cssClassNameFromString = s => {
@@ -13,12 +14,12 @@ export default ({ title, content, className }) => {
 
   if (!content) return null
 
-  const classNames = stringifyClassnames(['meta', className, cssClassNameFromString(title)])
+  const classNames = stringifyClassnames([className, cssClassNameFromString(title)])
 
   return (
     <>
-      <dt className={classNames}>{title}</dt>
-      <dd className={classNames}>{content}</dd>
+      <Term className={classNames}>{title}</Term>
+      <Definition className={classNames}>{content}</Definition>
     </>
   )
 }
