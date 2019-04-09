@@ -1,10 +1,5 @@
 import styled from 'styled-components'
-import { lighten, darken, opacify } from 'polished'
-
-const pow = (value, power) => {
-  if (power <= 1) return value
-  return value * pow(value, power-1)
-}
+import { modularScale, math, lighten, darken, opacify } from 'polished'
 
 export const colorBrandBlue = '#283e6b'
 export const colorPrimary = colorBrandBlue
@@ -40,27 +35,27 @@ export const colorForeground = colorWhite
 export const colorTint = colorGray3
 export const colorOverlay = opacify(0.8, colorBlack)
 
-export const textScaleRatio = 1.2
-export const textXs = (1 / pow(textScaleRatio, 2)) + 'em'
-export const textSm = (1 / textScaleRatio) + 'em'
-export const textLg = (1 * pow(textScaleRatio, 2)) + 'em'
-export const textXl = (1 * pow(textScaleRatio, 3)) + 'em'
-export const textXxl = (1 * pow(textScaleRatio, 4)) + 'em'
-export const textXxxl = (1 * pow(textScaleRatio, 5)) + 'em'
+export const textXs = modularScale(-2)
+export const textSm = modularScale(-1)
+export const textMd = modularScale(0)
+export const textLg = modularScale(1)
+export const textXl = modularScale(2)
+export const textXxl = modularScale(3)
+export const textXxxl = modularScale(4)
 
 export const headingLineHeight = 1.2
 export const bodyLineHeight = 1.4
 
 export const spaceUnit = '1em'
-export const spaceXxxs = 0.25 * spaceUnit
-export const spaceXxs = 0.375 * spaceUnit
-export const spaceXs = 0.5 * spaceUnit
-export const spaceSm = 0.75 * spaceUnit
-export const spaceMd = 1.25 * spaceUnit
-export const spaceLg = 2 * spaceUnit
-export const spaceXl = 3.25 * spaceUnit
-export const spaceXxl = 5.25 * spaceUnit
-export const spaceXxxl = 8.5 * spaceUnit
+export const spaceXxxs = modularScale(-2)
+export const spaceXxs = modularScale(-1)
+export const spaceXs = modularScale(0)
+export const spaceSm = modularScale(1)
+export const spaceMd = modularScale(2)
+export const spaceLg = modularScale(3)
+export const spaceXl = modularScale(4)
+export const spaceXxl = modularScale(6)
+export const spaceXxxl = modularScale(8)
 
 export const lineXs = '1px'
 export const lineMd = '2px'
