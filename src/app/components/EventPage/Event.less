@@ -1,11 +1,5 @@
 @import (reference) "~styles/designSystem";
 
-.event {
-  background-color: @--color-foreground;
-  padding: @--space-md;
-  box-shadow: @--line-xs @--line-xs @--line-lg 0 @--color-tint;
-}
-
 dt:global(.meta) {
   font-weight: normal;
   color: @--color-text-heading;
@@ -14,28 +8,6 @@ dt:global(.meta) {
 
 dd:global(.meta) {
   margin-bottom: @--space-md;
-}
-
-dd:global(.opening-times) table {
-  width: 100%;
-  border-spacing: @--line-xs;
-
-  thead {
-    background-color: @--color-accent;
-    color: contrast(@--color-accent);
-  }
-
-  td {
-    padding: @--space-xxs;
-  }
-}
-
-.event-detail {
-  .title {
-    margin-bottom: @--space-md;
-    font-weight: normal;
-    color: @--color-text-heading;
-  }
 }
 
 dd:global(.map) > :first-child {

@@ -47,15 +47,15 @@ export const headingLineHeight = 1.2
 export const bodyLineHeight = 1.4
 
 export const spaceUnit = '1em'
-export const spaceXxxs = modularScale(-2)
-export const spaceXxs = modularScale(-1)
-export const spaceXs = modularScale(0)
-export const spaceSm = modularScale(1)
-export const spaceMd = modularScale(2)
-export const spaceLg = modularScale(3)
-export const spaceXl = modularScale(4)
-export const spaceXxl = modularScale(6)
-export const spaceXxxl = modularScale(8)
+export const spaceXxxs = modularScale(-3)
+export const spaceXxs = modularScale(-2)
+export const spaceXs = modularScale(-1)
+export const spaceSm = modularScale(0)
+export const spaceMd = modularScale(1)
+export const spaceLg = modularScale(2)
+export const spaceXl = modularScale(3)
+export const spaceXxl = modularScale(5)
+export const spaceXxxl = modularScale(7)
 
 export const lineXs = '1px'
 export const lineMd = '2px'
