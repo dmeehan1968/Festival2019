@@ -57,6 +57,7 @@ const babelLoader = {
         '@babel/preset-react',
       ],
       plugins: [
+        'inline-dotenv',
         // [
           // 'babel-plugin-styled-components',
           // {

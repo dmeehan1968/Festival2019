@@ -5,6 +5,7 @@ import ManifestPlugin from 'webpack-manifest-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import resolve from './resolve'
+import DotEnv from 'dotenv-webpack'
 
 export default {
   name: 'client',
@@ -25,6 +26,7 @@ export default {
    rules: loaders.client,
  },
  plugins: [
+   new DotEnv(),
    new ManifestPlugin(),
    new CleanWebpackPlugin(),
    new MiniCssExtractPlugin({
