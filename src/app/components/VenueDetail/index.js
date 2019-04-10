@@ -37,6 +37,7 @@ export default ({
   venue = {},
   eventTitle,
 }) => {
+  const unspecified = { description: 'Unspecified' }
   return (
     <dl>
       {renderAddressContact({ addresscontact: venue.addresscontact, eventTitle }) || <p>No Address Contact</p> }

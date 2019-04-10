@@ -1,4 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { generateMedia } from 'styled-media-query'
+
 import { modularScale, math, lighten, darken, opacify } from 'polished'
 
 export const colorBrandBlue = '#283e6b'
@@ -65,6 +67,12 @@ export const lineXl = '8px'
 export const headerHeight = '40px'
 export const footerHeight = '75px'
 
+export const media = generateMedia({
+  wide: '1129px',
+  desktop: '950px',
+  tablet: '530px',
+  mobile: '320px',
+})
 
 //
 // @mobile:     ~"only screen and (max-width: 529px)";
