@@ -64,7 +64,8 @@
     "sequelize": "^4.42.0",
     "serialize-javascript": "^1.6.1",
     "styled-components": "^4.2.0",
-    "styled-media-query": "^2.1.1"
+    "styled-media-query": "^2.1.1",
+    "viewport-mercator-project": "^6.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",

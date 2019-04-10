@@ -24,7 +24,10 @@ export default ({
       offsetLeft={-iconHotspot.x}
       offsetTop={-iconHotspot.y}
     >
-      <Pin icon={icon} fixedWidth={true} onClick={() => setPopup(<VenueMapInfoDetail venue={venue} />)} />
+      <Pin
+        icon={icon}
+        fixedWidth={true}
+        onClick={() => setPopup({ latitude, longitude, content:<VenueMapInfoDetail venue={venue} /> })} />
     </Marker>
 
   )
