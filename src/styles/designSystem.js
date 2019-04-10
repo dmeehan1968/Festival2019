@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { generateMedia } from 'styled-media-query'
 
-import { modularScale, math, lighten, darken, opacify } from 'polished'
+import { modularScale, math, lighten, darken, opacify, transparentize } from 'polished'
 
 export const colorBrandBlue = '#283e6b'
 export const colorPrimary = colorBrandBlue
@@ -35,7 +35,8 @@ export const colorLinkVisited = colorPrimaryDark
 export const colorBackground = colorGray1
 export const colorForeground = colorWhite
 export const colorTint = colorGray3
-export const colorOverlay = opacify(0.8, colorBlack)
+export const colorOverlay = transparentize(0.8, colorBlack)
+export const colorDropShadow = transparentize(0.8, colorBlack)
 
 export const textXs = modularScale(-2)
 export const textSm = modularScale(-1)

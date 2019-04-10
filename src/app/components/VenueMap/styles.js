@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const MapWrapper = styled.div`
-  height: 400px;
+  height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;

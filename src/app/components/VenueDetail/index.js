@@ -13,7 +13,7 @@ const renderAddressContact = ({
     <>
       <Meta
         title="Map"
-        content={<VenueMap venue={venue} />}
+        content={<VenueMap height={400} venues={[venue]} />}
       />
       <Meta title="Address" content={[
         venue.addresscontact.address1,
