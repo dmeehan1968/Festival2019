@@ -9,11 +9,9 @@ import Meta from 'app/components/Meta'
 import NavBarAction from 'app/components/NavBarAction'
 import { Link } from 'react-router-dom'
 
-import styles from './Event.less'
 import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
 
 export const EventPage = ({ event = {}, dates = [] }) => {
-  const unspecified = { description: 'Unspecified' }
   return (
     <EventWrapper>
       <Helmet>
