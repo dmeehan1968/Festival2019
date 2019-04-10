@@ -3,31 +3,25 @@ import Meta from 'app/components/Meta'
 import VenueMap from 'app/components/VenueMap'
 
 const renderAddressContact = ({
-  addresscontact,
+  venue,
   eventTitle,
 }) => {
 
-  if (!addresscontact) return null
+  if (!venue.addresscontact) return null
 
   return (
     <>
       <Meta
         title="Map"
-        content={
-          <VenueMap
-            lat={addresscontact.latitude}
-            lng={addresscontact.longitude}
-            title={eventTitle}
-          />
-        }
+        content={<VenueMap venue={venue} />}
       />
       <Meta title="Address" content={[
-        addresscontact.address1,
-        addresscontact.address2,
-        addresscontact.address3,
-        addresscontact.town,
-        addresscontact.county,
-        addresscontact.postcode,
+        venue.addresscontact.address1,
+        venue.addresscontact.address2,
+        venue.addresscontact.address3,
+        venue.addresscontact.town,
+        venue.addresscontact.county,
+        venue.addresscontact.postcode,
         ].filter(addr => !!addr).map((addr, i) => <React.Fragment key={i}>{addr}<br /></React.Fragment>)} />
     </>
   )
@@ -40,7 +34,7 @@ export default ({
   const unspecified = { description: 'Unspecified' }
   return (
     <dl>
-      {renderAddressContact({ addresscontact: venue.addresscontact, eventTitle }) || <p>No Address Contact</p> }
+      {renderAddressContact({ venue: venue, eventTitle }) || <p>No Address Contact</p> }
       <Meta title="For Venue Information" content={venue.telephone} />
       <Meta title="Region" content={venue.regions.map(r => r.description).join(', ')} />
       <Meta title="Disabled" content={(venue.disabled || unspecified).description} />
