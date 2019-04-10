@@ -32,7 +32,7 @@ export default ({
     if (!viewport.height || !viewport.width) {
       return
     }
-console.log(viewport.height, viewport.width)
+
     const expand=0.005
     const { latitude, longitude, zoom } = new WebMercatorViewport({ height: viewport.height, width: viewport.width })
       .fitBounds([ [ bounds.minLng-expand, bounds.minLat-expand ], [ bounds.maxLng+expand, bounds.maxLat+expand ] ], {padding: 100})

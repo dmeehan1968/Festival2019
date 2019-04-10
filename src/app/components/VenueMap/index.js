@@ -7,14 +7,15 @@ import { MapWrapper } from './styles'
 
 export default ({ venues, height }) => {
 
-  venues = venues.filter(venue => venue.addresscontact && venue.addresscontact.longitude && venue.addresscontact.latitude)
+  venues = useMemo(() => {
+    return venues.filter(venue => venue.addresscontact && venue.addresscontact.longitude && venue.addresscontact.latitude)
+  }, [ venues ])
 
   if (!venues.length) {
     return null
   }
 
   const bounds = useMemo(() => {
-
     return venues
       .map(venue => ({ longitude: venue.addresscontact.longitude, latitude: venue.addresscontact.latitude }))
       .reduce((acc, coords) => {
