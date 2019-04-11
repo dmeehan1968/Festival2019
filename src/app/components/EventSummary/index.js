@@ -26,7 +26,7 @@ export default ({
 
   return (
     <article className={className}>
-      {image && <Link to={`/events/${id}`}><img src={image.filename} alt={image.title}></img></Link>}
+      {image && <Link to={`/events/${id}`}><img src={image.filename + '?width=400'} alt={image.title}></img></Link>}
       <div className={styles.meta}>
         {title && <h2><Link to={`/events/${id}`}>{title}</Link></h2>}
         {subtitle && <h3>{subtitle}</h3>}

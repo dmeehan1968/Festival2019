@@ -44,15 +44,15 @@ export default (src, query, options) => {
       const mtime = moment(stat.mtime)
       const age = moment().diff(mtime, 'seconds')
       if (age < options.maxAge) {
-        console.log('Cached: ', outFile)
+        // console.log('Cached: ', outFile)
         return outFile
       } else {
-        console.log('Purged: ', outFile)
+        // console.log('Purged: ', outFile)
         fs.unlinkSync(outFile)
       }
     }
 
-    console.log('Generated: ', outFile)
+    // console.log('Generated: ', outFile)
     return transform.toFile(outFile).then(() => outFile)
   })
 
