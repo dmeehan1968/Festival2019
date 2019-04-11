@@ -3,6 +3,7 @@ import path from 'path'
 import database from './database'
 import manifest from './manifest'
 import paths from '../../config/paths'
+import ExpressImageMiddleware from 'server/ExpressImageMiddleware'
 
 const app = express()
 
@@ -34,8 +35,9 @@ async function routes(context) {
     context.app.use(paths.publicPath, express.static(paths.clientBuild))
   }
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
-  context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
-  // context.app.get(['/events', '/events/:event'], require('server/routes/events/id').get, webErrorHandler)
+  // context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
+  context.app.use('/App', ExpressImageMiddleware('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
+
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
   context.app.get('/*', require('server/routes').get, webErrorHandler)
