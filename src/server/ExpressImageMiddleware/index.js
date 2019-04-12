@@ -33,6 +33,7 @@ export default (
       ...(query.height && { height: Number(query.height) } || {}),
       ...(query.width && { width: Number(query.width) } || {}),
     }
+
     const src = path.join(options.basePath, file)
 
     imageResizeAndCache(src, query, options)
@@ -62,6 +63,7 @@ export default (
 
       fs.createReadStream(cachedFile).pipe(res)
     })
+    .catch(err => console.log(err))
 
   }
 }
