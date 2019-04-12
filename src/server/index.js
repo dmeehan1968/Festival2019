@@ -22,6 +22,7 @@ const apiErrorHandler = (err, req, res, next) => {
 
 const webErrorHandler = (err, req, res, next) => {
   res.status(500).send(`<h1>500: Internal Server Error</h1><pre>${err.stack}</pre>`)
+  console.error(err.stack)
   next()
 }
 

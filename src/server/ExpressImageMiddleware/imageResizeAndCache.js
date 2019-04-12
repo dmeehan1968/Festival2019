@@ -41,9 +41,10 @@ export default (src, query, options) => {
 
     if (fs.existsSync(outFile)) {
       const stat = fs.statSync(outFile)
+
       const mtime = moment(stat.mtime)
       const age = moment().diff(mtime, 'seconds')
-      if (age < options.maxAge) {
+      if (age < options.maxAge && stat.size > 0) {
         // console.log('Cached: ', outFile)
         return outFile
       } else {
@@ -55,6 +56,7 @@ export default (src, query, options) => {
     // console.log('Generated: ', outFile)
     return transform.toFile(outFile).then(() => outFile)
   })
+  .catch(err => console.log(err))
 
 }
 
