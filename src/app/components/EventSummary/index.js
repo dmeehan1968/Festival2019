@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import styles from './EventSummary.less'
 import placeholderImage from 'static/Placeholder.png'
 
+import IdealImage from 'react-ideal-image'
+
 export default ({
   id,
   title,
@@ -26,7 +28,22 @@ export default ({
 
   return (
     <article className={className}>
-      {image && <Link to={`/events/${id}`}><img src={image.filename + '?width=400'} alt={image.title}></img></Link>}
+      {image && isClient &&
+        <Link to={`/events/${id}`}>
+          <IdealImage
+            src={image.filename}
+            alt={image.title}
+            placeholder={{ color: 'red' }}
+            height={200}
+            width={100}
+            srcSet={[
+              { src: image.filename + '?width=320', width: 320 },
+              { src: image.filename + '?width=640', width: 640 },
+              { src: image.filename + '?width=800', width: 800 },
+              { src: image.filename + '?width=1024', width: 1024 },
+            ]}
+          />
+          </Link>}
       <div className={styles.meta}>
         {title && <h2><Link to={`/events/${id}`}>{title}</Link></h2>}
         {subtitle && <h3>{subtitle}</h3>}
