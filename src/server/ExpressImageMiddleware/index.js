@@ -41,7 +41,7 @@ export default (
       const { name: etag } = path.parse(cachedFile)
       const stat = fs.statSync(cachedFile)
 
-      res.set('ETag', etag)
+      res.set('ETag', `"${etag}"`)
       res.set('Last-Modified', stat.mtime.toUTCString())
       res.set('Cache-Control', 'no-cache, max-age=0')
       res.type(path.extname(cachedFile))
