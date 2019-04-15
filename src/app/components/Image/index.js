@@ -20,14 +20,13 @@ export default ({
   ...props,
 }) => {
   const reducer = (state, { type }) => {
-    console.log(type)
     switch (type) {
-      case 'loading': return { loading: true, loaded: false }
-      case 'loaded': return { loading: false, loaded: true }
+      case 'loading': return { unloaded: false, loading: true, loaded: false }
+      case 'loaded': return { unloaded: false, loading: false, loaded: true }
       default: throw new Error()
     }
   }
-  const [ state, dispatch ] = useReducer(reducer, {})
+  const [ state, dispatch ] = useReducer(reducer, undefined, ()=>({ unloaded: true }))
   const sizeRef = useRef(null)
   let imgWidth
   const devicePixelRatio = typeof window !== 'undefined' && window && window.devicePixelRatio || 1
@@ -38,7 +37,7 @@ export default ({
   }
 
   return (
-    <Waypoint onEnter={()=>(!state.loading && !state.loaded) && dispatch({ 'type': 'loading' })}>
+    <Waypoint onEnter={()=>state.unloaded && dispatch({ 'type': 'loading' })}>
       <PlaceholderWrapper
         style={{
           backgroundImage: lqip && `url(${lqip})`,
@@ -56,7 +55,7 @@ export default ({
             }}
           />
         }
-        {(state.loading || state.loaded) &&
+        {!state.unloaded &&
           <img
             {...props}
             src={typeof src === 'function' ? src(Math.round(imgWidth*devicePixelRatio)) : src}
