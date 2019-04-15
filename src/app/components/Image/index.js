@@ -1,9 +1,10 @@
 import React, { useState, useRef, useReducer } from 'react'
-import Waypoint from 'react-waypoint'
+import { Waypoint } from 'react-waypoint'
 import styled from 'styled-components'
 
 export default ({
   src,
+  lqip,
   ...props,
 }) => {
   const reducer = (state, { type }) => {
@@ -23,12 +24,16 @@ export default ({
     const rect = sizeRef.current.getBoundingClientRect()
     imgWidth = Math.round(rect.width)
   }
-  
+
   return (
     <Waypoint onEnter={()=>(!state.loading && !state.loaded) && dispatch({ 'type': 'loading' })}>
       <div
         style={{
-          backgroundColor: 'red',
+          backgroundColor: 'white',
+          backgroundImage: lqip && `url(${lqip})`,
+          backgroundPosition: 'top left',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: `${props.width}px ${props.height}px`,
           width: '100%',
           height: 'auto',
           maxWidth: '100%',
@@ -56,11 +61,13 @@ export default ({
             sizes=""
             onLoad={e=>(!state.loaded && e.target.complete) && dispatch({type:'loaded'})}
             style={{
-              width: '100%',
+              width: props.width > imgWidth && '100%' || 'auto',
+              display: 'block',
+              margin: '0 auto',
               height: 'auto',
               maxWidth: '100%',
               opacity: 0,
-              transition: 'opacity 2s',
+              transition: 'opacity 0.5s',
               ...(state.loaded && {
                 opacity: 1,
               } || {
