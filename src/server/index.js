@@ -5,10 +5,9 @@ import manifest from './manifest'
 import paths from '../../config/paths'
 import ExpressImageMiddleware from 'server/ExpressImageMiddleware'
 
-const app = express()
-
 async function boot(context) {
   context.app = express()
+  context.app.set('imagePath', '/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App')
   return database(context)
     .then(db => context.app.set('db', db))
     .then(routes.bind(null, context))
@@ -37,7 +36,7 @@ async function routes(context) {
   }
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
   // context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
-  context.app.use('/App', ExpressImageMiddleware('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
+  context.app.use('/App', ExpressImageMiddleware(context.app.get('imagePath')))
 
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
