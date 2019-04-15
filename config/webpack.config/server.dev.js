@@ -4,6 +4,7 @@ import serverBase from './server.base'
 export default {
   ...serverBase,
   mode: 'development',
+  devtool: 'source-map',
   plugins: [
     ...serverBase.plugins,
     new webpack.BannerPlugin({
