@@ -32,17 +32,10 @@ export default ({
     <article className={className}>
       <Link to={`/events/${id}`}>
         <Image
-          src={image.filename}
+          src={width=>`${image.filename}?width=${width}`}
           alt={image.title}
           height={image.height}
           width={image.width}
-          lqip={image.filename+'?width=50'}
-          // srcSet={[
-          //   { src: image.filename + '?width=320', width: 320 },
-          //   { src: image.filename + '?width=640', width: 640 },
-          //   { src: image.filename + '?width=800', width: 800 },
-          //   { src: image.filename + '?width=1024', width: 1024 },
-          // ]}
         />
       </Link>
       <div className={styles.meta}>

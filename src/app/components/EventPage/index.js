@@ -10,8 +10,10 @@ import NavBarAction from 'app/components/NavBarAction'
 import { Link } from 'react-router-dom'
 
 import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
+import Image from 'app/components/Image'
 
 export const EventPage = ({ event = {}, dates = [] }) => {
+
   return (
     <EventWrapper>
       <Helmet>
@@ -22,6 +24,12 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       </NavBarAction>
       <EventDetailWrapper>
         <h1>{event.title}</h1>
+        <Image
+          src={width=>`${event.preferred_image.filename}?width=${width}`}
+          alt={event.preferred_image.title}
+          height={event.preferred_image.height}
+          width={event.preferred_image.width}
+        />
         <dl>
           <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
