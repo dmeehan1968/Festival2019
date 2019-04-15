@@ -2,6 +2,18 @@ import React, { useState, useRef, useReducer } from 'react'
 import { Waypoint } from 'react-waypoint'
 import styled from 'styled-components'
 
+const PlaceholderWrapper = styled.div`
+  background-color: white;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  position: relative;
+  line-height: 0;
+`
+
 export default ({
   src,
   lqip,
@@ -27,18 +39,9 @@ export default ({
 
   return (
     <Waypoint onEnter={()=>(!state.loading && !state.loaded) && dispatch({ 'type': 'loading' })}>
-      <div
+      <PlaceholderWrapper
         style={{
-          backgroundColor: 'white',
           backgroundImage: lqip && `url(${lqip})`,
-          backgroundPosition: 'top left',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: `${props.width}px ${props.height}px`,
-          width: '100%',
-          height: 'auto',
-          maxWidth: '100%',
-          position: 'relative',
-          lineHeight: 0,
         }}
       >
         {!state.loaded &&
@@ -78,7 +81,7 @@ export default ({
             }}
           />
         }
-      </div>
+      </PlaceholderWrapper>
     </Waypoint>
   )
 }
