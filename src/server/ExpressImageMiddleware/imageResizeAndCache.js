@@ -24,18 +24,18 @@ export default (src, query, options) => {
       delete diff.height;
       delete diff.width;
     }
-    if (diff.format) {
-      transform = transform.toFormat(diff.format)
-    } else {
-      diff.format = metadata.format
-    }
+
+    diff.quality = query.quality
+    diff.src = src
+    diff.format = diff.format || metadata.format
   })
   .then(() => {
+
     if (diff.height || diff.width) {
       transform = transform.resize(diff.width, diff.height)
     }
 
-    diff.src = src
+    transform = transform.toFormat(diff.format || metadata.format, { quality: query.quality })
 
     const outFile = path.join(options.cachePath, hash(diff) + '.' + diff.format)
 

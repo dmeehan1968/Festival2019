@@ -32,6 +32,7 @@ export default (
       ...query,
       ...(query.height && { height: Number(query.height) } || {}),
       ...(query.width && { width: Number(query.width) } || {}),
+      ...(query.quality && { quality: Number(query.quality) } || { quality: 80 }),
     }
 
     const src = path.join(options.basePath, file)
@@ -57,7 +58,7 @@ export default (
 
       const noneMatch = req.get('If-None-Match')
 
-      if (noneMatch && noneMatch !== etag) {
+      if (noneMatch && noneMatch !== `"${etag}"`) {
         return res.status(304).end()
       }
 
