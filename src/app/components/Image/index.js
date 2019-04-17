@@ -1,89 +1,158 @@
 import React, { useState, useRef, useReducer } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { Waypoint } from 'react-waypoint'
 import styled from 'styled-components'
 
-const PlaceholderWrapper = styled.div`
-  background-color: white;
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
+const Container = styled.div`
   position: relative;
-  line-height: 0;
+  overflow: hidden;
+`
+Container.displayName = 'Container'
+
+const PreserveAspectRatio = styled.div`
+  width: 100%;
+  padding-bottom: ${p=>Math.floor(100 / p.aspectRatio)}%;
+`
+PreserveAspectRatio.displayName = 'PreserveAspectRatio'
+
+const Img = styled.img`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
 `
 
-export default ({
-  src,
-  lqip,
-  ...props,
+const BackgroundColor = styled.div`
+  background-color: ${p=>p.theme.colorGray2};
+  ${'' /* background-color: red; */}
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`
+BackgroundColor.displayName = 'BackgroundColor'
+
+const NoScript = ({
+  children,
 }) => {
-  const reducer = (state, { type }) => {
-    switch (type) {
-      case 'loading': return { unloaded: false, loading: true, loaded: false }
-      case 'loaded': return { unloaded: false, loading: false, loaded: true }
-      default: throw new Error()
-    }
-  }
-  const [ state, dispatch ] = useReducer(reducer, undefined, ()=>({ unloaded: true }))
-  const sizeRef = useRef(null)
-  let imgWidth
-  const devicePixelRatio = typeof window !== 'undefined' && window && window.devicePixelRatio || 1
-
-  if (sizeRef.current) {
-    const rect = sizeRef.current.getBoundingClientRect()
-    imgWidth = Math.round(rect.width)
-  }
-
   return (
-    <Waypoint onEnter={()=>state.unloaded && dispatch({ 'type': 'loading' })}>
-      <PlaceholderWrapper
-        style={{
-          backgroundImage: lqip && `url(${lqip})`,
-        }}
-      >
-        {!state.loaded &&
-          <svg
-            ref={sizeRef}
-            height={props.height}
-            width={props.width}
-            style={{
-              width: '100%',
-              height: 'auto',
-              maxWidth: '100%',
-            }}
-          />
-        }
-        {!state.unloaded &&
-          <img
-            {...props}
-            src={typeof src === 'function' ? src(Math.round(imgWidth*devicePixelRatio)) : src}
-            srcSet=""
-            sizes=""
-            onLoad={e=>(!state.loaded && e.target.complete) && dispatch({type:'loaded'})}
-            style={{
-              width: props.width > imgWidth && '100%' || 'auto',
-              display: 'block',
-              margin: '0 auto',
-              height: 'auto',
-              maxWidth: '100%',
-              opacity: 0,
-              transition: 'opacity 0.5s',
-              ...(state.loaded && {
-                opacity: 1,
-              } || {
-                position: 'absolute',
-                top: 0,
-                left: 0,
-              }),
-            }}
-          />
-        }
-      </PlaceholderWrapper>
-    </Waypoint>
+    <noscript
+      dangerouslySetInnerHTML={{
+        __html: ReactDOMServer.renderToStaticMarkup(children)
+      }}
+    />
   )
 }
+
+// 1x1 transparent PNG
+// data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
+
+const Image = ({
+  src,
+  lqip,
+  height,
+  width,
+  alt,
+}) => {
+
+  const devicePixelRatio = typeof window !== 'undefined' && window && window.devicePixelRatio || 1
+  const image = {
+    src, height, width, alt,
+  }
+  const isReducer = (state, { type }) => {
+    switch (type) {
+      case 'loading':
+        return {
+          ...state,
+          unloaded: false,
+          loading: true,
+        }
+      case 'lqipLoaded':
+        return {
+          ...state,
+          lqipLoaded: true,
+          loading: state.imgLoaded ? false : true,
+        }
+      case 'imgLoaded':
+        return {
+          ...state,
+          imgLoaded: true,
+          loading: state.lqipLoaded ? false : true,
+        }
+      default:
+        throw new Error()
+    }
+  }
+  const [ is, dispatch ] = useReducer(isReducer, { unloaded: true })
+
+  const [sizeRef, rect] = useBoundingClientRect()
+
+  return (
+    <Container ref={sizeRef}>
+      <Waypoint onEnter={()=>is.unloaded && dispatch({type: 'loading'})}>
+        <PreserveAspectRatio aspectRatio={width / height} />
+      </Waypoint>
+      <BackgroundColor />
+      {rect && lqip &&
+        <Img
+          {...image}
+          src={lqip(Math.round(rect.width*devicePixelRatio))}
+          onLoad={()=>!is.lqipLoaded && dispatch({type: 'lqipLoaded'})}
+          style={{
+            opacity: is.lqipLoaded ? 1 : 0,
+            transition: 'opacity 0.5s',
+          }}
+        />
+      }
+      {rect && src && !is.unloaded &&
+        <Img
+          {...image}
+          src={src(Math.round(rect.width*devicePixelRatio))}
+          onLoad={()=>!is.imgLoaded && dispatch({type: 'imgLoaded'})}
+          style={{
+            opacity: is.imgLoaded ? 1 : 0,
+            transition: 'opacity 0.5s',
+            transitionDelay: '2s',
+          }}
+        />
+      }
+      <NoScript>
+        <div
+          style={{
+              width: '100%',
+              paddingBottom: `${Math.floor(100 / (width / height))}%`,
+          }}
+        />
+        <img
+          {...image}
+          src={src()}
+          style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 'auto',
+              width: '100%',
+              maxWidth: '100%',
+              objectFit: 'cover',
+              objectPosition: '50% 50%',
+          }}
+        />
+      </NoScript>
+    </Container>
+  )
+}
+Image.displayName = 'Image'
+
+export default Image
 
 export const createSrcSet = (maxWidth, breakpoints = [ 320, 530, 950, 1130 ], densities = [ 1, 2, 3 ]) => {
   return [...breakpoints.filter(bp=>bp <= maxWidth).reduce((acc, bp) => {
@@ -91,4 +160,10 @@ export const createSrcSet = (maxWidth, breakpoints = [ 320, 530, 950, 1130 ], de
     return acc
   }, new Set([maxWidth]))]
   .sort((a,b)=>a-b)
+}
+
+const useBoundingClientRect = () => {
+  const sizeRef = useRef(null)
+  const rect = sizeRef.current && sizeRef.current.getBoundingClientRect() || null
+  return [ sizeRef, rect ]
 }

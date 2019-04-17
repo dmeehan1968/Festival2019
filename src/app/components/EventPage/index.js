@@ -26,7 +26,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
         <h1>{event.title}</h1>
         <Image
           src={width=>`${event.preferred_image.filename}?width=${width}`}
-          lqip={`${event.preferred_image.filename}?width=50`}
+          lqip={width=>`${event.preferred_image.filename}?width=${width}&quality=10`}
           alt={event.preferred_image.title}
           height={event.preferred_image.height}
           width={event.preferred_image.width}
