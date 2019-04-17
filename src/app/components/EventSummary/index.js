@@ -33,7 +33,7 @@ export default ({
       <Link to={`/events/${id}`}>
         <Image
           src={width=>`${image.filename}?width=${width}`}
-          lqip={`${image.filename}?width=50`}
+          lqip={width=>`${image.filename}?width=${width}&quality=5`}
           alt={image.title}
           height={image.height}
           width={image.width}

@@ -61,10 +61,10 @@ const babelLoader = {
         // [
           // 'babel-plugin-styled-components',
           // {
-          //   ssr: false,
-          //   minify: false,
-          //   raw: false,
-          // }
+            // ssr: false,
+            // minify: false,
+            // raw: false,
+        //   }
         // ],
       ],
     },
