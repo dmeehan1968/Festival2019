@@ -3,6 +3,7 @@ import fs from 'fs'
 import os from 'os'
 import moment from 'moment'
 import imageResizeAndCache from './imageResizeAndCache'
+import clamp from './clamp'
 
 export default (
   options = {}
@@ -30,9 +31,9 @@ export default (
 
     query = {
       ...query,
-      ...(query.height && { height: Number(query.height) } || {}),
-      ...(query.width && { width: Number(query.width) } || {}),
-      ...(query.quality && { quality: Number(query.quality) } || { quality: 80 }),
+      ...(query.height && { height: clamp(Math.ceil(Number(query.height)), 1, Number.MAX_SAFE_INTEGER) } || {}),
+      ...(query.width && { width: clamp(Math.ceil(Number(query.width)), 1, Number.MAX_SAFE_INTEGER) } || {}),
+      ...(query.quality && { quality: clamp(Number(query.quality), 1, 100) } || { quality: 80 }),
     }
 
     const src = path.join(options.basePath, file)
