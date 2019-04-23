@@ -66,6 +66,7 @@ const Image = ({
   const image = {
     src, height, width, alt,
   }
+
   const isReducer = (state, { type }) => {
     switch (type) {
       case 'loading':
@@ -103,7 +104,7 @@ const Image = ({
       {rect && lqip &&
         <Img
           {...image}
-          src={lqip(Math.round(rect.width*devicePixelRatio))}
+          src={lqip(Math.ceil(rect.width*devicePixelRatio))}
           onLoad={()=>!is.lqipLoaded && dispatch({type: 'lqipLoaded'})}
           style={{
             opacity: is.lqipLoaded ? 1 : 0,
@@ -114,12 +115,11 @@ const Image = ({
       {rect && src && !is.unloaded &&
         <Img
           {...image}
-          src={src(Math.round(rect.width*devicePixelRatio))}
+          src={src(Math.ceil(rect.width*devicePixelRatio))}
           onLoad={()=>!is.imgLoaded && dispatch({type: 'imgLoaded'})}
           style={{
             opacity: is.imgLoaded ? 1 : 0,
             transition: 'opacity 0.5s',
-            transitionDelay: '2s',
           }}
         />
       }
