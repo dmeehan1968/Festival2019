@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 
 import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
 import Image from 'app/components/Image'
+import Carousel from 'app/components/Carousel'
 
 export const EventPage = ({ event = {}, dates = [] }) => {
 
@@ -24,13 +25,28 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       </NavBarAction>
       <EventDetailWrapper>
         <h1>{event.title}</h1>
-        <Image
+        {/* <Image
           src={width=>`${event.preferred_image.filename}?width=${width}`}
           lqip={width=>`${event.preferred_image.filename}?width=${width}&quality=10`}
           alt={event.preferred_image.title}
           height={event.preferred_image.height}
           width={event.preferred_image.width}
-        />
+        /> */}
+        <Carousel height={400} width={400}>
+          <div style={{
+            display: 'grid',
+            gridTemplateRows: '50% 50%',
+          }}>
+            <h1 style={{
+              justifySelf: 'center',
+              alignSelf: 'end',
+            }}>Slide 1</h1>
+            <p style={{
+              justifySelf: 'center',
+              alignSelf: 'start',
+            }}>This is the first slide</p>
+          </div>
+        </Carousel>
         <dl>
           <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
