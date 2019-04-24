@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Carousel from '.'
+import Carousel, { Navigation } from '.'
 
 describe("Carousel", () => {
 
@@ -20,8 +20,8 @@ describe("Carousel", () => {
       expect(wrapper.find('.placeholder').text()).toMatch(/content to display/)
     });
 
-    it("should not have navigation buttons", () => {
-      expect(wrapper.find('nav')).toHaveLength(0)
+    it("passes child count to Navigation", () => {
+      expect(wrapper.find('Navigation').prop('count')).toEqual(0)
     });
   });
 
@@ -44,8 +44,8 @@ describe("Carousel", () => {
       expect(wrapper.find('.slide')).toHaveLength(1)
     });
 
-    it("should not have navigation buttons", () => {
-      expect(wrapper.find('nav')).toHaveLength(0)
+    it("passes child count to Navigation", () => {
+      expect(wrapper.find('Navigation').prop('count')).toEqual(1)
     });
   });
 
@@ -72,4 +72,20 @@ describe("Carousel", () => {
   xit("should have slide indicators", () => {
 
   });
+});
+
+describe("Navigation", () => {
+
+  let wrapper
+
+  it("should not render when no count", () => {
+    wrapper = shallow(<Navigation count={0} />)
+    expect(wrapper.type()).toBeNull()
+  });
+
+  it("should not render when count is 1", () => {
+    wrapper = shallow(<Navigation count={1} />)
+    expect(wrapper.type()).toBeNull()
+  });
+
 });

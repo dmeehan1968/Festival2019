@@ -1,4 +1,48 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const NavigationWrapper = styled.nav`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-areas: "prev empty next";
+  grid-template-columns: minmax(8em,1fr) 1fr minmax(8em,1fr);
+`
+
+export const Navigation = ({
+  count = 0,
+}) => {
+  if (count <= 1) {
+    return null
+  }
+  return (
+    <NavigationWrapper>
+      <div
+        className="previous"
+        style={{
+          gridArea: 'prev',
+          justifySelf: 'start',
+          paddingLeft: '1em',
+        }}
+      >
+        Previous
+      </div>
+      <div
+        className="next"
+        style={{
+          gridArea: 'next',
+          justifySelf: 'end',
+          paddingRight: '1em',
+        }}
+      >
+        Next
+      </div>
+    </NavigationWrapper>
+  )
+}
 
 export default ({
   height = 0,
@@ -35,41 +79,7 @@ export default ({
           </React.Fragment>
         )
       })}
-      {React.Children.count(children) > 1 &&
-        <nav
-          style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            display: 'grid',
-            gridTemplateAreas: '"prev empty next"',
-            gridTemplateColumns: 'minmax(8em,1fr) 1fr minmax(8em,1fr)',
-          }}
-        >
-          <div
-            className="previous"
-            style={{
-              gridArea: 'prev',
-              justifySelf: 'start',
-              paddingLeft: '1em',
-            }}
-          >
-            Previous
-          </div>
-          <div
-            className="next"
-            style={{
-              gridArea: 'next',
-              justifySelf: 'end',
-              paddingRight: '1em',
-            }}
-          >
-            Next
-          </div>
-        </nav>
-      }
+      <Navigation count={React.Children.count(children)} />
     </div>
   )
 }
