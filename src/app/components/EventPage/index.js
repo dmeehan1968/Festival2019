@@ -35,6 +35,7 @@ const Img = ({
         width: 'auto',
         maxWidth: '100%',
         objectFit: 'contain',
+        ...props.style,
       }}
     />
   )

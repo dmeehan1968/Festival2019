@@ -33,17 +33,17 @@ describe("ControlledCarousel", () => {
           <div>Second</div>
         </ControlledCarousel>
       )
-      expect(wrapper.children().filter('div').text()).toEqual('First')
+      expect(wrapper.find('.active').children().text()).toEqual('First')
     });
 
-    it("renders the first item", () => {
+    it("renders the second item", () => {
       wrapper = shallow(
         <ControlledCarousel activeIndex={1}>
           <div>First</div>
           <div>Second</div>
         </ControlledCarousel>
       )
-      expect(wrapper.children().filter('div').text()).toEqual('Second')
+      expect(wrapper.find('.active').children().text()).toEqual('Second')
     });
 
     it("activeIndex is clamped to number of children", () => {
@@ -53,7 +53,7 @@ describe("ControlledCarousel", () => {
           <div>Second</div>
         </ControlledCarousel>
       )
-      expect(wrapper.children().filter('div').text()).toEqual('Second')
+      expect(wrapper.find('.active').children().text()).toEqual('Second')
     });
 
     it("passes container width as data attribute to child", () => {
@@ -62,7 +62,7 @@ describe("ControlledCarousel", () => {
           <div></div>
         </ControlledCarousel>
       )
-      expect(wrapper.children().filter('div').prop('data-carousel-width')).toEqual(400)
+      expect(wrapper.find('.active').children().at(0).prop('data-carousel-width')).toEqual(400)
     });
 
     it("passes container height as data attribute to child", () => {
@@ -71,7 +71,7 @@ describe("ControlledCarousel", () => {
           <div></div>
         </ControlledCarousel>
       )
-      expect(wrapper.children().filter('div').prop('data-carousel-height')).toEqual(400)
+      expect(wrapper.find('.active').children().at(0).prop('data-carousel-height')).toEqual(400)
     });
   });
 
@@ -91,6 +91,13 @@ describe("ControlledCarousel", () => {
   });
 
   describe("lazy loading", () => {
+
+    xit("pending", () => {
+
+    });
+  });
+
+  describe("transition delay and speed", () => {
 
     xit("pending", () => {
 
