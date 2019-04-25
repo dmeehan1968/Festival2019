@@ -13,8 +13,35 @@ import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
 import Image from 'app/components/Image'
 import Carousel from 'app/components/Carousel'
 
-export const EventPage = ({ event = {}, dates = [] }) => {
+import styled from 'styled-components'
 
+const Img = ({
+  src,
+  height,
+  width,
+  ['data-carousel-height']: carouselHeight,
+  ['data-carousel-width']: carouselWidth,
+  ...props,
+}) => {
+  return (
+    <img
+      {...props}
+      src={`${src}?height=${carouselHeight}&width=${carouselWidth}`}
+      height={height}
+      width={width}
+      style={{
+        height: 'auto',
+        maxHeight: '100%',
+        width: 'auto',
+        maxWidth: '100%',
+        objectFit: 'contain',
+      }}
+    />
+  )
+}
+
+
+export const EventPage = ({ event = {}, dates = [] }) => {
   return (
     <EventWrapper>
       <Helmet>
@@ -25,6 +52,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       </NavBarAction>
       <EventDetailWrapper>
         <h1>{event.title}</h1>
+
         {/* <Image
           src={width=>`${event.preferred_image.filename}?width=${width}`}
           lqip={width=>`${event.preferred_image.filename}?width=${width}&quality=10`}
@@ -32,20 +60,40 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           height={event.preferred_image.height}
           width={event.preferred_image.width}
         /> */}
-        <Carousel height={400} width={400}>
-          <div style={{
-            display: 'grid',
-            gridTemplateRows: '50% 50%',
-          }}>
-            <h1 style={{
-              justifySelf: 'center',
-              alignSelf: 'end',
-            }}>Slide 1</h1>
-            <p style={{
-              justifySelf: 'center',
-              alignSelf: 'start',
-            }}>This is the first slide</p>
-          </div>
+
+        <Carousel
+          height={400}
+          width={400}
+          style={{
+            backgroundColor: 'rgba(255,0,0,0.1)',
+          }}
+        >
+          {/* <div style={{display: 'grid', justifyItems: 'center'}}>
+            <h1>Slide 1</h1>
+            <p>This is the first slide</p>
+            </div>
+            <div style={{display: 'grid', justifyItems: 'center'}}>
+            <h1>Slide 2</h1>
+            <p>This is the second slide</p>
+          </div> */}
+          {/* <TextSlide style={{ width: 400, backgroundColor: 'green' }}>
+            <h1>Slide 1</h1>
+            <div>This is the first Slide</div>
+            </TextSlide>
+            <TextSlide style={{ width: 300, backgroundColor: 'blue' }}>
+            <h1>Slide 2</h1>
+            <div>This is the second Slide</div>
+          </TextSlide> */}
+          {event.images.map((image, key) => {
+            return (
+              <Img
+                key={key}
+                src={image.filename}
+                height={image.height}
+                width={image.width}
+              />
+            )
+          })}
         </Carousel>
         <dl>
           <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
