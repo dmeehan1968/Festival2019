@@ -8,7 +8,9 @@ export default ({
   ...props,
 }) => {
   const [ activeIndex, setActiveIndex ] = useState(0)
+  const [ isClient, setIsClient ] = useState(false)
   useEffect(() => {
+    setIsClient(true)
     const timeout = setTimeout(() => {
       const newIndex = activeIndex + 1
       setActiveIndex(newIndex < React.Children.count(children) ? newIndex : 0)
@@ -22,6 +24,7 @@ export default ({
       {...props}
       activeIndex={activeIndex}
       children={children}
+      isClient={isClient}
     />
   )
 }

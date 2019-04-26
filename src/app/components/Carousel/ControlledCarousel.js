@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div.withConfig({displayName: 'Wrapper'})`
@@ -27,10 +27,10 @@ export const ControlledCarousel = ({
   children,
   speed = '1s',
   columnGap = 20,
+  isClient = true,
   ...props,
 }) => {
   activeIndex = Math.min(Math.max(0, activeIndex), React.Children.count(children)-1)
-  const activeChild = React.Children.toArray(children)[activeIndex]
   return (
     <Wrapper
       {...props}
@@ -40,9 +40,10 @@ export const ControlledCarousel = ({
       {React.Children.count(children) < 1 &&
         <div>There is no content to display</div>
       }
-      {React.Children.map(children, (child, index)=> {
+      {isClient && React.Children.map(children, (child, index)=> {
         const offset = index - activeIndex
-        const offsetX = (width+(columnGap*(Math.abs(offset)))) * offset
+        // const offsetX = (width+(columnGap*(Math.abs(offset)))) * offset
+        const offsetX = (width+columnGap) * offset
         return (
           <Slide
             className={offset === 0 ? 'active' : ''}
