@@ -16,18 +16,8 @@ const Slide = styled.div.withConfig({displayName: 'Slide'})`
 
   position: absolute;
   transition: transform ${p=>p.speed || '1s'};
+  transform: translateX(${p=>p.offsetX}px);
 
-  &.active {
-    transform: translateX(0);
-  }
-
-  &.previous {
-    transform: translateX(-${p=>p.offset || 1000}px);
-  }
-
-  &.next {
-    transform: translateX(${p=>p.offset || 1000}px);
-  }
 `
 
 export const ControlledCarousel = ({
@@ -36,6 +26,7 @@ export const ControlledCarousel = ({
   activeIndex = 0,
   children,
   speed = '1s',
+  columnGap = 20,
   ...props,
 }) => {
   activeIndex = Math.min(Math.max(0, activeIndex), React.Children.count(children)-1)
@@ -49,12 +40,14 @@ export const ControlledCarousel = ({
       {React.Children.count(children) < 1 &&
         <div>There is no content to display</div>
       }
-      {React.Children.map(children, (child, key)=> {
+      {React.Children.map(children, (child, index)=> {
+        const offset = index - activeIndex
+        const offsetX = (width+(columnGap*(Math.abs(offset)))) * offset
         return (
           <Slide
-            className={key < activeIndex ? 'previous' : key > activeIndex ? 'next' : 'active'}
-            offset={width}
+            className={offset === 0 ? 'active' : ''}
             speed={speed}
+            offsetX={offsetX}
           >
             {React.cloneElement(
               child,
