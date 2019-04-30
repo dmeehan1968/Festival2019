@@ -29,7 +29,6 @@ export default function database(context) {
   const db = new Sequelize(context.dbschema, context.dbuser, context.dbpass, {
     host: context.dbhost,
     dialect: 'mysql',
-    operatorsAliases: false,
     logging: false,
   })
 
