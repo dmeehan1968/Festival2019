@@ -8,8 +8,10 @@ const clientBuild = resolve('build/client')
 const serverBuild = resolve('build/server')
 const src = resolve('src')
 const publicPath = '/static/'
+const stats = resolve('build')
 
 export default {
+  stats,
   clientBuild,
   serverBuild,
   src,
