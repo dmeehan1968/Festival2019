@@ -1,0 +1,5 @@
+PassengerNodejs /home/replicated/.nvm/versions/node/v11.9.0/bin/node
+PassengerAppRoot /home/replicated/beta.10parishesfestival.org.uk
+PassengerStartupFile build/server/server.bundle.js
+PassengerAppType node
+
