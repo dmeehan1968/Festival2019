@@ -95,7 +95,7 @@ const renderPage = (url, context, locals, store) => {
   return '<!doctype html>' + ReactDOMServer.renderToString(
     <Html
       state={initialState}
-      scripts={[ locals.assetPath('bundle.js') ]}
+      scripts={[ locals.assetPath('bundle.js'), locals.assetPath('vendor.js') ]}
       css={[ locals.assetPath('bundle.css') ]}
     >
       {content}

@@ -1,6 +1,7 @@
 import path from 'path'
 import paths from '../paths'
 import loaders from './loaders.js'
+import webpack from 'webpack'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
@@ -25,6 +26,19 @@ export default {
  module: {
    rules: loaders.client,
  },
+ optimization: {
+   namedModules: true,
+   noEmitOnErrors: true,
+   splitChunks: {
+     cacheGroups: {
+       commons: {
+         test: /[\\/]node_modules[\\/]/,
+         name: 'vendor',
+         chunks: 'all',
+       }
+     }
+   }
+ },
  plugins: [
    new DotEnv(),
    new ManifestPlugin(),
@@ -33,6 +47,8 @@ export default {
       filename: 'client.[name].css',
       chunkFilename: '[id].css',
   }),
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
  ],
  ...resolve,
+ stats: 'normal',
 }

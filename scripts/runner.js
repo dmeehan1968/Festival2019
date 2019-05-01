@@ -1,6 +1,8 @@
 import webpack from 'webpack'
 import nodemon from 'nodemon'
 import express from 'express'
+import fs from 'fs'
+import path from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import paths from '../config/paths'
@@ -108,29 +110,32 @@ export default async (options) => {
 
   }
 
-  const compilerReporter = (error, stats) => {
+  const compilerReporter = (config, jsonPath, error, stats) => {
     if (!error && !stats.hasErrors()) {
-       console.log(stats.toString(serverConfig.stats));
-       return;
+      console.log(jsonPath);
+      fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
+      fs.writeFileSync(jsonPath, JSON.stringify(stats.toJson(config)))
+      console.log(stats.toString(config));
+      return;
     }
 
     if (error) {
-       logMessage(error, 'error');
+      logMessage(error, 'error');
     }
 
     if (stats.hasErrors()) {
-       const info = stats.toJson();
-       const errors = info.errors[0].split('\n');
-       logMessage(errors[0], 'error');
-       logMessage(errors[1], 'error');
-       logMessage(errors[2], 'error');
+      const info = stats.toJson();
+      const errors = info.errors[0].split('\n');
+      logMessage(errors[0], 'error');
+      logMessage(errors[1], 'error');
+      logMessage(errors[2], 'error');
     }
   }
 
-  serverCompiler.watch(watchOptions, compilerReporter);
+  serverCompiler.watch(watchOptions, compilerReporter.bind(null, serverConfig.stats, path.join(paths.stats, 'server.json')))
 
   if (!options.devServer) {
-    clientCompiler.watch(watchOptions, compilerReporter);
+    clientCompiler.watch(watchOptions, compilerReporter.bind(null, serverConfig.stats, path.join(paths.stats, 'client.json')))
   }
 
   // wait until client and server is compiled
