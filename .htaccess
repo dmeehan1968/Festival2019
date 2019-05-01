@@ -3,3 +3,7 @@ PassengerAppRoot /home/replicated/beta.10parishesfestival.org.uk
 PassengerStartupFile build/server/server.bundle.js
 PassengerAppType node
 
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE] 
+
