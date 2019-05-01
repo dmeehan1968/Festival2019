@@ -46,7 +46,9 @@ const checkImageDimensions = (imagePath, events) => {
       }))
       .then(images => {
         event.images = images
-        event.preferred_image = images.find(image => image.id == event.preferred_image.id)
+        if (event.preferred_image) {
+          event.preferred_image = images.find(image => image.id === event.preferred_image.id)
+        }
         return event
       })
     })
