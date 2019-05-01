@@ -53,7 +53,12 @@ const babelLoader = {
     loader: 'babel-loader',
     options: {
       presets: [
-        '@babel/preset-env',
+        [
+          '@babel/preset-env',
+          {
+            useBuiltIns: 'usage',
+          }
+        ],
         '@babel/preset-react',
       ],
       plugins: [
