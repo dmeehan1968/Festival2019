@@ -8,7 +8,7 @@ import ExpressImageMiddleware from 'server/ExpressImageMiddleware'
 
 async function boot(context) {
   context.app = express()
-  context.app.set('imagePath', '/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App')
+  context.app.set('imagePath', process.env.IMAGE_PATH)
   return database(context)
     .then(db => context.app.set('db', db))
     .then(routes.bind(null, context))
@@ -66,7 +66,7 @@ assert(process.env.DB_USER, 'DB_USER not defined in .env')
 assert(process.env.DB_PASS, 'DB_PASS not defined in .env')
 
 boot({
-  port: process.env.PORT, 
+  port: process.env.PORT,
   dbhost: process.env.DB_HOST,
   dbschema: process.env.DB_SCHEMA,
   dbuser: process.env.DB_USER,
