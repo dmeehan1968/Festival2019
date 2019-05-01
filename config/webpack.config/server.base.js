@@ -12,6 +12,7 @@ export default {
   target: 'node',
   entry: {
     bundle: [
+      require.resolve('@babel/polyfill'),
       path.join(paths.srcServer, 'index.js'),
     ],
   },
