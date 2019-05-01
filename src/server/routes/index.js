@@ -42,6 +42,7 @@ const checkImageDimensions = (imagePath, events) => {
             return image
           }).catch(err => console.log(err))
         }
+        return image
       }))
       .then(images => {
         event.images = images
