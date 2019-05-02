@@ -1,6 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import ControlledCarousel from './ControlledCarousel'
+
+const useInterval = (callback, delay) => {
+  const savedCallback = useRef()
+
+  useEffect(() => {
+    savedCallback.current = callback
+  })
+
+  useEffect(() => {
+    const id = setInterval(() => savedCallback.current(), delay)
+    return () => clearInterval(id)
+  }, [delay])
+}
 
 export default ({
   delay = 2000,
@@ -9,16 +22,15 @@ export default ({
 }) => {
   const [ activeIndex, setActiveIndex ] = useState(0)
   const [ isClient, setIsClient ] = useState(false)
+
   useEffect(() => {
     setIsClient(true)
-    const timeout = setTimeout(() => {
-      const newIndex = activeIndex + 1
-      setActiveIndex(newIndex < React.Children.count(children) ? newIndex : 0)
-    }, delay)
-    return () => {
-      clearTimeout(timeout)
-    }
   })
+
+  useInterval(() => {
+    setActiveIndex(oldIndex => oldIndex < React.Children.count(children)-1 ? oldIndex+1 : 0)
+  }, delay)
+
   return (
     <ControlledCarousel
       {...props}
