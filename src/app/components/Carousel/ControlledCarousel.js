@@ -32,8 +32,8 @@ export const ControlledCarousel = ({
 }) => {
   activeIndex = Math.min(Math.max(0, activeIndex), React.Children.count(children)-1)
   const widths = React.Children.map(children, (child, index) => {
-    const imageRatio = child.props.width / child.props.height
-    return Math.round(height * imageRatio)
+    const imageRatio = child.props.width && child.props.height && (child.props.width / child.props.height) || 1
+    return Math.round(height && height * imageRatio || width)
   })
   return (
     <Wrapper
