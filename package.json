@@ -10,7 +10,8 @@
     "clean": "rm -rf build",
     "devtools": "react-devtools",
     "sequelize": "sequelize-auto --host localhost --database 10p_festival2017 --user root --pass root --dialect mysql --output \"./src/node_modules/models\" --additional ./schema-opts.json",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "deploy": "deploy/dreamhost/initiate.sh"
   },
   "author": "",
   "license": "ISC",
