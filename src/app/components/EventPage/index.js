@@ -23,10 +23,15 @@ const Img = ({
   ['data-carousel-width']: carouselWidth,
   ...props,
 }) => {
+  const uri = src + '?' + [
+    carouselHeight && `height=${carouselHeight}`,
+    carouselWidth && `width=${carouselWidth}`,
+  ].filter(item => !!item).join('&')
+
   return (
     <img
       {...props}
-      src={`${src}?height=${carouselHeight}&width=${carouselWidth}`}
+      src={uri}
       height={height}
       width={width}
       style={{
@@ -64,7 +69,6 @@ export const EventPage = ({ event = {}, dates = [] }) => {
 
         <Carousel
           height={400}
-          width={400}
           style={{
             backgroundColor: 'rgba(255,0,0,0.1)',
           }}

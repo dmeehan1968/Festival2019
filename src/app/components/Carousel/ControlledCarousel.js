@@ -31,6 +31,11 @@ export const ControlledCarousel = ({
   ...props,
 }) => {
   activeIndex = Math.min(Math.max(0, activeIndex), React.Children.count(children)-1)
+  const widths = React.Children.map(children, (child, index) => {
+    const imageRatio = child.props.width / child.props.height
+    return Math.round(height * imageRatio)
+  })
+  console.log(widths);
   return (
     <Wrapper
       {...props}
@@ -42,8 +47,30 @@ export const ControlledCarousel = ({
       }
       {isClient && React.Children.map(children, (child, index)=> {
         const offset = index - activeIndex
-        // const offsetX = (width+(columnGap*(Math.abs(offset)))) * offset
-        const offsetX = (width+columnGap) * offset
+        // const offsetX = (computedWidth+columnGap) * offset
+        /*
+         400     X =
+         300 <-- X = 0
+         200     X =
+        */
+        let offsetX = 0
+
+        if (offset > 0) {
+          const intermediates = widths.slice(Math.min(activeIndex+1, index), Math.max(activeIndex+1, index))
+          console.log(index, activeIndex, intermediates);
+          offsetX = intermediates.reduce((acc, width) => acc+width, 0)
+          offsetX += (widths[index] - ((widths[index] - widths[activeIndex])/2)) + (columnGap * offset)
+        }
+
+        if (offset < 0) {
+          const intermediates = widths.slice(Math.min(activeIndex, index+1), Math.max(activeIndex, index+1))
+          console.log(index, activeIndex, intermediates);
+          offsetX = intermediates.reduce((acc, width) => acc+width, 0)
+          offsetX += (widths[index] - ((widths[index] - widths[activeIndex])/2)) + (columnGap * Math.abs(offset))
+          offsetX *= -1
+        }
+
+
         return (
           <Slide
             className={offset === 0 ? 'active' : ''}
@@ -54,7 +81,7 @@ export const ControlledCarousel = ({
               child,
               {
                 ['data-carousel-height']: height,
-                ['data-carousel-width']: width,
+                ['data-carousel-width']: widths[index],
               }
             )}
           </Slide>
