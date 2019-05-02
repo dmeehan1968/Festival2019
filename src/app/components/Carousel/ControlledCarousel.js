@@ -15,8 +15,9 @@ const Wrapper = styled.div.withConfig({displayName: 'Wrapper'})`
 const Slide = styled.div.withConfig({displayName: 'Slide'})`
 
   position: absolute;
-  transition: transform ${p=>`${p.speed}ms` || '1000ms'};
+  transition: transform ${p=>`${p.speed}ms` || '1000ms'}, opacity ${p=>`${p.speed}ms` || '1000ms'};
   transform: translateX(${p=>p.offsetX}px);
+  opacity: ${p=>p.className.match(/\bactive\b/) ? 1 : 0.5};
 
 `
 
