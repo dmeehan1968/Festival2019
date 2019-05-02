@@ -12,20 +12,22 @@ export default ({ dates, times }) => {
     <Table>
       <thead>
         <tr>
-          {dates.map((d, i) => <td key={i}><DateTime date={d.date} format="ddd Do" /></td>)}
+          <td>Date</td>
+          <td>Opening Times</td>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          {dates.map((d, i) => (
-            <td key={i}>
+        {dates.map((d, i) => (
+          <tr key={i}>
+            <td><DateTime date={d.date} format="ddd Do" /></td>
+            <td>
               {(() => {
                 const output = times.filter(t => t.start.isSame(d.date, 'day')).map((t, i) => <DateTimeRange key={i} start={t.start} end={t.end} format="HH:mm" />)
                 return output.length ? output : "Closed"
               })()}
             </td>
-          ))}
-        </tr>
+          </tr>
+        ))}
       </tbody>
     </Table>
   )
