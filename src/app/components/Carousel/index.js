@@ -1,19 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
-
+import useInterval from 'app/helpers/useInterval'
 import ControlledCarousel from './ControlledCarousel'
-
-const useInterval = (callback, delay) => {
-  const savedCallback = useRef()
-
-  useEffect(() => {
-    savedCallback.current = callback
-  })
-
-  useEffect(() => {
-    const id = setInterval(() => savedCallback.current(), delay)
-    return () => clearInterval(id)
-  }, [delay])
-}
 
 export default ({
   delay = 2000,
