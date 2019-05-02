@@ -15,7 +15,15 @@ import Carousel from 'app/components/Carousel'
 
 import styled from 'styled-components'
 
-const Img = ({
+const StyledImage = styled.img`
+  height: auto
+  max-height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+`
+
+const CarouselImage = ({
   src,
   height,
   width,
@@ -29,19 +37,10 @@ const Img = ({
   ].filter(item => !!item).join('&')
 
   return (
-    <img
+    <StyledImage
       {...props}
       src={uri}
-      height={height}
-      width={width}
-      style={{
-        height: 'auto',
-        maxHeight: '100%',
-        width: 'auto',
-        maxWidth: '100%',
-        objectFit: 'contain',
-        ...props.style,
-      }}
+      {...{ height, width }}
     />
   )
 }
@@ -59,39 +58,10 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       <EventDetailWrapper>
         <h1>{event.title}</h1>
 
-        {/* <Image
-          src={width=>`${event.preferred_image.filename}?width=${width}`}
-          lqip={width=>`${event.preferred_image.filename}?width=${width}&quality=10`}
-          alt={event.preferred_image.title}
-          height={event.preferred_image.height}
-          width={event.preferred_image.width}
-        /> */}
-
-        <Carousel
-          height={400}
-          style={{
-            backgroundColor: 'rgba(255,0,0,0.1)',
-          }}
-        >
-          {/* <div style={{display: 'grid', justifyItems: 'center'}}>
-            <h1>Slide 1</h1>
-            <p>This is the first slide</p>
-            </div>
-            <div style={{display: 'grid', justifyItems: 'center'}}>
-            <h1>Slide 2</h1>
-            <p>This is the second slide</p>
-          </div> */}
-          {/* <TextSlide style={{ width: 400, backgroundColor: 'green' }}>
-            <h1>Slide 1</h1>
-            <div>This is the first Slide</div>
-            </TextSlide>
-            <TextSlide style={{ width: 300, backgroundColor: 'blue' }}>
-            <h1>Slide 2</h1>
-            <div>This is the second Slide</div>
-          </TextSlide> */}
+        <Carousel height={400}>
           {event.images.map((image, key) => {
             return (
-              <Img
+              <CarouselImage
                 key={key}
                 src={image.filename}
                 height={image.height}
@@ -100,6 +70,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
             )
           })}
         </Carousel>
+
         <dl>
           <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
