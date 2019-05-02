@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useInterval from 'app/helpers/useInterval'
+import useIsClient from 'app/helpers/useIsClient'
 import ControlledCarousel from './ControlledCarousel'
 
 export default ({
@@ -8,11 +9,7 @@ export default ({
   ...props,
 }) => {
   const [ activeIndex, setActiveIndex ] = useState(0)
-  const [ isClient, setIsClient ] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-  })
+  const isClient = useIsClient()
 
   useInterval(() => {
     setActiveIndex(oldIndex => oldIndex < React.Children.count(children)-1 ? oldIndex+1 : 0)

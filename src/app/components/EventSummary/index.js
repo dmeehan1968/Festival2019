@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import path from 'path'
 import { Link } from 'react-router-dom'
 
+import useIsClient from 'app/helpers/useIsClient'
 import styles from './EventSummary.less'
 import placeholderImage from 'static/Placeholder.png'
 
@@ -18,8 +19,7 @@ export default ({
   className = styles.container,
   classNameFavourite = styles.favourite,
 }) => {
-  const [ isClient, setIsClient ] = useState(false)
-  useEffect(() => {setIsClient(true)})
+  const isClient = useIsClient()
 
   image = image || {
       filename: placeholderImage,

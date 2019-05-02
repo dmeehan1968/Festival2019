@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import EventGrid from 'app/components/EventGrid'
+import useIsClient from 'app/helpers/useIsClient'
 
 import styles from './FavouriteEventsList.less'
 
@@ -9,8 +10,7 @@ const FavouriteEventsList = ({
   favourites = [],
   className = styles.container,
 }) => {
-  const [ isClient, setIsClient ] = useState(false)
-  useEffect(() => { setIsClient(true) })
+  const isClient = useIsClient()
 
   return (
     <div className={className}>

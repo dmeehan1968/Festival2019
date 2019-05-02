@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import useIsClient from 'app/helpers/useIsClient'
 
 // import EventList from 'app/components/EventList'
 import EventGrid from 'app/components/EventGrid'
@@ -64,12 +65,6 @@ const filterEvent = (filters, event) => {
 
   return true
 
-}
-
-const useIsClient = () => {
-  const [ isClient, setIsClient ] = useState(false)
-  useEffect(() => { setIsClient(true) })
-  return isClient
 }
 
 const FilteredEventList = ({
