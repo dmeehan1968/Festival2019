@@ -14,7 +14,7 @@
     "deploy": "deploy/dreamhost/initiate.sh",
     "doctor": "NODE_ENV=development clinic doctor --on-port 'autocannon localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg?width=538\\&quality=5' -- node build/server/server.bundle.js",
     "bubbleprof": "NODE_ENV=development clinic bubbleprof --on-port 'autocannon -c 5 -a 500 localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg?width=538\\&quality=5' -- node ./build/server/server.bundle.js",
-    "flame": "NODE_ENV=development clinic flame --on-port \"autocannon localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg\u003Fwidth=538\\&quality=5\" -- node build/server/server.bundle.js"
+    "flame": "NODE_ENV=development clinic flame --on-port \"autocannon localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg?width=538\\&quality=5\" -- node build/server/server.bundle.js"
   },
   "author": "",
   "license": "ISC",
