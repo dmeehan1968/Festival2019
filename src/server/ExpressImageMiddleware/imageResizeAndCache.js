@@ -1,8 +1,9 @@
 import path from 'path'
 import fs from 'fs'
 import sharp from 'sharp'
-import hash from 'object-hash'
 import shrinkToFit from './shrinkToFit'
+import NodeObjectHash from 'node-object-hash'
+const hash = NodeObjectHash({ sort: true, coerce: true }).hash
 
 export default (src, query, options) => {
 
