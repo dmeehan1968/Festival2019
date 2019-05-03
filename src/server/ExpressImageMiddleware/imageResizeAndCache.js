@@ -64,7 +64,6 @@ export default (src, query, options) => {
         return result
       })
   })
-  .catch(err => console.log(err))
 
 }
 

@@ -5,6 +5,7 @@ import { createStore } from 'redux'
 import { StaticRouter } from 'react-router-dom'
 import sharp from 'sharp'
 import path from 'path'
+import fs from 'fs'
 
 import App from 'app/components/App'
 import reducers, { setEvent, setEvents, setDates } from 'app/ducks'
@@ -28,6 +29,10 @@ const sequelizeArrayToJSON = arr => arr.map(sequelizeInstanceToJSON)
 
 const checkImageDimensions = (imagePath, events) => {
 
+  if (!fs.existsSync(imagePath)) {
+    throw new Error(`IMAGE_PATH does not exist: "${imagePath}"`)
+  }
+
   return Promise.all(
     events.map(event => {
 
@@ -40,7 +45,7 @@ const checkImageDimensions = (imagePath, events) => {
             // console.log('dimensions for', image.filename, image.width, image.height)
             // TODO: save image (move this routine to before sequelizeArrayToJSON)
             return image
-          }).catch(err => console.log(err))
+          }).catch(() => image)
         }
         return image
       }))

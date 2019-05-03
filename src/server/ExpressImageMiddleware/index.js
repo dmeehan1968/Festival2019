@@ -45,8 +45,6 @@ export default (
 
     imageResizeAndCache(src, query, options)
     .then(cachedFile => {
-      const stat = fs.statSync(cachedFile.path)
-
       res.type(cachedFile.type)
       res.set({
         ETag: `"${cachedFile.hash}"`,
@@ -77,7 +75,10 @@ export default (
       res.set('X-Cache-Status', 'Generated')
       fs.createReadStream(cachedFile.path).pipe(res)
     })
-    .catch(err => console.log(err))
+    .catch(() => {
+      console.log(`Not Found: ${src}`);
+      res.status(404).end()
+    })
 
   }
 }
