@@ -1,6 +1,5 @@
 import path from 'path'
 import fs from 'fs'
-import moment from 'moment'
 import sharp from 'sharp'
 import hash from 'object-hash'
 import shrinkToFit from './shrinkToFit'
@@ -39,8 +38,7 @@ export default (src, query, options) => {
     if (fs.existsSync(outFile)) {
       const stat = fs.statSync(outFile)
 
-      const mtime = moment(stat.mtime)
-      const age = moment().diff(mtime, 'seconds')
+      const age = (Date.now() - stat.mtimeMs) / 1000
       if (age < options.maxAge && stat.size > 0) {
         // console.log('Cached: ', outFile)
         return outFile
