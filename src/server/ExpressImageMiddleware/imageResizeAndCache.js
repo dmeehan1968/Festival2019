@@ -27,12 +27,6 @@ export default (src, query, options) => {
   })
   .then(() => {
 
-    if (diff.height || diff.width) {
-      transform = transform.resize(diff.width, diff.height)
-    }
-
-    transform = transform.toFormat(diff.format || metadata.format, { quality: query.quality })
-
     const outFile = path.join(options.cachePath, hash(diff) + '.' + diff.format)
 
     if (fs.existsSync(outFile)) {
@@ -49,6 +43,13 @@ export default (src, query, options) => {
     }
 
     // console.log('Generated: ', outFile)
+
+    if (diff.height || diff.width) {
+      transform = transform.resize(diff.width, diff.height)
+    }
+
+    transform = transform.toFormat(diff.format || metadata.format, { quality: query.quality })
+
     return transform.toFile(outFile).then(() => outFile)
   })
   .catch(err => console.log(err))
