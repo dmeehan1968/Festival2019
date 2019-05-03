@@ -31,14 +31,10 @@ const devErrorHandler = (err, req, res, next) => {
   next()
 }
 
-async function routes(context) {
-  if (process.env.NODE_ENV === 'production') {
-    context.app.use(paths.publicPath, express.static(paths.clientBuild))
-  }
+function routes(context) {
+  context.app.use(paths.publicPath, express.static(paths.clientBuild))
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
-  // context.app.use('/App', express.static('/Users/dmeehan/Sites/2017.10parishesfestival.org.uk/App'))
   context.app.use('/App', ExpressImageMiddleware(context.app.get('imagePath')))
-
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
   context.app.get('/*', require('server/routes').get, webErrorHandler)
