@@ -2,6 +2,10 @@ import path from 'path'
 import paths from '../paths'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
+const isHeroku = () => {
+  return process.env.NODE.indexOf('heroku') >= 0
+}
+
 const cssLoaderBase = {
   loader: 'css-loader',
   options: {
@@ -63,7 +67,7 @@ const babelLoader = {
         '@babel/preset-react',
       ],
       plugins: [
-        'inline-dotenv',
+        ...(!isHeroku() && ['inline-dotenv'] || []),
         // [
           // 'babel-plugin-styled-components',
           // {
