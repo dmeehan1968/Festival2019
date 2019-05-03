@@ -3,7 +3,7 @@ import fs from 'fs'
 import sharp from 'sharp'
 import shrinkToFit from './shrinkToFit'
 import NodeObjectHash from 'node-object-hash'
-const hash = NodeObjectHash({ sort: true, coerce: true }).hash
+const objectHash = NodeObjectHash({ sort: true, coerce: true }).hash
 
 export default (src, query, options) => {
 
@@ -28,22 +28,26 @@ export default (src, query, options) => {
   })
   .then(() => {
 
-    const outFile = path.join(options.cachePath, hash(diff) + '.' + diff.format)
+    const hash = objectHash(diff)
 
-    if (fs.existsSync(outFile)) {
-      const stat = fs.statSync(outFile)
-
-      const age = (Date.now() - stat.mtimeMs) / 1000
-      if (age < options.maxAge && stat.size > 0) {
-        // console.log('Cached: ', outFile)
-        return outFile
-      } else {
-        // console.log('Purged: ', outFile)
-        fs.unlinkSync(outFile)
-      }
+    const result = {
+      path: path.join(options.cachePath, hash + '.' + diff.format),
+      type: diff.format,
+      hash,
     }
 
-    // console.log('Generated: ', outFile)
+    if (fs.existsSync(result.path)) {
+      const stat = fs.statSync(result.path)
+      const age = (Date.now() - stat.mtimeMs) / 1000
+
+      if (age > options.maxAge || stat.size === 0) {
+        fs.unlinkSync(result.path)
+      } else {
+        result.lastModified = stat.mtimeMs
+        result.size = stat.size
+        return result
+      }
+    }
 
     if (diff.height || diff.width) {
       transform = transform.resize(diff.width, diff.height)
@@ -51,7 +55,14 @@ export default (src, query, options) => {
 
     transform = transform.toFormat(diff.format || metadata.format, { quality: query.quality })
 
-    return transform.toFile(outFile).then(() => outFile)
+    return transform
+      .toFile(result.path)
+      .then(() => {
+        const stat = fs.statSync(result.path)
+        result.lastModified = stat.mtimeMs
+        result.size = stat.size
+        return result
+      })
   })
   .catch(err => console.log(err))
 

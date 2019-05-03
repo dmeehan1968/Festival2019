@@ -45,30 +45,37 @@ export default (
 
     imageResizeAndCache(src, query, options)
     .then(cachedFile => {
-      const { name: etag } = path.parse(cachedFile)
-      const stat = fs.statSync(cachedFile)
+      const stat = fs.statSync(cachedFile.path)
 
-      res.set('ETag', `"${etag}"`)
-      res.set('Last-Modified', stat.mtime.toUTCString())
-      res.set('Cache-Control', 'no-cache, max-age=0')
-      res.type(path.extname(cachedFile))
-
-      const modifiedSince = req.get('If-Modified-Since')
-
-      if (modifiedSince) {
-        const age = moment(modifiedSince).diff(moment(stat.mtime), 'seconds')
-        if (age >= 0) {
-          return res.status(304).end()
-        }
-      }
+      res.type(cachedFile.type)
+      res.set({
+        ETag: `"${cachedFile.hash}"`,
+        'Last-Modified': (new Date(cachedFile.lastModified)).toUTCString(),
+        'Cache-Control': 'no-cache, max-age=0',
+        'Content-Length': cachedFile.size,
+      })
 
       const noneMatch = req.get('If-None-Match')
 
-      if (noneMatch && noneMatch !== `"${etag}"`) {
-        return res.status(304).end()
+      if (noneMatch) {
+        if (noneMatch === `"${cachedFile.hash}"`) {
+          res.set('X-Cache-Status', 'Matching eTag')
+          return res.status(304).end()
+        }
+      } else {
+        let modifiedSince = req.get('If-Modified-Since')
+
+        if (modifiedSince) {
+          modifiedSince = new Date(modifiedSince)
+          if (cachedFile.lastModified <= modifiedSince) {
+            res.set('X-Cache-Status', `Not Modfied Since`)
+            return res.status(304).end()
+          }
+        }
       }
 
-      fs.createReadStream(cachedFile).pipe(res)
+      res.set('X-Cache-Status', 'Generated')
+      fs.createReadStream(cachedFile.path).pipe(res)
     })
     .catch(err => console.log(err))
 
