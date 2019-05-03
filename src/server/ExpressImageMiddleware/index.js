@@ -29,11 +29,16 @@ export default (
     const { path: file, params, method } = req
     let { query } = req
 
-    query = {
-      ...query,
-      ...(query.height && { height: clamp(Math.ceil(Number(query.height)), 1, Number.MAX_SAFE_INTEGER) } || {}),
-      ...(query.width && { width: clamp(Math.ceil(Number(query.width)), 1, Number.MAX_SAFE_INTEGER) } || {}),
-      ...(query.quality && { quality: clamp(Number(query.quality), 1, 100) } || { quality: 80 }),
+    if (query.height) {
+      query.height = clamp(Math.ceil(Number(query.height)), 1, Number.MAX_SAFE_INTEGER)
+    }
+    if (query.width) {
+      query.width = clamp(Math.ceil(Number(query.width)), 1, Number.MAX_SAFE_INTEGER)
+    }
+    if (query.quality) {
+      query.quality = clamp(Number(query.quality), 1, 100)
+    } else {
+      query.quality = 80
     }
 
     const src = path.join(options.basePath, file)

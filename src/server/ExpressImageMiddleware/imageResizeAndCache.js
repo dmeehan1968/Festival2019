@@ -61,7 +61,8 @@ const metaDiff = (a, b) => {
   return Object.keys(b).reduce((acc, key) => {
     if (a.hasOwnProperty(key)) {
       if (a[key] !== b[key]) {
-        return { ...acc, [key]: b[key] }
+        acc[key] = b[key]
+        return acc
       }
     }
     return acc
