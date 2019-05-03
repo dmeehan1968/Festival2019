@@ -15,11 +15,8 @@ export default (src, query, options) => {
     diff = metaDiff(metadata, query)
     const shrunk = shrinkToFit([metadata.height, metadata.width], [diff.height, diff.width])
     if (shrunk) {
-      diff = {
-        ...diff,
-        height: shrunk[0],
-        width: shrunk[1]
-      }
+      diff.height = shrunk[0]
+      diff.width = shrunk[1]
     } else {
       delete diff.height;
       delete diff.width;
