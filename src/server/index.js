@@ -31,7 +31,18 @@ const devErrorHandler = (err, req, res, next) => {
   next()
 }
 
+const KeepAliveMiddleware = (timeout = 5, max = 1000) => {
+  return (req, res, next) => {
+    res.set({
+      Connection: 'keep-alive',
+      'Keep-Alive': `timeout=${timeout}, max=${max}`
+    })
+    next()
+  }
+}
+
 function routes(context) {
+  context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
   context.app.use('/App', ExpressImageMiddleware(context.app.get('imagePath')))
