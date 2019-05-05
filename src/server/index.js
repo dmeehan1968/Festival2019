@@ -3,6 +3,7 @@ import path from 'path'
 import assert from 'assert'
 import database from './database'
 import manifest from './manifest'
+import compression from 'compression'
 import paths from '../../config/paths'
 import ExpressImageMiddleware from 'server/ExpressImageMiddleware'
 
@@ -42,6 +43,7 @@ const KeepAliveMiddleware = (timeout = 5, max = 1000) => {
 }
 
 function routes(context) {
+  context.app.use(compression())
   context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
