@@ -49,7 +49,7 @@ export default (
       res.set({
         ETag: `"${cachedFile.hash}"`,
         'Last-Modified': (new Date(cachedFile.lastModified)).toUTCString(),
-        'Cache-Control': 'no-cache, max-age=0',
+        'Cache-Control': 'public, max-age=0',
         'Content-Length': cachedFile.size,
       })
 
