@@ -135,7 +135,7 @@ export default async (options) => {
   serverCompiler.watch(watchOptions, compilerReporter.bind(null, serverConfig.stats, path.join(paths.stats, 'server.json')))
 
   if (!options.devServer) {
-    clientCompiler.watch(watchOptions, compilerReporter.bind(null, serverConfig.stats, path.join(paths.stats, 'client.json')))
+    clientCompiler.watch(watchOptions, compilerReporter.bind(null, clientConfig.stats, path.join(paths.stats, 'client.json')))
   }
 
   // wait until client and server is compiled

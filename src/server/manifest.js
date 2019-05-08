@@ -14,6 +14,13 @@ const assetPath = asset => {
   return manifest[asset] || ''
 }
 
+const getPathsByType = type => {
+  const manifest = getManifest()
+  const regex = new RegExp(`\.${type}$`, 'i')
+  const keys = Object.keys(manifest).filter(name => regex.test(name))
+  return keys.map(name => manifest[name])
+}
+
 export default (opts) => {
   const defaults = {
     cache: true,
@@ -28,6 +35,7 @@ export default (opts) => {
     res.locals = {
       ...res.locals || {},
       assetPath,
+      getPathsByType,
     }
     next()
   }

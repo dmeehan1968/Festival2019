@@ -13,7 +13,6 @@ export default {
   target: 'web',
   entry: {
     bundle: [
-      require.resolve('@babel/polyfill'),
       path.join(paths.srcClient, 'index.js'),
     ],
   },
@@ -30,14 +29,22 @@ export default {
    namedModules: true,
    noEmitOnErrors: true,
    splitChunks: {
+     chunks: 'all',
+     maxInitialRequests: Infinity,
+     minSize: 10 * 1024,
+     automaticNameDelimiter: '.',
      cacheGroups: {
-       commons: {
+       vendor: {
          test: /[\\/]node_modules[\\/]/,
-         name: 'vendor',
-         chunks: 'all',
-       }
-     }
-   }
+         name(module) {
+           const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+            // npm package names are URL-safe, but some servers don't like @ symbols
+            return `vendor.${packageName.replace('@', '')}`;
+         }
+       },
+     },
+   },
  },
  plugins: [
    new DotEnv(),
