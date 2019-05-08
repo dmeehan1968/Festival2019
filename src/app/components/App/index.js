@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 
+// TODO: Remove fontawesome when last reference removed
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 
 library.add(fas)
@@ -18,9 +18,27 @@ import RoutedEventPage from 'app/components/RoutedEventPage'
 import styles from './App.less'
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
+import { gridSVG, heartSVG, mapSVG } from 'app/svg'
 
 const TabLabel = styled.div`
   font-size: ${({theme: { textSm }}) => textSm}
+`
+
+const TabBarItem = styled(Link)`
+  height: 100%;
+  display: block;
+  position: relative;
+  background: url(${p=>`data:image/svg+xml;utf8,${p.svg({ fill: p.theme.colorBrandOrange })}`});
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: ${p=>p.theme.textXxl};
+
+  & > :last-child {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1em;
+  }
 `
 
 export default ({
@@ -44,18 +62,15 @@ export default ({
         </main>
         <footer>
           <TabBar className={styles.tabBar}>
-            <Link to="/">
-              <FontAwesomeIcon icon="th" />
+            <TabBarItem svg={gridSVG} to="/">
               <TabLabel>Events</TabLabel>
-            </Link>
-            <Link to="/map">
-              <FontAwesomeIcon icon="map-marked-alt" />
+            </TabBarItem>
+            <TabBarItem svg={mapSVG} to="/map">
               <TabLabel>Map</TabLabel>
-            </Link>
-            <Link to="/favourites">
-              <FontAwesomeIcon icon="heart" />
+            </TabBarItem>
+            <TabBarItem svg={heartSVG} to="/favourites">
               <TabLabel>Favourites</TabLabel>
-            </Link>
+            </TabBarItem>
           </TabBar>
         </footer>
       </div>
