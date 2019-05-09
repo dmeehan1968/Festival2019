@@ -2,7 +2,6 @@
 - TODO: webpack - code split to remove mapbox and react-map-gl from initial bundle
 - TODO: Jest testing
 - TODO: GitGuardian - Google API key in git history
-<<<<<<< HEAD
 - TODO: Carousel - pause/prev/next
 - TODO: Carousel - lazy loading
 - TODO: Carousel - Circular loop
@@ -66,4 +65,3 @@ TODO: Images - prevent stretch for small images in all contexts
 TODO: Event Grid - Fav indicator should have tooltip
 TODO: URLs - redirect old to new style
 TODO: .htaccess - enable redirect to force HTTPS
->>>>>>> bfc2c5bf5545f8de4de1b0d67f47ac0c84e9723c
