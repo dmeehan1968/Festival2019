@@ -17,10 +17,10 @@
 - TODO: NavBar - responsive spacing/sizing of title/left/right
 - TODO: Map - InfoWindow formatting
 - TODO: Map - InfoWindow links to events
+- TOOD: Map - Check bottom margin (might need height 100%)
 - TODO: Event Page - Heading Styling
 - TODO: Event Page - multi-column on wide screen
 - TODO: Event Page/Grid scroll position
-- TODO: Event Page bottom margin
 - TODO: Event Grid/Favourites - preserve scroll position
 - TODO: Font Size - check responsive sizing
 - TODO: Favourites - debounce/fade out on deselection
