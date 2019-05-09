@@ -7,12 +7,14 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons/faSlidersH'
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh'
+import { faMapMarker } from '@fortawesome/free-solid-svg-icons/faMapMarker'
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkedAlt'
 
 library.add(faHeart)
 library.add(faSlidersH)
 library.add(faSearch)
 library.add(faTh)
+library.add(faMapMarker)
 library.add(faMapMarkedAlt)
 
 import NavBar from 'app/components/NavBar'
