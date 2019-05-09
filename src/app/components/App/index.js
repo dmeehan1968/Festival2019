@@ -1,11 +1,19 @@
 import React from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 
-// TODO: Remove fontawesome when last reference removed
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart'
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons/faSlidersH'
+import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
+import { faTh } from '@fortawesome/free-solid-svg-icons/faTh'
+import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkedAlt'
 
-library.add(fas)
+library.add(faHeart)
+library.add(faSlidersH)
+library.add(faSearch)
+library.add(faTh)
+library.add(faMapMarkedAlt)
 
 import NavBar from 'app/components/NavBar'
 import TabBar from 'app/components/TabBar'
@@ -18,27 +26,9 @@ import RoutedEventPage from 'app/components/RoutedEventPage'
 import styles from './App.less'
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
-import { gridSVG, heartSVG, mapSVG } from 'app/svg'
 
 const TabLabel = styled.div`
   font-size: ${({theme: { textSm }}) => textSm}
-`
-
-const TabBarItem = styled(Link)`
-  height: 100%;
-  display: block;
-  position: relative;
-  background: url(${p=>`data:image/svg+xml;utf8,${p.svg({ fill: p.theme.colorBrandOrange })}`});
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: ${p=>p.theme.textXxl};
-
-  & > :last-child {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 1em;
-  }
 `
 
 export default ({
@@ -62,15 +52,18 @@ export default ({
         </main>
         <footer>
           <TabBar className={styles.tabBar}>
-            <TabBarItem svg={gridSVG} to="/">
+            <Link to="/">
+              <FontAwesomeIcon icon="th" />
               <TabLabel>Events</TabLabel>
-            </TabBarItem>
-            <TabBarItem svg={mapSVG} to="/map">
+            </Link>
+            <Link to="/map">
+              <FontAwesomeIcon icon="map-marked-alt" />
               <TabLabel>Map</TabLabel>
-            </TabBarItem>
-            <TabBarItem svg={heartSVG} to="/favourites">
+            </Link>
+            <Link to="/favourites">
+              <FontAwesomeIcon icon="heart" />
               <TabLabel>Favourites</TabLabel>
-            </TabBarItem>
+            </Link>
           </TabBar>
         </footer>
       </div>
