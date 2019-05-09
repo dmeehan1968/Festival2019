@@ -18,7 +18,7 @@ library.add(faMapMarker)
 library.add(faMapMarkedAlt)
 
 import NavBar from 'app/components/NavBar'
-import TabBar from 'app/components/TabBar'
+import TabBar, { TabBarItem } from 'app/components/TabBar'
 import EventsPage from 'app/components/EventsPage'
 import MapPage from 'app/components/MapPage'
 import FavouritesPage from 'app/components/FavouritesPage'
@@ -29,6 +29,9 @@ import styles from './App.less'
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
 
+const TabIcon = styled(FontAwesomeIcon)`
+  font-size: ${p=>p.theme.textLg}
+`
 const TabLabel = styled.div`
   font-size: ${({theme: { textSm }}) => textSm}
 `
@@ -53,18 +56,15 @@ export default ({
           </Switch>
         </main>
         <footer>
-          <TabBar className={styles.tabBar}>
+          <TabBar>
             <Link to="/">
-              <FontAwesomeIcon icon="th" />
-              <TabLabel>Events</TabLabel>
+              <TabBarItem icon={<TabIcon icon="th" />} label="Events" />
             </Link>
             <Link to="/map">
-              <FontAwesomeIcon icon="map-marked-alt" />
-              <TabLabel>Map</TabLabel>
+              <TabBarItem icon={<TabIcon icon="map-marked-alt" />} label="Map" />
             </Link>
             <Link to="/favourites">
-              <FontAwesomeIcon icon="heart" />
-              <TabLabel>Favourites</TabLabel>
+              <TabBarItem icon={<TabIcon icon="heart" />} label="Favourites" />
             </Link>
           </TabBar>
         </footer>
