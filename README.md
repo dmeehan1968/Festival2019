@@ -33,4 +33,3 @@
 - TODO: Event Grid - Fav indicator should have tooltip
 - TODO: URLs - redirect old to new style
 - TODO: .htaccess - enable redirect to force HTTPS
-- TODO: temp
