@@ -17,7 +17,7 @@ library.add(faTh)
 library.add(faMapMarker)
 library.add(faMapMarkedAlt)
 
-import NavBar from 'app/components/NavBar'
+import NavBar, { NavBarTitle } from 'app/components/NavBar'
 import TabBar, { TabBarItem } from 'app/components/TabBar'
 import EventsPage from 'app/components/EventsPage'
 import MapPage from 'app/components/MapPage'
@@ -36,6 +36,21 @@ const TabLabel = styled.div`
   font-size: ${({theme: { textSm }}) => textSm}
 `
 
+const FestivalNavBar = styled(NavBar)`
+  background-color: ${p=>p.theme.colorBrandBlue};
+  line-height: ${p=>p.theme.headerHeight};
+  padding: 0 ${p=>p.theme.spaceSm};
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100vw;
+  height: ${p=>p.theme.headerHeight};
+
+  ${NavBarTitle} {
+    color: ${p=>p.theme.colorBrandOrange};
+  }
+`
+
 export default ({
   className = styles.container,
   classNameNavBar = styles.navBar,
@@ -44,7 +59,7 @@ export default ({
     <ThemeProvider theme={designSystem}>
       <div className={className}>
         <header>
-          <NavBar title="10 Parishes Festival" className={classNameNavBar} classNameTitle={styles.title} />
+          <FestivalNavBar title="10 Parishes Festival" />
         </header>
         <main>
           <Switch>

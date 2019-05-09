@@ -1,19 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
 
-import styles from './NavBar.less'
+export const NavBarTitle = styled.div``
 
-export default ({
+export const NavBar = ({
   title = 'No Title',
-  className = styles.container,
-  classNameLeftAction = styles.leftAction,
-  classNameRightAction = styles.rightAction,
-  classNameTitle = styles.title,
+  className,
 }) => {
   return (
     <div className={className}>
-      <div id="nav-bar-left-action" className={classNameLeftAction}/>
-      <div className={classNameTitle}>{title}</div>
-      <div id="nav-bar-right-action" className={classNameRightAction} />
+      <div id="nav-bar-left-action" />
+      <NavBarTitle>{title}</NavBarTitle>
+      <div id="nav-bar-right-action" />
     </div>
   )
 }
+
+export default styled(NavBar)`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: @--space-md;
+
+  ${NavBarTitle} {
+    text-align: center;
+  }
+`
