@@ -1,6 +1,7 @@
-TODO: webpack - package size exceeds guidelines for production build
-TODO: Jest testing
-TODO: GitGuardian - Google API key in git history
+- TODO: webpack - package size exceeds guidelines for production build
+- TODO: webpack - code split to remove mapbox and react-map-gl from initial bundle
+- TODO: Jest testing
+- TODO: GitGuardian - Google API key in git history
 TODO: Carousel - pause/prev/next
 TODO: Carousel - lazy loading
 TODO: Carousel - Circular loop
