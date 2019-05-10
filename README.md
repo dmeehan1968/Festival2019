@@ -1,5 +1,5 @@
 - TODO: styled-components, add SSR stylesheet, createGlobalStyles, remove base.less
-- TODO: manifest.json not always regenerated on dev compile
+- TODO: manifest.json not always regenerated on dev compile (clean webpack plugin?)
 - TODO: webpack - package size exceeds guidelines for production build
 - TODO: webpack - code split to remove mapbox and react-map-gl from initial bundle
 - TODO: Jest testing
