@@ -4,6 +4,7 @@ import express from 'express'
 import fs from 'fs'
 import path from 'path'
 import webpackDevMiddleware from 'webpack-dev-middleware'
+import reporter from 'webpack-dev-middleware/lib/reporter'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import paths from '../config/paths'
 import webpackConfig from '../config/webpack.config'
@@ -23,7 +24,8 @@ const compilerPromise = (name, compiler) => {
         });
         compiler.hooks.done.tap(name, (stats) => {
             if (!stats.hasErrors()) {
-                return resolve();
+              logMessage(`[${name}] Compiled `);
+              return resolve();
             }
             return reject(`Failed to compile ${name}`);
         });
@@ -84,6 +86,11 @@ export default async (options) => {
       stats: clientConfig.stats,
   } || {}
 
+  const writeStats = (jsonPath, stats, config) => {
+    fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
+    fs.writeFileSync(jsonPath, JSON.stringify(stats.toJson(config)))
+  }
+
   if (options.devServer) {
 
     const app = express()
@@ -99,10 +106,20 @@ export default async (options) => {
            stats: clientConfig.stats,
            watchOptions,
            writeToDisk: true,
+           logLevel: 'warn',
+           reporter(middlewareOptions, options) {
+             const { state, stats } = options
+             if (state) {
+               if (!stats.hasErrors()) {
+                 writeStats(path.join(paths.stats, 'client.json'), stats, middlewareOptions.stats)
+               }
+             }
+             reporter(middlewareOptions, options)
+           }
        })
     );
 
-    app.use(webpackHotMiddleware(clientCompiler));
+    app.use(webpackHotMiddleware(clientCompiler, { log: false }));
 
     app.use(paths.publicPath, express.static(paths.clientBuild));
 
@@ -112,10 +129,7 @@ export default async (options) => {
 
   const compilerReporter = (config, jsonPath, error, stats) => {
     if (!error && !stats.hasErrors()) {
-      console.log(jsonPath);
-      fs.mkdirSync(path.dirname(jsonPath), { recursive: true })
-      fs.writeFileSync(jsonPath, JSON.stringify(stats.toJson(config)))
-      console.log(stats.toString(config));
+      writeStats(jsonPath, stats, config)
       return;
     }
 
