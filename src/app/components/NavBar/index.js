@@ -19,7 +19,7 @@ export const NavBar = ({
 export default styled(NavBar)`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: @--space-md;
+  grid-column-gap: ${p=>p.theme.spaceMd};
 
   ${NavBarTitle} {
     text-align: center;
