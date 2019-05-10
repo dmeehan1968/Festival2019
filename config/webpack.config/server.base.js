@@ -31,7 +31,7 @@ export default {
    },
    plugins: [
      new DotEnv(),
-     new CleanWebpackPlugin(),
+     new CleanWebpackPlugin({ verbose: true }),
      new MiniCssExtractPlugin({
         filename: 'server.[name].css',
         chunkFilename: '[id].css',

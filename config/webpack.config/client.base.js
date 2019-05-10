@@ -49,7 +49,7 @@ export default {
  plugins: [
    new DotEnv(),
    new ManifestPlugin(),
-   new CleanWebpackPlugin(),
+   new CleanWebpackPlugin({ verbose: true }),
    new MiniCssExtractPlugin({
       filename: 'client.[name].css',
       chunkFilename: '[id].css',
