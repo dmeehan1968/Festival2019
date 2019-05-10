@@ -25,9 +25,9 @@ import FavouritesPage from 'app/components/FavouritesPage'
 import NotFound from 'app/components/NotFound'
 import RoutedEventPage from 'app/components/RoutedEventPage'
 
-import styles from './App.less'
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
+import 'styles/base.less'
 
 const TabIcon = styled(FontAwesomeIcon)`
   font-size: ${p=>p.theme.textLg}
@@ -51,39 +51,60 @@ const FestivalNavBar = styled(NavBar)`
   }
 `
 
-export default ({
-  className = styles.container,
-  classNameNavBar = styles.navBar,
+export const App = ({
+  className,
 }) => {
   return (
+    <div className={className}>
+      <header>
+        <FestivalNavBar title="10 Parishes Festival" />
+      </header>
+      <main>
+        <Switch>
+          <Route exact path="/" component={EventsPage} />
+          <Route exact path="/map" component={MapPage} />
+          <Route exact path="/favourites" component={FavouritesPage} />
+          <Route exact path="/events/:id" component={RoutedEventPage} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      <footer>
+        <TabBar>
+          <Link to="/">
+            <TabBarItem icon={<TabIcon icon="th" />} label="Events" />
+          </Link>
+          <Link to="/map">
+            <TabBarItem icon={<TabIcon icon="map-marked-alt" />} label="Map" />
+          </Link>
+          <Link to="/favourites">
+            <TabBarItem icon={<TabIcon icon="heart" />} label="Favourites" />
+          </Link>
+        </TabBar>
+      </footer>
+    </div>
+  )
+}
+
+const StyledApp = styled(App)`
+
+  height: 100%;
+
+  main {
+
+    padding-top: ${p=>p.theme.headerHeight};
+    padding-bottom: ${p=>p.theme.footerHeight};
+
+    & > div {
+      height: 100%;
+    }
+  }
+
+`
+
+export default () => {
+  return (
     <ThemeProvider theme={designSystem}>
-      <div className={className}>
-        <header>
-          <FestivalNavBar title="10 Parishes Festival" />
-        </header>
-        <main>
-          <Switch>
-            <Route exact path="/" component={EventsPage} />
-            <Route exact path="/map" component={MapPage} />
-            <Route exact path="/favourites" component={FavouritesPage} />
-            <Route exact path="/events/:id" component={RoutedEventPage} />
-            <Route component={NotFound} />
-          </Switch>
-        </main>
-        <footer>
-          <TabBar>
-            <Link to="/">
-              <TabBarItem icon={<TabIcon icon="th" />} label="Events" />
-            </Link>
-            <Link to="/map">
-              <TabBarItem icon={<TabIcon icon="map-marked-alt" />} label="Map" />
-            </Link>
-            <Link to="/favourites">
-              <TabBarItem icon={<TabIcon icon="heart" />} label="Favourites" />
-            </Link>
-          </TabBar>
-        </footer>
-      </div>
+      <StyledApp />
     </ThemeProvider>
   )
 }
