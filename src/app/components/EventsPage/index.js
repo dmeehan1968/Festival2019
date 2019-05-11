@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { setTextFilter } from 'app/ducks'
 import { Helmet } from 'react-helmet'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styled from 'styled-components'
 
 import NavBarAction from 'app/components/NavBarAction'
 import SearchBar from 'app/components/SearchBar'
@@ -25,6 +27,16 @@ const useDebounce = (value, callback, delay = 500) => {
   return [ debouncedSearchText, setDebouncedSearchText ]
 }
 
+const Menu = (props) => {
+  return (
+    <FontAwesomeIcon icon="bars" { ...props } />
+  )
+}
+
+const Hamburger = styled(Menu)`
+  color: ${p=>p.theme.colorBrandOrange};
+`
+
 const EventsPage = ({
   setTextFilter,
   textFilter,
@@ -36,13 +48,14 @@ const EventsPage = ({
     <div className={styles.container}>
       <Helmet title="Events" />
       <NavBarAction id="nav-bar-right-action">
-        <SearchBar
+        <Hamburger icon="bars" onClick={()=>setShowFilters(!showFilters)}/>
+        {/* <SearchBar
           searchText={debouncedSearchText}
           onClickFilterToggle={() => setShowFilters(!showFilters)}
           onSearch={(e) => {
             setDebouncedSearchText(e.target.value)
           }}
-        />
+        /> */}
       </NavBarAction>
       {showFilters &&
         <EventListFilters

@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars } from '@fortawesome/free-solid-svg-icons/faBars'
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons/faSlidersH'
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch'
@@ -10,6 +11,7 @@ import { faTh } from '@fortawesome/free-solid-svg-icons/faTh'
 import { faMapMarker } from '@fortawesome/free-solid-svg-icons/faMapMarker'
 import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkedAlt'
 
+library.add(faBars)
 library.add(faHeart)
 library.add(faSlidersH)
 library.add(faSearch)

@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export const NavBarTitle = styled.div``
+import NavBarTitle from './NavBarTitle'
+import NavBarLeftAction from './NavBarLeftAction'
+import NavBarRightAction from './NavBarRightAction'
+
+export { NavBarTitle, NavBarLeftAction, NavBarRightAction }
 
 export const NavBar = ({
   title = 'No Title',
@@ -9,19 +13,21 @@ export const NavBar = ({
 }) => {
   return (
     <div className={className}>
-      <div id="nav-bar-left-action" />
+      <NavBarLeftAction />
       <NavBarTitle>{title}</NavBarTitle>
-      <div id="nav-bar-right-action" />
+      <NavBarRightAction />
     </div>
   )
 }
 
 export default styled(NavBar)`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 3em 1fr 3em;
   grid-column-gap: ${p=>p.theme.spaceMd};
 
-  ${NavBarTitle} {
-    text-align: center;
-  }
+  ${p=>p.theme.media.lessThan('tablet')`
+    ${NavBarTitle} {
+      overflow: hidden;
+    }
+  `}
 `
