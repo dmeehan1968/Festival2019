@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Term = styled.dt`
-  font-weight: normal;
+  font-weight: bold;
   color: ${props=>props.theme.colorTextHeading};
   margin-bottom: ${props=>props.theme.spaceSm};
 `
