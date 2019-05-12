@@ -47,21 +47,21 @@ const EventsPage = ({
   return (
     <div className={styles.container}>
       <Helmet title="Events" />
-      <NavBarAction id="nav-bar-right-action">
+      {/* <NavBarAction id="nav-bar-right-action">
         <Hamburger icon="bars" onClick={()=>setShowFilters(!showFilters)}/>
-        {/* <SearchBar
+        {showFilters &&
+          <EventListFilters
+        onSubmit={() => setShowFilters(false)}
+          />
+        }
+        <SearchBar
           searchText={debouncedSearchText}
           onClickFilterToggle={() => setShowFilters(!showFilters)}
           onSearch={(e) => {
-            setDebouncedSearchText(e.target.value)
+        setDebouncedSearchText(e.target.value)
           }}
-        /> */}
-      </NavBarAction>
-      {showFilters &&
-        <EventListFilters
-          onSubmit={() => setShowFilters(false)}
         />
-      }
+    </NavBarAction> */}
       <h1>Events</h1>
       <FilteredEventList />
     </div>
