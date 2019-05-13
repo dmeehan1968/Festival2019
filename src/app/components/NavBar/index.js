@@ -22,7 +22,7 @@ export const NavBar = ({
 
 export default styled(NavBar)`
   display: grid;
-  grid-template-columns: 3em 1fr 3em;
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: ${p=>p.theme.spaceMd};
 
   ${p=>p.theme.media.lessThan('tablet')`
