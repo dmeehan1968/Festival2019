@@ -13,6 +13,7 @@ export const EventWrapper = styled.section`
       ${props=>props.theme.colorTint};
   `}
 `
+EventWrapper.displayName = 'EventWrapper'
 
 export const EventDetailWrapper = styled.section`
   h1 {
@@ -20,7 +21,9 @@ export const EventDetailWrapper = styled.section`
     color: ${props=>props.theme.colorTextHeading};
   }
 `
+EventDetailWrapper.displayName = 'EventDetailWrapper'
 
 export const VenueDetailWrapper = styled.section`
 
 `
+VenueDetailWrapper.displayName = 'VenueDetailWrapper'
