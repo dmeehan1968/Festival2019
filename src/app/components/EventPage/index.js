@@ -137,7 +137,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       </EventDetailWrapper>
       <VenueDetailWrapper>
         <h2>Venue Information</h2>
-        { event.venue && <VenueDetail venue={event.venue} eventTitle={event.title} /> || <p>No Venue Information</p> }
+        { event.venue && <VenueDetail venue={event.venue} /> || <p>No Venue Information</p> }
       </VenueDetailWrapper>
     </EventWrapper>
   )

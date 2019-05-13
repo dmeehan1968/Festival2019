@@ -5,7 +5,7 @@ import VenueMapMarker from 'app/components/VenueMapMarker'
 
 import { MapWrapper } from './styles'
 
-export default ({ venues, height }) => {
+export const VenueMap = ({ venues, height }) => {
 
   venues = useMemo(() => {
     return venues.filter(venue => venue.addresscontact && venue.addresscontact.longitude && venue.addresscontact.latitude)
@@ -54,3 +54,5 @@ export default ({ venues, height }) => {
     </MapWrapper>
   )
 }
+
+export default VenueMap

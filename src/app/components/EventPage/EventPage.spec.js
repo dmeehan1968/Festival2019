@@ -413,8 +413,9 @@ describe("EventPage", () => {
         wrapper = wrapper.find('VenueDetailWrapper')
       });
 
-      it("exists", () => {
-        expect(wrapper).toHaveLength(1)
+      it("has VenueDetail", () => {
+        expect(wrapper.find('VenueDetail').prop('venue'))
+          .toEqual(expected.venue)
       });
     });
   });
