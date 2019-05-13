@@ -22,8 +22,7 @@
 - TOOD: Map - Check bottom margin (might need height 100%)
 - TODO: Event Page - Heading Styling
 - TODO: Event Page - multi-column on wide screen
-- TODO: Event Page/Grid scroll position
-- TODO: Event Grid/Favourites - preserve scroll position
+- TODO: Scroll restoration - save offset on tab change, restore on back button on returning to grid
 - TODO: Font Size - check responsive sizing
 - TODO: Favourites - debounce/fade out on deselection
 - TODO: Styled Components production output to CSS?

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, Route, Switch, withRouter } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -26,6 +26,7 @@ import MapPage from 'app/components/MapPage'
 import FavouritesPage from 'app/components/FavouritesPage'
 import NotFound from 'app/components/NotFound'
 import RoutedEventPage from 'app/components/RoutedEventPage'
+import ScrollToTop from 'app/components/ScrollToTop'
 
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
@@ -62,6 +63,7 @@ export const App = ({
         <FestivalNavBar title="10 Parishes Festival" />
       </header>
       <main>
+        <ScrollToTop />
         <Switch>
           <Route exact path="/" component={EventsPage} />
           <Route exact path="/map" component={MapPage} />
