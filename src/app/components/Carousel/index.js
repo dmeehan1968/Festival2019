@@ -3,7 +3,7 @@ import useInterval from 'app/helpers/useInterval'
 import useIsClient from 'app/helpers/useIsClient'
 import ControlledCarousel from './ControlledCarousel'
 
-export default ({
+export const Carousel = ({
   delay = 2000,
   children,
   ...props,
@@ -24,3 +24,5 @@ export default ({
     />
   )
 }
+
+export default Carousel

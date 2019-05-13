@@ -82,6 +82,16 @@ export const BookingContact = ({
 }
 
 export const EventPage = ({ event = {}, dates = [] }) => {
+  // sanitize
+  event = {
+    ...event,
+    eventstatus: event.eventstatus || [],
+    eventtypes: event.eventtypes || [],
+    disciplines: event.disciplines || [],
+    contact: event.contact || {},
+    opening_times: event.opening_times || [],
+  }
+
   return (
     <EventWrapper>
       <Helmet>
@@ -109,18 +119,18 @@ export const EventPage = ({ event = {}, dates = [] }) => {
         }
 
         <dl>
-          <Meta title="Status" content={(event.eventstatus || []).map(s => s.description).join(', ')} />
+          <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
           <Meta title="About the Event" content={event.shortdesc} />
-          <Meta title="Event Type" content={(event.eventtypes || []).map(e => e.description).join(', ')} />
-          <Meta title="Disciplines" content={(event.disciplines || []).map(d => d.description).join(', ')} />
-          <Meta title="Telephone" content={(event.contact || {}).telephone} />
-          <Meta title="Email" content={(event.contact || {}).email} />
-          <Meta title="Web" content={(event.contact || {}).website} />
+          <Meta title="Event Type" content={event.eventtypes.map(e => e.description).join(', ')} />
+          <Meta title="Disciplines" content={event.disciplines.map(d => d.description).join(', ')} />
+          <Meta title="Telephone" content={event.contact.telephone} />
+          <Meta title="Email" content={event.contact.email} />
+          <Meta title="Web" content={event.contact.website} />
           <Meta title="Booking Contact" content={event.bookingcontact && <BookingContact contact={event.bookingcontact} />} />
           <Meta title="Booking Info" content={event.charginginfo} />
           <Meta title="Age Info" content={event.ageinfo} />
-          <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times || []}/>} />
+          <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times}/>} />
           <Meta title="Further Info" content={event.furtherinfo} />
           <Meta title="Long Description" content={event.longdesc} />
         </dl>

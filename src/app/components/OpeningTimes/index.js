@@ -5,7 +5,7 @@ import DateTimeRange from 'app/components/DateTimeRange'
 
 import { Table } from './styles'
 
-export default ({ dates, times }) => {
+export const OpeningTimes = ({ dates, times }) => {
   dates = dates.map(date => ({ ...date, date: moment(date.date) }))
   times = times.map(time => ({ ...time, start: moment(time.start), end: moment(time.end) }))
 
@@ -37,3 +37,5 @@ export default ({ dates, times }) => {
     </Table>
   )
 }
+
+export default OpeningTimes
