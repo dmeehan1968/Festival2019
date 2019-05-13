@@ -9,12 +9,13 @@ import { BrowserRouter } from 'react-router-dom'
 import * as storage from 'redux-storage'
 import createEngine from 'redux-storage-engine-localstorage'
 import filter from 'redux-storage-decorator-filter'
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
 const rootReducer = storage.reducer(reducers)
 const engine = filter(createEngine('root'), [ 'filters', 'favourites' ])
 const middleware = storage.createMiddleware(engine)
 
-const store = createStore(rootReducer, window.__INITIAL_STATE__, applyMiddleware(middleware))
+const store = createStore(rootReducer, window.__INITIAL_STATE__, composeWithDevTools(applyMiddleware(middleware)))
 
 const loader = storage.createLoader(engine)
 
