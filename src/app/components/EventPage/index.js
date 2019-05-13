@@ -45,6 +45,41 @@ const CarouselImage = ({
   )
 }
 
+export const ContactName = ({
+  organisation,
+  name,
+}) => {
+  if (organisation && organisation.length && name && name.length) {
+    return `${organisation} (${name})`
+  } else if (organisation && organisation.length) {
+    return organisation
+  } else if (name && name.length) {
+    return name
+  } else {
+    return 'No Contact Name'
+  }
+}
+
+export const BookingContact = ({
+  contact,
+}) => {
+  if (!contact) {
+    return null
+  }
+  const name = [ contact.firstname, contact.lastname ].filter(v=>!!v).join(' ')
+
+  return (
+    <>
+      <ContactName organisation={contact.organisation} name={name} />
+      {contact.telephone && contact.telephone.length &&
+        <div>{contact.telephone}</div>
+      }
+      {contact.website && contact.website.length &&
+        <div><a href={contact.website}>{contact.website}</a></div>
+      }
+    </>
+  )
+}
 
 export const EventPage = ({ event = {}, dates = [] }) => {
   return (
@@ -56,34 +91,36 @@ export const EventPage = ({ event = {}, dates = [] }) => {
         <Link to="/">&lt; Events</Link>
       </NavBarAction>
       <EventDetailWrapper>
-        <h1>{event.title}</h1>
+        <h1>{event.title || 'No Title'}</h1>
 
-        <Carousel height={400}>
-          {event.images.map((image, key) => {
-            return (
-              <CarouselImage
-                key={key}
-                src={image.filename}
-                height={image.height}
-                width={image.width}
-              />
-            )
-          })}
-        </Carousel>
+        {event.images && event.images.length &&
+          <Carousel height={400}>
+            {event.images.map((image, key) => {
+              return (
+                <CarouselImage
+                  key={key}
+                  src={image.filename}
+                  height={image.height}
+                  width={image.width}
+                />
+              )
+            })}
+          </Carousel>
+        }
 
         <dl>
-          <Meta title="Status" content={event.eventstatus.map(s => s.description).join(', ')} />
+          <Meta title="Status" content={(event.eventstatus || []).map(s => s.description).join(', ')} />
           <Meta title="Subtitle" content={event.subtitle} />
           <Meta title="About the Event" content={event.shortdesc} />
-          <Meta title="Event Type" content={event.eventtypes.map(e => e.description).join(', ')} />
-          <Meta title="Disciplines" content={event.disciplines.map(d => d.description).join(', ')} />
-          <Meta title="Telephone" content={event.contact.telephone} />
-          <Meta title="Email" content={event.contact.email} />
-          <Meta title="Web" content={event.contact.website} />
-          <Meta title="Booking Contact" content="-" />
-          <Meta title="Booking Info" content="-" />
+          <Meta title="Event Type" content={(event.eventtypes || []).map(e => e.description).join(', ')} />
+          <Meta title="Disciplines" content={(event.disciplines || []).map(d => d.description).join(', ')} />
+          <Meta title="Telephone" content={(event.contact || {}).telephone} />
+          <Meta title="Email" content={(event.contact || {}).email} />
+          <Meta title="Web" content={(event.contact || {}).website} />
+          <Meta title="Booking Contact" content={event.bookingcontact && <BookingContact contact={event.bookingcontact} />} />
+          <Meta title="Booking Info" content={event.charginginfo} />
           <Meta title="Age Info" content={event.ageinfo} />
-          <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times}/>} />
+          <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times || []}/>} />
           <Meta title="Further Info" content={event.furtherinfo} />
           <Meta title="Long Description" content={event.longdesc} />
         </dl>

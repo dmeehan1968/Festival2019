@@ -8,6 +8,11 @@ import { Table } from './styles'
 export default ({ dates, times }) => {
   dates = dates.map(date => ({ ...date, date: moment(date.date) }))
   times = times.map(time => ({ ...time, start: moment(time.start), end: moment(time.end) }))
+
+  if (!times || times.length < 1) {
+    return 'No Opening Times Specified'
+  }
+
   return (
     <Table>
       <thead>

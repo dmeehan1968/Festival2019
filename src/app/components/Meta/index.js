@@ -2,7 +2,7 @@ import React from 'react'
 import stringifyClassnames from 'app/helpers/stringifyClassnames'
 import { Term, Definition } from './styles'
 
-export default ({ title, content, className }) => {
+export const Meta = ({ title, content, className }) => {
   const cssClassNameFromString = s => {
     return s
       .toLowerCase()
@@ -23,3 +23,5 @@ export default ({ title, content, className }) => {
     </>
   )
 }
+
+export default Meta
