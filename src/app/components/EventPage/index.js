@@ -103,7 +103,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
       <EventDetailWrapper>
         <h1>{event.title || 'No Title'}</h1>
 
-        {event.images && event.images.length &&
+        {event.images && event.images.length && (
           <Carousel height={400}>
             {event.images.map((image, key) => {
               return (
@@ -116,6 +116,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
               )
             })}
           </Carousel>
+        ) || null
         }
 
         <dl>
