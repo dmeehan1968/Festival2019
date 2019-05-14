@@ -88,7 +88,27 @@ export const App = ({
 
 const StyledApp = styled(App)`
 
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  box-sizing: content-box;
+
+  header, footer {
+    flex-shrink: 0;
+  }
+
+  main {
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
+    -webkit-overflow-scrolling: touch;
+    
+  }
+
+
+
+  ${'' /* height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;
@@ -109,7 +129,7 @@ const StyledApp = styled(App)`
     & > div {
       height: 100%;
     }
-  }
+  } */}
 
 `
 
