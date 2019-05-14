@@ -1,7 +1,10 @@
+const homeDir = '/home/replicated/beta.10parishesfestival.org.uk'
+const logDir = '/home/replicated/logs/beta.10parishesfestival.org.uk/pm2'
 module.exports = {
   apps : [{
     name: 'Festival2019',
-    script: './build/server/server.bundle.js',
+    script: `${homeDir}/build/server/server.bundle.js`,
+    merge_logs: true,
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     instances: 1,
