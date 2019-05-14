@@ -54,6 +54,12 @@ const FestivalNavBar = styled(NavBar)`
 export const App = ({
   className,
 }) => {
+  const content = []
+
+  for (var i = 0; i < 50; i++) {
+    content.push(<div key={i}>{`Content ${i+1}`}</div>)
+  }
+
   return (
     <div className={className}>
       <header>
@@ -88,47 +94,28 @@ export const App = ({
 
 const StyledApp = styled(App)`
 
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  box-sizing: content-box;
+  height: 100%;
 
   header, footer {
-    flex-shrink: 0;
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
+  }
+
+  header {
+    top: 0;
   }
 
   main {
-    height: 100%;
-    overflow: auto;
-    flex-grow: 1;
-    -webkit-overflow-scrolling: touch;
-  }
-
-
-
-  ${'' /* height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 100%;
-  min-width: 0;
-
-  header, main, footer {
+    min-height: 100vh;
     box-sizing: border-box;
+    padding-top: ${p=>p.theme.headerHeight};
+    padding-bottom: ${p=>p.theme.footerHeight};
   }
 
-  main {
-
-    flex: 1 1 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    transform: translateZ(0);
-    -webkit-overflow-scrolling: touch;
-
-    & > div {
-      height: 100%;
-    }
-  } */}
+  footer {
+    bottom: 0;
+  }
 
 `
 
