@@ -99,7 +99,7 @@ const FilteredEventList = ({
 
   return (
     <div className={className}>
-      {resultText && <p>{resultText}</p>}
+      {/* {resultText && <p>{resultText}</p>} */}
 
       <EventGrid events={filteredEvents} />
     </div>
