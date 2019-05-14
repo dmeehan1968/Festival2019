@@ -1,6 +1,9 @@
 Before launch
 -------------
 
+- TODO: pm2 not running on VPS restart
+- TODO: ToolBar - too far down on mobile
+- TOOD: ScrollToTop stopped working
 - TODO: NavBar - responsive spacing/sizing of title/left/right (title trunc on mobile)
 - TODO: webpack dotenv - is it necessary, because its baked in
 - TODO: Google Analytics
