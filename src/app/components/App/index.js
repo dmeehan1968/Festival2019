@@ -104,6 +104,7 @@ const StyledApp = styled(App)`
     overflow-x: hidden;
     overflow-y: scroll;
     transform: translateZ(0);
+    -webkit-overflow-scrolling: touch;
 
     & > div {
       height: 100%;
