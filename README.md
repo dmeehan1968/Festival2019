@@ -3,7 +3,6 @@ Before launch
 
 - TODO: webpack dotenv - is it necessary, because its baked in
 - TODO: Google Analytics
-- TODO: package.json - version and repository field
 - TODO: image caching, is no client caching sensible, max-age?
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
