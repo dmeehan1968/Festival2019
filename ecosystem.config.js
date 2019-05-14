@@ -4,7 +4,8 @@ module.exports = {
   apps : [{
     name: 'Festival2019',
     script: `${homeDir}/build/server/server.bundle.js`,
-    merge_logs: true,
+    cwd: homeDir,
+    interpreter: '/home/replicated/.nvm/versions/node/v11.9.0/bin/node',
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     instances: 1,
