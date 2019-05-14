@@ -2,12 +2,17 @@ Before launch
 -------------
 
 - TODO: Replace Passenger with Forever or similar
+- TODO: webpack dotenv - is it necessary, because its baked in
+- TODO: Google Analytics
+- TODO: package.json - version and repository field
+- TODO: image caching, is no client caching sensible, max-age?
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
 Outstanding
 -------------
 
+- TODO: favicon.ico not found (produces 200 response)
 - TODO: styled-components - add SSR stylesheet, createGlobalStyles, remove base.less
 - TODO: styled-components - production output to CSS?
 - TODO: manifest.json not always regenerated on dev compile (clean webpack plugin?)
@@ -31,7 +36,7 @@ Outstanding
 - TOOD: Map - Check bottom margin (might need height 100%)
 - TODO: Event Page - Heading Styling
 - TODO: Event Page - multi-column on wide screen
-- TODO: Event Page - Filter panel
+- TODO: Event Grid - Filter panel (also restore resultText in FilteredEventList)
 - TODO: Event Grid - Fav indicator should have tooltip
 - TODO: NavBar - responsive search/filter dropdown
 - TODO: NavBar - responsive spacing/sizing of title/left/right
