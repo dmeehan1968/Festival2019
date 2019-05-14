@@ -23,7 +23,7 @@ Outstanding
 - TODO: favicon.ico not found (produces 200 response)
 - TODO: styled-components - add SSR stylesheet, createGlobalStyles, remove base.less
 - TODO: styled-components - production output to CSS?
-- TODO: manifest.json not always regenerated on dev compile (clean webpack plugin?)
+- TODO: manifest.json gets deleted on watched build, not written
 - TODO: webpack - package size exceeds guidelines for production build
 - TODO: webpack - code split to remove mapbox and react-map-gl from initial bundle
 - TODO: Jest testing
