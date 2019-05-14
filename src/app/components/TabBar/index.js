@@ -30,8 +30,6 @@ export const TabBar = ({
 export default styled(TabBar)`
   background-color: ${p=>p.theme.colorWhite};
   border-top: 1px solid gray;
-  position: fixed;
-  bottom: 0;
   width: 100vw;
   height: ${p=>p.theme.footerHeight};
 

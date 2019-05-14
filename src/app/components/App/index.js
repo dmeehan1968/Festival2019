@@ -43,9 +43,6 @@ const FestivalNavBar = styled(NavBar)`
   background-color: ${p=>p.theme.colorBrandBlue};
   line-height: ${p=>p.theme.headerHeight};
   padding: 0 ${p=>p.theme.spaceSm};
-  position: fixed;
-  top: 0;
-  z-index: 1;
   width: 100vw;
   height: ${p=>p.theme.headerHeight};
 
@@ -92,11 +89,21 @@ export const App = ({
 const StyledApp = styled(App)`
 
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  min-width: 0;
+
+  header, main, footer {
+    box-sizing: padding-box;
+  }
 
   main {
 
-    padding-top: ${p=>p.theme.headerHeight};
-    padding-bottom: ${p=>p.theme.footerHeight};
+    flex: 1 1 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transform: translateZ(0);
 
     & > div {
       height: 100%;
