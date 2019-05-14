@@ -1,0 +1,1 @@
+/home/replicated/.nvm/versions/node/v11.9.0/bin/node -- /home/replicated/beta.10parishesfestival.org.uk/node_modules/pm2/bin/pm2 start /home/replicated/beta.10parishesfestival.org.uk/ecosystem.config.js --env production
