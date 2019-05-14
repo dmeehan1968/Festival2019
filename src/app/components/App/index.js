@@ -95,7 +95,7 @@ const StyledApp = styled(App)`
   min-width: 0;
 
   header, main, footer {
-    box-sizing: padding-box;
+    box-sizing: border-box;
   }
 
   main {
