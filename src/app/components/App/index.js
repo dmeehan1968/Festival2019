@@ -103,7 +103,6 @@ const StyledApp = styled(App)`
     overflow: auto;
     flex-grow: 1;
     -webkit-overflow-scrolling: touch;
-    
   }
 
 
