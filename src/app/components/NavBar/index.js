@@ -21,13 +21,16 @@ export const NavBar = ({
 }
 
 export default styled(NavBar)`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: ${p=>p.theme.spaceMd};
+  position: relative;
 
-  ${p=>p.theme.media.lessThan('tablet')`
-    ${NavBarTitle} {
-      overflow: hidden;
-    }
-  `}
+  ${NavBarLeftAction} {
+      position: absolute;
+      left: ${p=>p.theme.spaceSm};
+  }
+
+  ${NavBarRightAction} {
+      position: absolute;
+      right: ${p=>p.theme.spaceSm};
+  }
+
 `

@@ -81,6 +81,11 @@ export const BookingContact = ({
   )
 }
 
+export const ActionLabel = styled.span`
+  ${p=>p.theme.media.lessThan('mobile')`
+    display: none;
+  `}
+`
 export const EventPage = ({ event = {}, dates = [] }) => {
   // sanitize
   event = {
@@ -98,7 +103,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
         <title>{event.title}</title>
       </Helmet>
       <NavBarAction id="nav-bar-left-action">
-        <Link to="/">&lt; Events</Link>
+        <Link to="/">&lt;<ActionLabel> Events</ActionLabel></Link>
       </NavBarAction>
       <EventDetailWrapper>
         <h1>{event.title || 'No Title'}</h1>

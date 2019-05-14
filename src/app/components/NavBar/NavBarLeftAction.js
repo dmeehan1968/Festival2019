@@ -7,6 +7,4 @@ export const NavBarLeftAction = (props) => {
   )
 }
 
-export default styled(NavBarLeftAction)`
-  justify-self: start;
-`
+export default styled(NavBarLeftAction)``

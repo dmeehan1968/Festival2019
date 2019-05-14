@@ -1,15 +1,6 @@
 Before launch
 -------------
 
-- TODO: header/main/footer layout breaks
-  - TODO: ToolBar - too far down on mobile
-  - TODO: ScrollToTop
-
-
-- TODO: pm2 not running on VPS restart
-  - cd /home/replicated/beta.10parishesfestival.org.uk && /home/replicated/.nvm/versions/node/v11.9.0/bin/npx pm2 start ./ecosystem.config.js --env production
-
-- TODO: NavBar - responsive spacing/sizing of title/left/right (title trunc on mobile)
 - TODO: webpack dotenv - is it necessary, because its baked in
 - TODO: Google Analytics
 - TODO: package.json - version and repository field
@@ -21,7 +12,7 @@ Outstanding
 -------------
 
 - TODO: favicon.ico not found (produces 200 response)
-- TODO: styled-components - add SSR stylesheet, createGlobalStyles, remove base.less
+- TODO: styled-components - FOUC, add SSR stylesheet, createGlobalStyles, remove base.less
 - TODO: styled-components - production output to CSS?
 - TODO: manifest.json gets deleted on watched build, not written
 - TODO: webpack - package size exceeds guidelines for production build
