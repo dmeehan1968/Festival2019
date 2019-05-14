@@ -1,9 +1,14 @@
 Before launch
 -------------
 
+- TODO: header/main/footer layout breaks
+  - TODO: ToolBar - too far down on mobile
+  - TODO: ScrollToTop
+
+
 - TODO: pm2 not running on VPS restart
-- TODO: ToolBar - too far down on mobile
-- TOOD: ScrollToTop stopped working
+  - cd /home/replicated/beta.10parishesfestival.org.uk && /home/replicated/.nvm/versions/node/v11.9.0/bin/npx pm2 start ./ecosystem.config.js --env production
+
 - TODO: NavBar - responsive spacing/sizing of title/left/right (title trunc on mobile)
 - TODO: webpack dotenv - is it necessary, because its baked in
 - TODO: Google Analytics
