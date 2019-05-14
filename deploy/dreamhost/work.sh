@@ -30,5 +30,4 @@ npm prune
 npm run build
 
 # Restart app
-touch tmp/restart.txt
-# passenger-config restart-app --ignore-app-not-running --ignore-passenger-not-running $RESTART_ARGS $APP_DIR/code
+npx pm2 reload all
