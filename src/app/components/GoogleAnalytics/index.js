@@ -5,13 +5,15 @@ import useOnce from 'app/helpers/useOnce'
 export const GoogleAnalytics = ({
   location,
 }) => {
-  useOnce(() => {
-    ReactGA.initialize(process.env.GOOGLE_ANALYTICS)
-  })
+  if (process.env.GOOGLE_ANALYTICS) {
+    useOnce(() => {
+      ReactGA.initialize(process.env.GOOGLE_ANALYTICS)
+    })
 
-  useEffect(() => {
-    ReactGA.pageview(location.pathname)
-  }, [location.pathname])
+    useEffect(() => {
+      ReactGA.pageview(location.pathname)
+    }, [location.pathname])
+  }
   return null
 }
 

@@ -49,12 +49,14 @@ export default ({
               <input
                 type="checkbox"
                 onChange={e => {
-                  ReactGA.event({
-                    category: 'EventSummary',
-                    action: `${e.target.checked ? 'Set' : 'Clear'} Favourite`,
-                    label: title,
-                    value: id,
-                  })
+                  if (process.env.GOOGLE_ANALYTICS) {
+                    ReactGA.event({
+                      category: 'EventSummary',
+                      action: `${e.target.checked ? 'Set' : 'Clear'} Favourite`,
+                      label: title,
+                      value: id,
+                    })
+                  }
                   setFavourite(id, e.target.checked)
                 }}
                 checked={isFavourite}
