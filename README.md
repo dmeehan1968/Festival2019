@@ -1,14 +1,14 @@
 Before launch
 -------------
 
-- TODO: webpack dotenv - is it necessary, because its baked in
-- TODO: webpack dotenv - not being processed on hot rebuild
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
 Outstanding
 -------------
 
+- TODO: dotenv-webpack - not being processed on hot rebuild (not watching .env)
+- TODO: dotenv-webpack - being used to convey private keys to client, is this best?
 - TODO: This page appears to be missing CSS declarations for Mapbox GL JS
 - TODO: pm2 deployment
 - TODO: favicon.ico not found (produces 200 response)
