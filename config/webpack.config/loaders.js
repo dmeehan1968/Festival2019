@@ -56,7 +56,7 @@ const babelLoader = {
         [
           '@babel/preset-env',
           {
-            useBuiltIns: 'entry',
+            useBuiltIns: 'usage',
             corejs: '3.0.0',
             targets: {
               browsers: [ 'last 1 version', 'ie >= 11' ],
