@@ -85,7 +85,19 @@ const client = [
 const server = [
   lessLoaderServer,
   fileLoader({ emitFile: false }),
-  babelLoader,
+  {
+    ...babelLoader,
+    use: {
+      ...babelLoader.use,
+      options: {
+        ...babelLoader.use.options,
+        plugins: [
+          ...(babelLoader.use.options.plugins || []),
+          'inline-dotenv',
+        ]
+      }
+    }
+  },
 ]
 
 export default {
