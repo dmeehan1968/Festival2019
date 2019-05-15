@@ -54,12 +54,6 @@ const FestivalNavBar = styled(NavBar)`
 export const App = ({
   className,
 }) => {
-  const content = []
-
-  for (var i = 0; i < 50; i++) {
-    content.push(<div key={i}>{`Content ${i+1}`}</div>)
-  }
-
   return (
     <div className={className}>
       <header>
