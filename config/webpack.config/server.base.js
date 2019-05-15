@@ -5,7 +5,6 @@ import nodeExternals from 'webpack-node-externals'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import resolve from './resolve'
-import DotEnv from 'dotenv-webpack'
 
 export default {
   name: 'server',
@@ -30,7 +29,6 @@ export default {
      rules: loaders.server,
    },
    plugins: [
-     new DotEnv(),
      new CleanWebpackPlugin({ verbose: true }),
      new MiniCssExtractPlugin({
         filename: 'server.[name].css',
