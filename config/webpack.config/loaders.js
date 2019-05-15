@@ -58,6 +58,9 @@ const babelLoader = {
           {
             useBuiltIns: 'entry',
             corejs: '3.0.0',
+            targets: {
+              browsers: [ 'last 1 version', 'ie >= 11' ],
+            },
           }
         ],
         '@babel/preset-react',
