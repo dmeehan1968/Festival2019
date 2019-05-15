@@ -1,15 +1,16 @@
 Before launch
 -------------
 
-- TODO: Google Analytics
 - TODO: image caching, is no client caching sensible, max-age?
 - TODO: webpack dotenv - is it necessary, because its baked in
+- TODO: webpack dotenv - not being processed on hot rebuild
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
 Outstanding
 -------------
 
+- TODO: This page appears to be missing CSS declarations for Mapbox GL JS
 - TODO: pm2 deployment
 - TODO: favicon.ico not found (produces 200 response)
 - TODO: styled-components - FOUC, add SSR stylesheet, createGlobalStyles, remove base.less

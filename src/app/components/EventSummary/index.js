@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import useIsClient from 'app/helpers/useIsClient'
 import styles from './EventSummary.less'
 import placeholderImage from 'static/Placeholder.png'
+import ReactGA from 'react-ga'
 
 import Image from 'app/components/Image'
 
@@ -47,7 +48,15 @@ export default ({
             <label className={isFavourite ? styles.checked : styles.unchecked}>
               <input
                 type="checkbox"
-                onChange={e => setFavourite(id, e.target.checked)}
+                onChange={e => {
+                  ReactGA.event({
+                    category: 'EventSummary',
+                    action: `${e.target.checked ? 'Set' : 'Clear'} Favourite`,
+                    label: title,
+                    value: id,
+                  })
+                  setFavourite(id, e.target.checked)
+                }}
                 checked={isFavourite}
               />
               <FontAwesomeIcon icon="heart" />

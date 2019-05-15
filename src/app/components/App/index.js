@@ -32,6 +32,9 @@ import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
 import 'styles/base.less'
 
+import _GoogleAnalytics from 'app/components/GoogleAnalytics'
+const GoogleAnalytics = withRouter(_GoogleAnalytics)
+
 const TabIcon = styled(FontAwesomeIcon)`
   font-size: ${p=>p.theme.textLg}
 `
@@ -56,6 +59,7 @@ export const App = ({
 }) => {
   return (
     <div className={className}>
+      <GoogleAnalytics />
       <header>
         <FestivalNavBar title="10 Parishes Festival" />
       </header>
