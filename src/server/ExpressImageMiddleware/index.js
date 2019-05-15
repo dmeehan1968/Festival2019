@@ -49,8 +49,9 @@ export default (
       res.set({
         ETag: `"${cachedFile.hash}"`,
         'Last-Modified': (new Date(cachedFile.lastModified)).toUTCString(),
-        'Cache-Control': 'public, max-age=0',
+        'Cache-Control': 'public',
         'Content-Length': cachedFile.size,
+        'Expires': (new Date(cachedFile.lastModified+(options.maxAge*1000))).toUTCString(),
       })
 
       const noneMatch = req.get('If-None-Match')

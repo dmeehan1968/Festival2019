@@ -1,7 +1,6 @@
 Before launch
 -------------
 
-- TODO: image caching, is no client caching sensible, max-age?
 - TODO: webpack dotenv - is it necessary, because its baked in
 - TODO: webpack dotenv - not being processed on hot rebuild
 - TODO: Move 2019 admin to own domain
