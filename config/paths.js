@@ -19,4 +19,5 @@ export default {
   srcServer: path.join(src, 'server'),
   publicPath,
   manifestPath: path.join(clientBuild, 'manifest.json'),
+  nodeModules: resolve('node_modules'),
 }

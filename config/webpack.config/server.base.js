@@ -24,15 +24,15 @@ export default {
     path: paths.serverBuild,
     filename: 'server.bundle.js',
     publicPath: paths.publicPath,
-   },
-   module: {
-     rules: loaders.server,
-   },
-   plugins: [
-     new CleanWebpackPlugin({ verbose: true }),
-     new MiniCssExtractPlugin({
-        filename: 'server.[name].css',
-        chunkFilename: '[id].css',
+  },
+  module: {
+   rules: loaders.server,
+  },
+  plugins: [
+    new CleanWebpackPlugin({ verbose: true }),
+    new MiniCssExtractPlugin({
+      filename: 'server.[name].css',
+      chunkFilename: '[id].css',
     }),
   ],
   ...resolve,

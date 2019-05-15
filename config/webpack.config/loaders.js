@@ -48,7 +48,7 @@ const fileLoader = (options = {}) => ({
 
 const babelLoader = {
   test: /\.(js|jsx)$/,
-  include: paths.src,
+  include: [paths.src],
   use: {
     loader: 'babel-loader',
     options: {
@@ -57,10 +57,9 @@ const babelLoader = {
           '@babel/preset-env',
           {
             useBuiltIns: 'usage',
-            corejs: '3.0.0',
-            targets: {
-              browsers: [ 'last 1 version', 'ie >= 11' ],
-            },
+            corejs: '3.0.1',
+            targets: '> 0.25%, not dead', // client
+            debug: false,
           }
         ],
         '@babel/preset-react',
@@ -94,6 +93,23 @@ const server = [
       ...babelLoader.use,
       options: {
         ...babelLoader.use.options,
+        presets: [
+          ...babelLoader.use.options.presets.map(preset => {
+            if (Array.isArray(preset) && preset[0] === '@babel/preset-env') {
+              return [
+                preset[0],
+                {
+                  ...preset[1],
+                  targets: {
+                    node: true,
+                  },
+                  debug: false,
+                }
+              ]
+            }
+            return preset
+          })
+        ],
         plugins: [
           ...(babelLoader.use.options.plugins || []),
           'inline-dotenv',
