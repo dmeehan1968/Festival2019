@@ -8,6 +8,13 @@ const InfoWindow = styled.div`
   padding: 1em;
   background-color: ${p=>p.theme.colorWhite};
   color: ${p=>p.theme.colorText};
+  font-size: ${p=>p.theme.textLg};
+  h1 {
+    font-size: ${p=>p.theme.textLg};
+  }
+  h2 {
+    font-size: ${p=>p.theme.textMd};
+  }
 `
 
 export const VenueMap = ({ venues, height }) => {
@@ -62,7 +69,7 @@ export const VenueMap = ({ venues, height }) => {
           >
             <InfoWindow>
               <h1>{venue.title}</h1>
-              {
+              <p>{
                 [
                 venue.addresscontact.address1,
                 venue.addresscontact.address2,
@@ -70,8 +77,8 @@ export const VenueMap = ({ venues, height }) => {
                 venue.addresscontact.town,
                 venue.addresscontact.town,
                 venue.addresscontact.postcode
-                ].filter(address=>!!address).map((address, key)=><div key={key}>{address}</div>)
-              }
+              ].filter(address=>!!address).map((address, key)=><React.Fragment key={key}>{address}<br /></React.Fragment>)
+              }</p>
             </InfoWindow>
           </MapMarker>
         )}
