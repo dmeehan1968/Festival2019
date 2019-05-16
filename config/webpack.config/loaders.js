@@ -51,7 +51,6 @@ const babelLoader = {
   include: [
     paths.src,
     require.resolve('redux-storage-engine-localstorage'),
-    require.resolve('react-map-gl'),
   ],
   use: {
     loader: 'babel-loader',

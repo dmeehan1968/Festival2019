@@ -1,6 +1,7 @@
 Before launch
 -------------
 
+- TODO: Replace react-map-gl due to IE11 incompatibility
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
@@ -10,7 +11,10 @@ Outstanding
 - TODO: dotenv-webpack - not being processed on hot rebuild (not watching .env)
 - TODO: dotenv-webpack - being used to convey private keys to client, is this best?
 - TODO: This page appears to be missing CSS declarations for Mapbox GL JS
+
 - TODO: pm2 deployment
+  - TODO: staging during build so built products are still available to running processes
+
 - TODO: favicon.ico not found (produces 200 response)
 - TODO: styled-components - FOUC, add SSR stylesheet, createGlobalStyles, remove base.less
 - TODO: styled-components - production output to CSS?
