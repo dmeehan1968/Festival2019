@@ -6,8 +6,8 @@ import { MapWrapper } from './styles'
 
 const InfoWindow = styled.div`
   padding: 1em;
-  background-color: white;
-  color: black;
+  background-color: ${p=>p.theme.colorWhite};
+  color: ${p=>p.theme.colorText};
 `
 
 export const VenueMap = ({ venues, height }) => {

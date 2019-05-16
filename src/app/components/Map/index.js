@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import useIsClient from 'app/helpers/useIsClient'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 
 import {
   StaticGoogleMap,
@@ -21,8 +21,10 @@ import { InfoBox } from '@syncromatics/react-google-maps/lib/components/addons/I
 export const MapMarker = ({
   latitude,
   longitude,
+  children,
+  ...props,
 }) => {
-  return null
+  return React.Children.map(children, child => React.cloneElement(child, props))
 }
 
 const _DynamicMap = ({
@@ -30,6 +32,7 @@ const _DynamicMap = ({
   longitude,
   zoom,
   children,
+  ...props,
 }) => {
   const [ activeInfoBox, setActiveInfoBox ] = useState(undefined)
 
@@ -50,7 +53,7 @@ const _DynamicMap = ({
               <InfoBox
                 onCloseClick={()=>setActiveInfoBox(undefined)}
               >
-                {child.props.children}
+                {React.cloneElement(child, props)}
               </InfoBox>
             }
           </GoogleMarker>
@@ -60,7 +63,7 @@ const _DynamicMap = ({
   )
 }
 
-const DynamicMap = compose(
+const DynamicMap = withTheme(compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${process.env.GoogleMapsAPI}&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: `100%` }} />,
@@ -69,7 +72,7 @@ const DynamicMap = compose(
   }),
   withScriptjs,
   withGoogleMap
-)(_DynamicMap)
+)(_DynamicMap))
 
 export default ({
   children,
