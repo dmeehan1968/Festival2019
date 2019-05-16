@@ -41,16 +41,11 @@ export default ({
     zoom: zoom,
   })
 
-    return (
-        {children}
-    )
-  } else {
-    return (
-      <StaticGoogleMap size="400x400" scale="1" apiKey={process.env.GoogleMapsAPI}>
-        {React.Children.map(children, (child, key) => {
-          return <StaticMarker key={key} location={`${child.props.latitude},${child.props.longitude}`} />
-        })}
-      </StaticGoogleMap>
-    )
-  }
+  return (
+    <StaticGoogleMap size="400x400" scale="1" apiKey={process.env.GoogleMapsAPI}>
+      {React.Children.map(children, (child, key) => {
+        return <StaticMarker key={key} location={`${child.props.latitude},${child.props.longitude}`} />
+      })}
+    </StaticGoogleMap>
+  )
 }
