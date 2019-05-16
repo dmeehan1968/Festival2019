@@ -2,11 +2,14 @@ Before launch
 -------------
 
 - TODO: Replace react-map-gl due to IE11 incompatibility
+- TODO: Toolbar appears stacked on IE11
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
 Outstanding
 -------------
+
+- TODO: https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
 
 - TODO: dotenv-webpack - not being processed on hot rebuild (not watching .env)
 - TODO: dotenv-webpack - being used to convey private keys to client, is this best?
