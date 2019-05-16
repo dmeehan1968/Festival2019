@@ -1,7 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import Map from 'app/components/Map'
-import VenueMapInfoDetail from 'app/components/VenueMapInfoDetail'
-import VenueMapMarker from 'app/components/VenueMapMarker'
+import Map, { MapMarker } from 'app/components/Map'
 
 import { MapWrapper } from './styles'
 
@@ -49,7 +47,13 @@ export const VenueMap = ({ venues, height }) => {
         popup={popup}
         setPopup={setPopup}
       >
-        {venues.map((venue, key) => <VenueMapMarker key={key} venue={venue} setPopup={setPopup} />)}
+        {venues.map((venue, key) =>
+          <MapMarker
+            key={key}
+            latitude={venue.addresscontact.latitude}
+            longitude={venue.addresscontact.longitude}
+          />
+        )}
       </Map>
     </MapWrapper>
   )

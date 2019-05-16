@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import useIsClient from 'app/helpers/useIsClient'
 import styled from 'styled-components'
+import {
+  StaticGoogleMap,
+  Marker as StaticMarker,
+} from 'react-static-google-map';
+
+export const MapMarker = ({
+  latitude,
+  longitude,
+}) => {
+  return null
+}
+
 
 
 export default ({
@@ -34,6 +46,11 @@ export default ({
     )
   } else {
     return (
+      <StaticGoogleMap size="400x400" scale="1" apiKey={process.env.GoogleMapsAPI}>
+        {React.Children.map(children, (child, key) => {
+          return <StaticMarker key={key} location={`${child.props.latitude},${child.props.longitude}`} />
+        })}
+      </StaticGoogleMap>
     )
   }
 }
