@@ -48,7 +48,7 @@ const fileLoader = (options = {}) => ({
 
 const babelLoader = {
   test: /\.(js|jsx)$/,
-  include: [paths.src],
+  include: [paths.src, require.resolve('redux-storage-engine-localstorage')],
   use: {
     loader: 'babel-loader',
     options: {
@@ -59,7 +59,8 @@ const babelLoader = {
             useBuiltIns: 'usage',
             corejs: '3.0.1',
             targets: '> 0.25%, not dead', // client
-            debug: false,
+            modules: 'cjs',
+            debug: true,
           }
         ],
         '@babel/preset-react',
