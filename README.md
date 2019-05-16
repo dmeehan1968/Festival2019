@@ -1,7 +1,7 @@
 Before launch
 -------------
 
-- TODO: Replace react-map-gl due to IE11 incompatibility
+- TODO: Components in InfoBox cannot get context (ThemeProvider, Router)
 - TODO: Toolbar appears stacked on IE11
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
