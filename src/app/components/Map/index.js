@@ -79,7 +79,7 @@ export default ({
   bounds,
   latitude,
   longitude,
-  zoom = 8,
+  zoom = 11,
   height = 400,
   width = "100%",
   popup,
