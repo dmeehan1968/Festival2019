@@ -69,7 +69,6 @@
     "react-dom": "^16.8.6",
     "react-ga": "^2.5.7",
     "react-helmet": "^5.2.1",
-    "react-map-gl": "^4.1.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-static-google-map": "^0.5.2",
@@ -83,8 +82,7 @@
     "serialize-javascript": "^1.7.0",
     "sharp": "^0.22.1",
     "styled-components": "^4.2.0",
-    "styled-media-query": "^2.1.1",
-    "viewport-mercator-project": "^6.1.1"
+    "styled-media-query": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
