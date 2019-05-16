@@ -31,16 +31,28 @@ const _DynamicMap = ({
   zoom,
   children,
 }) => {
+  const [ activeInfoBox, setActiveInfoBox ] = useState(undefined)
+
   return (
     <GoogleMap
       defaultZoom={zoom}
-      defaultCenter={{ lat: latitude, lng: longitude }}>
+      defaultCenter={{ lat: latitude, lng: longitude }}
+      onClick={()=>setActiveInfoBox(undefined)}
+    >
       {React.Children.map(children, (child, key) => {
         return (
-          <GoogleMarker key={key} position={{ lat: child.props.latitude, lng: child.props.longitude }}>
-            <InfoBox>
-              {child.props.children}
-            </InfoBox>
+          <GoogleMarker
+            key={key}
+            position={{ lat: child.props.latitude, lng: child.props.longitude }}
+            onClick={()=>setActiveInfoBox(key)}
+          >
+            {activeInfoBox === key &&
+              <InfoBox
+                onCloseClick={()=>setActiveInfoBox(undefined)}
+              >
+                {child.props.children}
+              </InfoBox>
+            }
           </GoogleMarker>
         )
       })}
@@ -50,13 +62,13 @@ const _DynamicMap = ({
 
 const DynamicMap = compose(
   withProps({
-     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${process.env.GoogleMapsAPI}&libraries=geometry,drawing,places`,
-     loadingElement: <div style={{ height: `100%` }} />,
-     containerElement: <div style={{ height: `100%` }} />,
-     mapElement: <div style={{ height: `100%` }} />,
-   }),
-   withScriptjs,
-   withGoogleMap
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${process.env.GoogleMapsAPI}&libraries=geometry,drawing,places`,
+    loadingElement: <div style={{ height: `100%` }} />,
+    containerElement: <div style={{ height: `100%` }} />,
+    mapElement: <div style={{ height: `100%` }} />,
+  }),
+  withScriptjs,
+  withGoogleMap
 )(_DynamicMap)
 
 export default ({
