@@ -2,6 +2,15 @@ import React, { useState, useEffect } from 'react'
 import ReactMap, { Popup, NavigationControl } from 'react-map-gl'
 import { NavigationControlWrapper } from './styles'
 import WebMercatorViewport from 'viewport-mercator-project'
+import useIsClient from 'app/helpers/useIsClient'
+import styled from 'styled-components'
+
+const WarningMessage = styled.div`
+  display: grid;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+`
 
 export default ({
   children,
@@ -15,6 +24,8 @@ export default ({
   setPopup = () => console.log('Map: no popup handler defined'),
   ...otherProps,
 }) => {
+
+  const isClient = useIsClient()
 
   const center = {
     longitude: bounds.minLng + ((bounds.maxLng - bounds.minLng) / 2),
@@ -46,33 +57,45 @@ export default ({
 
   }, [ bounds, viewport.height, viewport.width ])
 
-  return (
-    <ReactMap
-      {...viewport}
-      {...otherProps}
-      height={height}
-      width={width}
-      mapStyle="mapbox://styles/mapbox/streets-v11"
-      onViewportChange={viewport => setViewport(viewport)}
-      onClick={() => setPopup(null)}
-    >
-      {children}
+  if (isClient && ReactMap.supported()) {
+    return (
+      <ReactMap
+        {...viewport}
+        {...otherProps}
+        height={height}
+        width={width}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        onViewportChange={viewport => setViewport(viewport)}
+        onClick={() => setPopup(null)}
+      >
+        {children}
 
-      {popup &&
-        <Popup
-          latitude={popup.latitude}
-          longitude={popup.longitude}
-          closeOnClick={false}
-          closeButton={false}
-        >
-          {popup.content}
-        </Popup>
-      }
+        {popup &&
+          <Popup
+            latitude={popup.latitude}
+            longitude={popup.longitude}
+            closeOnClick={false}
+            closeButton={false}
+          >
+            {popup.content}
+          </Popup>
+        }
 
-      <NavigationControlWrapper>
-        <NavigationControl onViewportChange={viewport => setViewport(viewport)}/>
-      </NavigationControlWrapper>
+        <NavigationControlWrapper>
+          <NavigationControl onViewportChange={viewport => setViewport(viewport)}/>
+        </NavigationControlWrapper>
 
-    </ReactMap>
-  )
+      </ReactMap>
+    )
+  } else {
+    return (
+      <WarningMessage>
+        {ReactMap.supported() &&
+          <span suppressHydrationWarning={true}>Loading Map...</span>
+          ||
+          <span>Maps are not supported on your browser</span>
+        }
+      </WarningMessage>
+    )
+  }
 }
