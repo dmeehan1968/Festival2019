@@ -1,7 +1,14 @@
 import React, { useState, useMemo } from 'react'
 import Map, { MapMarker } from 'app/components/Map'
+import styled from 'styled-components'
 
 import { MapWrapper } from './styles'
+
+const InfoWindow = styled.div`
+  padding: 1em;
+  background-color: white;
+  color: black;
+`
 
 export const VenueMap = ({ venues, height }) => {
 
@@ -52,7 +59,21 @@ export const VenueMap = ({ venues, height }) => {
             key={key}
             latitude={venue.addresscontact.latitude}
             longitude={venue.addresscontact.longitude}
-          />
+          >
+            <InfoWindow>
+              <h1>{venue.title}</h1>
+              {
+                [
+                venue.addresscontact.address1,
+                venue.addresscontact.address2,
+                venue.addresscontact.address3,
+                venue.addresscontact.town,
+                venue.addresscontact.town,
+                venue.addresscontact.postcode
+                ].filter(address=>!!address).map((address, key)=><div key={key}>{address}</div>)
+              }
+            </InfoWindow>
+          </MapMarker>
         )}
       </Map>
     </MapWrapper>
