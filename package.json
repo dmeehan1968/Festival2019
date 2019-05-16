@@ -72,6 +72,7 @@
     "react-map-gl": "^4.1.2",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
+    "react-static-google-map": "^0.5.2",
     "react-waypoint": "^9.0.2",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
