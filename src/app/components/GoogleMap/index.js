@@ -32,7 +32,7 @@ export const GoogleMap = ({
       center: defaultCenter,
       zoom: defaultZoom,
     })
-    onMapLoad(map)
+    onMapLoad(window.google, map)
     React.Children.forEach(children, (child, index) => {
       const position = { lat: child.props.lat, lng: child.props.lng }
       const marker = new window.google.maps.Marker({ position, map })
@@ -48,6 +48,8 @@ export const GoogleMap = ({
     if (!window.google) {
       const script = document.createElement('script')
       script.type = 'text/javascript'
+      script.async = true
+      script.defer = true
       script.src = `https://maps.google.com/maps/api/js?key=${apiKey}`
       const body = document.getElementsByTagName('body')[0]
       body.appendChild(script)

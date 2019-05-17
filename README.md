@@ -2,7 +2,6 @@ Before launch
 -------------
 
 - TODO: Map - only one infowindow at a time
-- TODO: Map - Calc bounds for venues to set appropriate zoom
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 

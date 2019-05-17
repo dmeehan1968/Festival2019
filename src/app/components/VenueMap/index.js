@@ -30,34 +30,18 @@ export const VenueMap = ({
     return null
   }
 
-  const bounds = useMemo(() => {
-    return venues
-      .map(venue => ({ longitude: venue.addresscontact.longitude, latitude: venue.addresscontact.latitude }))
-      .reduce((acc, coords) => {
-        return {
-          minLng: Math.min(coords.longitude, typeof acc.minLng === 'undefined' ? coords.longitude : acc.minLng),
-          maxLng: Math.max(coords.longitude, typeof acc.maxLng === 'undefined' ? coords.longitude : acc.maxLng),
-          minLat: Math.min(coords.latitude, typeof acc.minLat === 'undefined' ? coords.latitude : acc.minLat),
-          maxLat: Math.max(coords.latitude, typeof acc.maxLat === 'undefined' ? coords.latitude : acc.maxLat),
-        }
-      }, { })
-
-  }, [ venues ])
-
-  const center = {
-    longitude: bounds.minLng + ((bounds.maxLng - bounds.minLng) / 2),
-    latitude: bounds.minLat + ((bounds.maxLat - bounds.minLat) / 2),
-  }
-
-  console.log(bounds)
-  console.log(center)
-
   return (
     <GoogleMap
       height={height}
       apiKey={process.env.GoogleMapsAPI}
-      defaultCenter={{ lat: center.latitude, lng: center.longitude }}
       defaultZoom={10}
+      onMapLoad={(google, map)=>{
+        const gBounds = venues.reduce((acc, venue) => {
+          acc.extend({ lat: venue.addresscontact.latitude, lng: venue.addresscontact.longitude })
+          return acc
+        }, new google.maps.LatLngBounds())
+        map.fitBounds(gBounds)
+      }}
     >
       {venues.map((venue, key) => {
         return (
