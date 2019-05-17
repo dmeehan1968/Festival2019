@@ -61,6 +61,17 @@ export const GoogleMap = ({
     }
   }, [])
 
+  return <GoogleMapRender mapId={mapId} height={height} elements={elements} children={children} />
+
+}
+
+const GoogleMapRender = ({
+  mapId,
+  height,
+  elements,
+  children,
+}) => {
+
   return <div style={{ height }}  id={mapId}>
     {
       React.Children.map(children, (child, index) => {
@@ -70,7 +81,5 @@ export const GoogleMap = ({
       })
     }
   </div>
-
 }
-
 export default GoogleMap
