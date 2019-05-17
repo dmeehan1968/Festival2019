@@ -41,7 +41,7 @@ export const GoogleMap = ({
       }
       marker.addListener('click', () => { createInfoWindow(map, position, index) })
     })
-    setElements(elements)
+    setElements([...elements])  // new array or render doesn't happen
   }
 
   useEffect(() => {
@@ -59,7 +59,7 @@ export const GoogleMap = ({
     } else {
       onLoadScript()
     }
-  })
+  }, [])
 
   return <div style={{ height }}  id={mapId}>
     {
