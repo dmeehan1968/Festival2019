@@ -68,7 +68,7 @@ export const VenueMap = ({
               events.filter(event=>event.venue_id == venue.id).map((event, key, array) => {
                 return (
                   <React.Fragment key={key}>
-                    <Link to="/">{event.title}</Link>
+                    <Link to={`/events/${event.id}`}>{event.title}</Link>
                     {key < array.length-1 && <span>, </span>}
                   </React.Fragment>
                 )
