@@ -92,7 +92,7 @@ export const App = ({
 
 const StyledApp = styled(App)`
 
-  height: 100%;
+  height: 100vh;
 
   header, footer {
     position: fixed;
@@ -105,7 +105,7 @@ const StyledApp = styled(App)`
   }
 
   main {
-    min-height: 100vh;
+    height: 100%;
     box-sizing: border-box;
     padding-top: ${p=>p.theme.headerHeight};
     padding-bottom: ${p=>p.theme.footerHeight};
