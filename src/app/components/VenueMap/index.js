@@ -1,14 +1,13 @@
 import React, { useState, useMemo } from 'react'
-import Map, { MapMarker } from 'app/components/Map'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-import { MapWrapper } from './styles'
+import GoogleMap from 'app/components/GoogleMap'
 
 const InfoWindow = styled.div`
-  padding: 1em;
   background-color: ${p=>p.theme.colorWhite};
   color: ${p=>p.theme.colorText};
-  font-size: ${p=>p.theme.textLg};
   h1 {
     font-size: ${p=>p.theme.textLg};
   }
@@ -17,7 +16,11 @@ const InfoWindow = styled.div`
   }
 `
 
-export const VenueMap = ({ venues, height }) => {
+export const VenueMap = ({
+  venues,
+  events,
+  height,
+}) => {
 
   venues = useMemo(() => {
     return venues.filter(venue => venue.addresscontact && venue.addresscontact.longitude && venue.addresscontact.latitude)
@@ -46,45 +49,57 @@ export const VenueMap = ({ venues, height }) => {
     latitude: bounds.minLat + ((bounds.maxLat - bounds.minLat) / 2),
   }
 
-  // console.log(bounds)
-  // console.log(center)
-
-  const [ popup, setPopup ] = useState(null)
+  console.log(bounds)
+  console.log(center)
 
   return (
-    <MapWrapper>
-      <Map
-        bounds={bounds}
-        height={height}
-        longitude={center.longitude}
-        latitude={center.latitude}
-        popup={popup}
-        setPopup={setPopup}
-      >
-        {venues.map((venue, key) =>
-          <MapMarker
+    <GoogleMap
+      height={height}
+      apiKey={process.env.GoogleMapsAPI}
+      defaultCenter={{ lat: center.latitude, lng: center.longitude }}
+      defaultZoom={10}
+    >
+      {venues.map((venue, key) => {
+        return (
+          <InfoWindow
             key={key}
-            latitude={venue.addresscontact.latitude}
-            longitude={venue.addresscontact.longitude}
+            lat={venue.addresscontact.latitude}
+            lng={venue.addresscontact.longitude}
           >
-            <InfoWindow>
-              <h1>{venue.title}</h1>
-              <p>{
+            <h1>{venue.title}</h1>
+            <p>
+              {
                 [
-                venue.addresscontact.address1,
-                venue.addresscontact.address2,
-                venue.addresscontact.address3,
-                venue.addresscontact.town,
-                venue.addresscontact.town,
-                venue.addresscontact.postcode
-              ].filter(address=>!!address).map((address, key)=><React.Fragment key={key}>{address}<br /></React.Fragment>)
-              }</p>
-            </InfoWindow>
-          </MapMarker>
-        )}
-      </Map>
-    </MapWrapper>
+                  venue.addresscontact.address1,
+                  venue.addresscontact.address2,
+                  venue.addresscontact.address3,
+                  venue.addresscontact.town,
+                  venue.addresscontact.county,
+                  venue.addresscontact.postcode,
+                ].filter(addr=>!!addr).map((addr, key)=>(<React.Fragment key={key}>{addr}<br /></React.Fragment>))
+              }
+            </p>
+            <h2>Events at this venue</h2>
+            {
+              events.filter(event=>event.venue_id == venue.id).map((event, key, array) => {
+                return (
+                  <React.Fragment key={key}>
+                    <Link to="/">{event.title}</Link>
+                    {key < array.length-1 && <span>, </span>}
+                  </React.Fragment>
+                )
+              })
+            }
+          </InfoWindow>
+        )
+      })}
+    </GoogleMap>
   )
+
 }
 
-export default VenueMap
+const mapStateToProps = state => ({
+  events: state.events
+})
+
+export default connect(mapStateToProps)(VenueMap)
