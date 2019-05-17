@@ -1,14 +1,15 @@
 Before launch
 -------------
 
-- TODO: Components in InfoBox cannot get context (ThemeProvider, Router)
-- TODO: Calc bounds for venues to set appropriate zoom
+- TODO: Map - only one infowindow at a time
+- TODO: Map - Calc bounds for venues to set appropriate zoom
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
 Outstanding
 -------------
 
+- TODO: NavBar/ToolBar scroll placement still not right, map overlayed by nav/tabbar
 - TODO: TabBar behaviour on ios due to conflicting Safari action bar
 
 - TODO: https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
@@ -38,9 +39,6 @@ Outstanding
 - TODO: Images - prevent stretch for small images in all contexts
 - TODO: Image Middleware - group sizes by breakpoint
 - TODO: FontAwesome - render client only
-- TODO: Map - InfoWindow formatting
-- TODO: Map - InfoWindow links to events
-- TOOD: Map - Check bottom margin (might need height 100%)
 - TODO: Event Page - Heading Styling
 - TODO: Event Page - multi-column on wide screen
 - TODO: Event Grid - Filter panel (also restore resultText in FilteredEventList)
