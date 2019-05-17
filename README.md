@@ -3,7 +3,6 @@ Before launch
 
 - TODO: Components in InfoBox cannot get context (ThemeProvider, Router)
 - TODO: Calc bounds for venues to set appropriate zoom
-- TODO: Toolbar appears stacked on IE11
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
@@ -39,7 +38,6 @@ Outstanding
 - TODO: Images - prevent stretch for small images in all contexts
 - TODO: Image Middleware - group sizes by breakpoint
 - TODO: FontAwesome - render client only
-- TODO: TabBar - make hit area larger
 - TODO: Map - InfoWindow formatting
 - TODO: Map - InfoWindow links to events
 - TOOD: Map - Check bottom margin (might need height 100%)

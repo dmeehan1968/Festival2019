@@ -36,16 +36,21 @@ export default styled(TabBar)`
   ul {
 
     list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
-    grid-column-gap: 1em;
     align-items: center;
+    display: flex;
+    flex-direction: row;
     height: 100%;
 
     li {
 
       width: 100%;
+      padding: 0 ${p=>p.theme.spaceXs};
       text-align: center;
+
+      a {
+        display: inline-block;
+        padding: 0 ${p=>p.theme.spaceSm};
+      }
 
       .label {
         font-size: ${p=>p.theme.textSm};
