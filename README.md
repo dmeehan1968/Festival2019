@@ -10,6 +10,8 @@ Before launch
 Outstanding
 -------------
 
+- TODO: TabBar behaviour on ios due to conflicting Safari action bar
+
 - TODO: https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
 
 - TODO: dotenv-webpack - not being processed on hot rebuild (not watching .env)
