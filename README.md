@@ -20,6 +20,9 @@ Outstanding
 - TODO: pm2 deployment
   - TODO: staging during build so built products are still available to running processes
 
+- TODO: social media links
+- TODO: 404 Not Found page needs improving
+- TODO: Invalid event id produces a minimal page, but should be 'not found'
 - TODO: favicon.ico not found (produces 200 response)
 - TODO: styled-components - FOUC, add SSR stylesheet, createGlobalStyles, remove base.less
 - TODO: styled-components - production output to CSS?
@@ -28,6 +31,8 @@ Outstanding
 - TODO: webpack - code split to remove mapbox and react-map-gl from initial bundle
 - TODO: Jest testing
 - TODO: GitGuardian - Google API key in git history
+- TODO: Carousel - IE11 - initial image not centered
+- TODO: Carousel - IE11 - image gap not consistent
 - TODO: Carousel - pause/prev/next
 - TODO: Carousel - lazy loading
 - TODO: Carousel - Circular loop
