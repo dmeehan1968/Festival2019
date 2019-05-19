@@ -69,7 +69,7 @@ export const App = ({
           <Route exact path="/" component={EventsPage} />
           <Route exact path="/map" component={MapPage} />
           <Route exact path="/favourites" component={FavouritesPage} />
-          <Route exact path="/events/:id" component={RoutedEventPage} />
+          <Route path="/events/:id" component={RoutedEventPage} />
           <Route component={NotFound} />
         </Switch>
       </main>
