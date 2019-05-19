@@ -45,20 +45,12 @@ export const GoogleMap = ({
   }
 
   useEffect(() => {
-    if (!window.google) {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.async = true
-      script.defer = true
-      script.src = `https://maps.google.com/maps/api/js?key=${apiKey}`
-      const body = document.getElementsByTagName('body')[0]
-      body.appendChild(script)
-      script.addEventListener('load', e => {
-        onLoadScript()
-      })
-    } else {
+
+    const scriptjs = require('scriptjs')
+    scriptjs(`https://maps.google.com/maps/api/js?key=${apiKey}`, () => {
       onLoadScript()
-    }
+    })
+    
   }, [])
 
   return <GoogleMapRender mapId={mapId} height={height} elements={elements} children={children} />
