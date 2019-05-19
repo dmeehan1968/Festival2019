@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM, { render } from 'react-dom'
+import assert from 'assert'
+import buildUrl from 'build-url'
 
 export const GoogleMap = ({
   mapId = 'map',
-  apiKey,
+  apiParams = {},
   defaultZoom,
   defaultCenter,
   height = '100%',
   onMapLoad = () => {},
   children,
 }) => {
+
+  assert(apiParams.key, 'Maps API params requires "key" parameter')
 
   const [ elements, setElements ] = useState([])
 
@@ -42,9 +46,10 @@ export const GoogleMap = ({
   useEffect(() => {
 
     const scriptjs = require('scriptjs')
-    scriptjs(`https://maps.google.com/maps/api/js?key=${apiKey}`, () => {
-      onLoadScript()
+    const mapsJs = buildUrl('https://maps.google.com/maps/api/js', {
+      queryParams: apiParams
     })
+    scriptjs(mapsJs, onLoadScript)
 
   }, [])
 
@@ -59,7 +64,7 @@ const GoogleMapRender = ({
   children,
 }) => {
 
-  return <div style={{ height }}  id={mapId}>
+  return <div style={{ height }} id={mapId}>
     {
       React.Children.map(children, (child, index) => {
         if (elements[index]) {

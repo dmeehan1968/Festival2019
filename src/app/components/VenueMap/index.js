@@ -33,7 +33,7 @@ export const VenueMap = ({
   return (
     <GoogleMap
       height={height}
-      apiKey={process.env.GoogleMapsAPI}
+      apiParams={{ key: process.env.GoogleMapsAPI }}
       defaultZoom={10}
       onMapLoad={(google, map)=>{
         const gBounds = venues.reduce((acc, venue) => {
