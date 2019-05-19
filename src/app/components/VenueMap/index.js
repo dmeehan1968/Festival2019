@@ -36,11 +36,11 @@ export const VenueMap = ({
       apiParams={{ key: process.env.GoogleMapsAPI }}
       defaultZoom={10}
       onMapLoad={(google, map)=>{
-        const gBounds = venues.reduce((acc, venue) => {
-          acc.extend({ lat: venue.addresscontact.latitude, lng: venue.addresscontact.longitude })
-          return acc
+        const bounds = venues.reduce((bounds, venue) => {
+          bounds.extend({ lat: venue.addresscontact.latitude, lng: venue.addresscontact.longitude })
+          return bounds
         }, new google.maps.LatLngBounds())
-        map.fitBounds(gBounds)
+        map.fitBounds(bounds)
       }}
     >
       {venues.map((venue, key) => {
