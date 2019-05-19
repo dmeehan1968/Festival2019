@@ -19,7 +19,7 @@ export const GoogleMap = ({
 
   const createInfoWindow = (map, position, index) => {
     const infoWindow = new window.google.maps.InfoWindow({
-      content: elements[index].firstChild,
+      content: elements[index],
       position: position,
     })
 
@@ -74,4 +74,5 @@ const GoogleMapRender = ({
     }
   </div>
 }
+
 export default GoogleMap
