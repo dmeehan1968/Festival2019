@@ -15,7 +15,7 @@ export const GoogleMap = ({
 
   const createInfoWindow = (map, position, index) => {
     const infoWindow = new window.google.maps.InfoWindow({
-      content: elements[index],
+      content: elements[index].firstChild,
       position: position,
     })
 
@@ -45,7 +45,7 @@ export const GoogleMap = ({
     scriptjs(`https://maps.google.com/maps/api/js?key=${apiKey}`, () => {
       onLoadScript()
     })
-    
+
   }, [])
 
   return <GoogleMapRender mapId={mapId} height={height} elements={elements} children={children} />
