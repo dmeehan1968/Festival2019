@@ -14,14 +14,9 @@ export const GoogleMap = ({
   const [ elements, setElements ] = useState([])
 
   const createInfoWindow = (map, position, index) => {
-    const id = `infoWindow_${index}`
     const infoWindow = new window.google.maps.InfoWindow({
-      content: `<div id="${id}" />`,
+      content: elements[index],
       position: position,
-    })
-
-    infoWindow.addListener('domready', () => {
-      document.getElementById(id).appendChild(elements[index])
     })
 
     infoWindow.open(map)
