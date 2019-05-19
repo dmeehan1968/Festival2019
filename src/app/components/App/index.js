@@ -109,6 +109,7 @@ const StyledApp = styled(App)`
     box-sizing: border-box;
     padding-top: ${p=>p.theme.headerHeight};
     padding-bottom: ${p=>p.theme.footerHeight};
+    -webkit-overflow-scrolling: touch;
   }
 
   footer {
