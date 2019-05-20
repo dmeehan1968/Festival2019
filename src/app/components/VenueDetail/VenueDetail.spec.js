@@ -1,8 +1,7 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { VenueDetail } from '.'
 import * as designSystem from 'styles/designSystem'
-import { ThemeProvider } from 'styled-components'
 
 describe("VenueDetail", () => {
 
@@ -11,10 +10,8 @@ describe("VenueDetail", () => {
   describe("empty venue", () => {
 
     beforeEach(() => {
-      wrapper = mount(
-        <ThemeProvider theme={designSystem}>
-          <VenueDetail />
-        </ThemeProvider>
+      wrapper = shallow(
+        <VenueDetail />
       )
     });
 
@@ -160,39 +157,44 @@ describe("VenueDetail", () => {
     }
 
     beforeEach(() => {
-      wrapper = mount(
-        <ThemeProvider theme={designSystem}>
-          <VenueDetail venue={expected} />
-        </ThemeProvider>
+      wrapper = shallow(
+        <VenueDetail venue={expected} />
       )
     });
 
     describe("VenueMap", () => {
 
+      let venueMapElement
       beforeEach(() => {
-        wrapper = wrapper.find('Meta[title="Map"] VenueMap')
+        venueMapElement = wrapper.find('Meta[title="Map"]').prop('content')
+      });
+
+      it("is a VenueMap", () => {
+        expect(React.isValidElement(venueMapElement)).toBeTruthy()
+        expect(venueMapElement.type.displayName).toMatch(/VenueMap/)
       });
 
       it("has fixed height", () => {
-        expect(wrapper.prop('height')).toEqual(400)
+        expect(venueMapElement.props.height).toEqual(400)
       });
 
       it("has venue", () => {
-        expect(wrapper.prop('venues')).toEqual([ expected ])
+        expect(venueMapElement.props.venues).toEqual([ expected ])
       });
 
     });
 
     it("address", () => {
-      const text = wrapper.find('Meta[title="Address"] dd').text()
-      expect(text).toEqual([
+      const props = wrapper.find('Meta[title="Address"]').props()
+      expect(props.content).toEqual([
         expected.addresscontact.address1,
         expected.addresscontact.address2,
         expected.addresscontact.address3,
         expected.addresscontact.town,
         expected.addresscontact.county,
         expected.addresscontact.postcode,
-      ].filter(a=>!!a).join(''))
+      ].filter(a=>!!a).map((addr,key)=>(<React.Fragment key={key}>{addr}<br /></React.Fragment>)))
+      expect(props.title).toEqual('Address')
     });
 
     it("contact telephone", () => {
