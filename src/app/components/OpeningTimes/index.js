@@ -6,8 +6,8 @@ import DateTimeRange from 'app/components/DateTimeRange'
 import { Table } from './styles'
 
 export const OpeningTimes = ({ dates, times }) => {
-  dates = dates.map(date => ({ ...date, date: moment(date.date) }))
-  times = times.map(time => ({ ...time, start: moment(time.start), end: moment(time.end) }))
+  dates = dates.map(date => ({ ...date, date: moment.utc(date.date) }))
+  times = times.map(time => ({ ...time, start: moment.utc(time.start), end: moment.utc(time.end) }))
 
   if (!times || times.length < 1) {
     return 'No Opening Times Specified'
