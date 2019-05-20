@@ -60,3 +60,4 @@ Outstanding
 - TODO: serialize sync - is it needed?
 - TODO: URLs - redirect old to new style
 - TODO: .htaccess - enable redirect to force HTTPS
+- TODO: Date/Times - Timezone handling needs to ensure UTC on the server and GMT in the client, affects admin side too
