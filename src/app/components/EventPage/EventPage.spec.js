@@ -1,5 +1,5 @@
 import React from 'react'
-import { mount } from 'enzyme'
+import { shallow } from 'enzyme'
 import { EventPage } from '.'
 import * as designSystem from 'styles/designSystem'
 import { ThemeProvider } from 'styled-components'
@@ -11,15 +11,15 @@ describe("EventPage", () => {
   describe("empty event", () => {
 
     beforeEach(() => {
-      wrapper = mount(
-        <ThemeProvider theme={designSystem}>
+      wrapper = shallow(
+        // <ThemeProvider theme={designSystem}>
           <EventPage />
-        </ThemeProvider>
+        // </ThemeProvider>
       )
     });
 
     it("shows No Title", () => {
-      expect(wrapper.find('section h1').text()).toEqual('No Title')
+      expect(wrapper.find('EventDetailWrapper h1').text()).toEqual('No Title')
     });
 
     it("shows no carousel", () => {
@@ -71,7 +71,10 @@ describe("EventPage", () => {
     });
 
     it("shows no opening times", () => {
-      expect(wrapper.find('Meta[title="Opening Times"] dd').text()).toEqual('No Opening Times Specified')
+      const openingTimesElement = wrapper.find('Meta[title="Opening Times"]').prop('content')
+      expect(React.isValidElement(openingTimesElement)).toBeTruthy()
+      expect(openingTimesElement.type.name).toEqual('OpeningTimes')
+      expect(openingTimesElement.props).toEqual({ dates: [], times: [] })
     });
 
     it("shows no further info", () => {
@@ -324,10 +327,8 @@ describe("EventPage", () => {
      }
 
     beforeEach(() => {
-     wrapper = mount(
-       <ThemeProvider theme={designSystem}>
-         <EventPage event={expected} dates={dates} />
-       </ThemeProvider>
+     wrapper = shallow(
+       <EventPage event={expected} dates={dates} />
      )
     });
 
@@ -342,7 +343,7 @@ describe("EventPage", () => {
       });
 
       it("has title", () => {
-        expect(wrapper.find('section h1').text()).toEqual(expected.title)
+        expect(wrapper.find('EventDetailWrapper h1').text()).toEqual(expected.title)
       });
 
       it("has images", () => {
@@ -382,7 +383,10 @@ describe("EventPage", () => {
       });
 
       it("has booking contact", () => {
-        expect(wrapper.find('Meta[title="Booking Contact"] BookingContact').prop('contact')).toEqual(expected.bookingcontact)
+        const bookingElement = wrapper.find('Meta[title="Booking Contact"]').prop('content')
+        expect(React.isValidElement(bookingElement)).toBeTruthy()
+        expect(bookingElement.type.name).toEqual('BookingContact')
+        expect(bookingElement.props['contact']).toEqual(expected.bookingcontact)
       });
 
       it("has booking info", () => {
@@ -390,11 +394,14 @@ describe("EventPage", () => {
       });
 
       it("has opening times", () => {
-        expect(wrapper.find('Meta[title="Opening Times"] OpeningTimes').props())
-          .toEqual({
-            dates,
-            times: expected.opening_times
-          })
+        const openingTimesElement = wrapper.find('Meta[title="Opening Times"]').prop('content')
+        expect(React.isValidElement(openingTimesElement)).toBeTruthy()
+        expect(openingTimesElement.type.name).toEqual('OpeningTimes')
+        expect(openingTimesElement.props).toEqual({
+          dates,
+          times: expected.opening_times
+        })
+
       });
 
       it("has further info", () => {

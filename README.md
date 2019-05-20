@@ -1,7 +1,6 @@
 Before launch
 -------------
 
-- TODO: Map - only one infowindow at a time
 - TODO: Move 2019 admin to own domain
 - TODO: Move beta to 2019
 
@@ -41,6 +40,8 @@ Outstanding
 - TODO: Images - no image supplied SVG placeholder
 - TODO: Images - loading spinner/progress
 - TODO: Images - prevent stretch for small images in all contexts
+- TODO: Map - only one infowindow at a time
+- TODO: Map - fitBounds too specific for one venue.
 - TODO: Image Middleware - group sizes by breakpoint
 - TODO: FontAwesome - render client only
 - TODO: Event Page - Heading Styling
