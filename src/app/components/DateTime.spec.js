@@ -7,7 +7,7 @@ describe('DateTime', () => {
 
   const sample = '2019-04-07 12:15:00'
   let wrapper
-  beforeEach(() => wrapper = shallow(<DateTime date={moment(sample)} format="YYYY-MM-DD HH:mm:ss" />))
+  beforeEach(() => wrapper = shallow(<DateTime date={moment.utc(sample)} format="YYYY-MM-DD HH:mm:ss" />))
 
   it('should render a span', () => {
     expect(wrapper.find('span').length).toEqual(1)
