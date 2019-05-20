@@ -48,7 +48,7 @@ describe("GoogleMap", () => {
 
   describe("client side", () => {
     beforeEach(() => {
-      wrapper = mount(<GoogleMap apiParams={{ key: 'xxx' }} />)
+      wrapper = shallow(<GoogleMap apiParams={{ key: 'xxx' }} />)
       console.log(wrapper.debug());
     });
 
