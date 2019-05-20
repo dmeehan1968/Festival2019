@@ -7,6 +7,8 @@ Before launch
 Outstanding
 -------------
 
+- TODO: VenueDetail tests failing
+- TODO: Event Page - no bottom padding
 - TODO: NavBar/ToolBar scroll placement still not right, map overlayed by nav/tabbar
 - TODO: TabBar behaviour on ios due to conflicting Safari action bar
 
