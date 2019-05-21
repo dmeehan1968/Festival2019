@@ -13,6 +13,11 @@ export default (
     basePath: process.cwd(),
     cachePath: path.join(os.tmpdir(), 'uk.co.replicated.ExpressImageMiddleware'),
     maxAge: 86400,
+    breakpoints: {
+      mobile: { width: 420 },
+      tablet: { width: 768 },
+      desktop: { width: 1200 },
+    }
   }
 
   if (typeof options === 'string') {

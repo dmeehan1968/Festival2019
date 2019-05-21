@@ -5,6 +5,17 @@ import shrinkToFit from './shrinkToFit'
 import NodeObjectHash from 'node-object-hash'
 const objectHash = NodeObjectHash({ sort: true, coerce: true }).hash
 
+const getOptimalBreakpoint = (breakpoints, requested) => {
+  let optimalBreakpoint
+  Object.keys(breakpoints).forEach(key => {
+    const bp = breakpoints[key]
+    if (requested.width && bp.width && requested.width <= bp.width && !optimalBreakpoint) {
+      optimalBreakpoint = bp
+    }
+  })
+  return optimalBreakpoint
+}
+
 export default (src, query, options) => {
 
   let diff={}
@@ -17,6 +28,16 @@ export default (src, query, options) => {
     if (shrunk) {
       diff.height = shrunk[0]
       diff.width = shrunk[1]
+      const imageRatio = metadata.width / metadata.height
+      const optimalBreakpoint = getOptimalBreakpoint(options.breakpoints, { width: diff.width, height: diff.height })
+      if (diff.width && optimalBreakpoint && optimalBreakpoint.width) {
+        diff.width = optimalBreakpoint.width
+        diff.height = Math.ceil(diff.width / imageRatio)
+      }
+      if (diff.height && optimalBreakpoint && optimalBreakpoint.height) {
+        diff.height = optimalBreakpoint.height
+        diff.width = Math.ceil(optimalBreakpoint.height * imageRatio)
+      }
     } else {
       delete diff.height;
       delete diff.width;
