@@ -7,11 +7,9 @@ Before launch
 Outstanding
 -------------
 
-- TODO: VenueDetail tests failing
 - TODO: Event Page - no bottom padding
 - TODO: NavBar/ToolBar scroll placement still not right, map overlayed by nav/tabbar
 - TODO: TabBar behaviour on ios due to conflicting Safari action bar
-
 - TODO: https://philipwalton.com/articles/deploying-es2015-code-in-production-today/
 
 - TODO: dotenv-webpack - not being processed on hot rebuild (not watching .env)
@@ -44,12 +42,12 @@ Outstanding
 - TODO: Images - prevent stretch for small images in all contexts
 - TODO: Map - only one infowindow at a time
 - TODO: Map - fitBounds too specific for one venue.
-- TODO: Image Middleware - group sizes by breakpoint
 - TODO: FontAwesome - render client only
 - TODO: Event Page - Heading Styling
 - TODO: Event Page - multi-column on wide screen
 - TODO: Event Grid - Filter panel (also restore resultText in FilteredEventList)
 - TODO: Event Grid - Fav indicator should have tooltip
+- TODO: Event Grid - populate grid during scroll (needs non-column layout)
 - TODO: NavBar - responsive search/filter dropdown
 - TODO: Scroll restoration - save offset on tab change, restore on back button on returning to grid
 - TODO: Font Size - check responsive sizing
