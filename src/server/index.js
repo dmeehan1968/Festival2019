@@ -47,7 +47,10 @@ function routes(context) {
   context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
-  context.app.use('/App', ExpressImageMiddleware(context.app.get('imagePath')))
+  context.app.use('/App', ExpressImageMiddleware({
+    basePath: context.app.get('imagePath'),
+    cachePath: paths.imageCache,
+  }))
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
   context.app.get('/*', require('server/routes').get, webErrorHandler)

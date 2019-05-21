@@ -11,6 +11,7 @@ const publicPath = '/static/'
 const stats = resolve('build')
 
 export default {
+  imageCache: path.join(rootPath, '.imageCache'),
   stats,
   clientBuild,
   serverBuild,
