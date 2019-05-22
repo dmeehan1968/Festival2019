@@ -82,7 +82,10 @@ describe("EventPage", () => {
     });
 
     it("shows no long description", () => {
-      expect(wrapper.find('Meta[title="Long Description"]').prop('content')).toBeUndefined()
+      const longDescriptionElement = wrapper.find('Meta[title="Long Description"]').prop('content')
+      expect(React.isValidElement(longDescriptionElement))
+      expect(longDescriptionElement.type.name).toEqual('ReactMarkdown')
+      expect(longDescriptionElement.props['source']).toBeUndefined()
     });
 
     it("shows no venue info", () => {
@@ -409,7 +412,10 @@ describe("EventPage", () => {
       });
 
       it("has long description", () => {
-        expect(wrapper.find('Meta[title="Long Description"]').prop('content')).toEqual(expected.longdesc)
+        const longDescriptionElement = wrapper.find('Meta[title="Long Description"]').prop('content')
+        expect(React.isValidElement(longDescriptionElement))
+        expect(longDescriptionElement.type.name).toEqual('ReactMarkdown')
+        expect(longDescriptionElement.props['source']).toEqual(expected.longdesc)
       });
 
     });
