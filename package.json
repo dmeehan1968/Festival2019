@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "repository": "github:dmeehan1968/Festival2019",
   "description": "10 Parishes Festival 2019",
+  "homepage": "https://github.com/dmeehan1968/Festival2019",
+  "author": {
+    "name" : "Dave Meehan",
+    "email" : "dave_meehan@replicated.co.uk"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/dmeehan1968/Festival2019"
+  },
+  "bugs": {
+    "url": "https://github.com/dmeehan1968/Festival2019/issues",
+    "email": "dave_meehan@replicated.co.uk"
+  },
   "main": "server/index.js",
   "scripts": {
     "build": "NODE_ENV=production babel-node --presets @babel/preset-env scripts/build.js",
