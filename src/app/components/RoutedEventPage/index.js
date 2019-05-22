@@ -6,6 +6,7 @@ import NotFound from 'app/components/NotFound'
 
 export const RoutedEventPage = ({
   match: { params: { id: eventId }},
+  location,
   events = [],
   ...props,
 }) => {
@@ -14,7 +15,7 @@ export const RoutedEventPage = ({
   if (event) {
     return <EventPage event={event} {...props} />
   } else {
-    return <NotFound />
+    return <NotFound location={location} />
   }
 }
 
