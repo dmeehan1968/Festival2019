@@ -34,13 +34,25 @@ export const VenueMap = ({
     <GoogleMap
       height={height}
       apiParams={{ key: process.env.GoogleMapsAPI }}
-      defaultZoom={10}
+      defaultZoom={15}
+      defaultCenter={{ lng: -3.312590, lat: 51.042272 }}
       onMapLoad={(google, map)=>{
-        const bounds = venues.reduce((bounds, venue) => {
-          bounds.extend({ lat: venue.addresscontact.latitude, lng: venue.addresscontact.longitude })
-          return bounds
-        }, new google.maps.LatLngBounds())
-        map.fitBounds(bounds)
+        switch (venues.length) {
+          case 0:
+            break;
+          case 1:
+            if (venues.length == 1) {
+              map.setCenter({ lat: venues[0].addresscontact.latitude, lng: venues[0].addresscontact.longitude })
+            }
+            break;
+          default:
+            const bounds = venues.reduce((bounds, venue) => {
+              bounds.extend({ lat: venue.addresscontact.latitude, lng: venue.addresscontact.longitude })
+              return bounds
+            }, new google.maps.LatLngBounds())
+            map.fitBounds(bounds)
+            break;
+        }
       }}
     >
       {venues.map((venue, key) => {
