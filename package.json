@@ -1,17 +1,13 @@
 {
   "name": "10parishesfestival",
   "version": "0.1.0",
-  "repository": "github:dmeehan1968/Festival2019",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmeehan1968/Festival2019"
+  },
   "description": "10 Parishes Festival 2019",
   "homepage": "https://github.com/dmeehan1968/Festival2019",
-  "author": {
-    "name" : "Dave Meehan",
-    "email" : "dave_meehan@replicated.co.uk"
-  },
-  "repository": {
-    "type" : "git",
-    "url" : "https://github.com/dmeehan1968/Festival2019"
-  },
+  "author": "",
   "bugs": {
     "url": "https://github.com/dmeehan1968/Festival2019/issues",
     "email": "dave_meehan@replicated.co.uk"
@@ -30,7 +26,6 @@
     "bubbleprof": "NODE_ENV=development clinic bubbleprof --on-port 'autocannon -c 5 -a 500 localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg?width=538\\&quality=5' -- node ./build/server/server.bundle.js",
     "flame": "NODE_ENV=development clinic flame --on-port \"autocannon localhost:3000/App/Assets/Images/Content/Events/aga-karolinska.jpg?width=538\\&quality=5\" -- node build/server/server.bundle.js"
   },
-  "author": "",
   "license": "ISC",
   "jest": {
     "moduleNameMapper": {
