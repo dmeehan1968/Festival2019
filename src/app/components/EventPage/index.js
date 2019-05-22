@@ -8,7 +8,7 @@ import OpeningTimes from 'app/components/OpeningTimes'
 import Meta from 'app/components/Meta'
 import NavBarAction from 'app/components/NavBarAction'
 import { Link } from 'react-router-dom'
-
+import ReactMarkdown from 'react-markdown'
 import { EventWrapper, EventDetailWrapper, VenueDetailWrapper } from './styles'
 import Image from 'app/components/Image'
 import Carousel from 'app/components/Carousel'
@@ -138,7 +138,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           <Meta title="Age Info" content={event.ageinfo} />
           <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times}/>} />
           <Meta title="Further Info" content={event.furtherinfo} />
-          <Meta title="Long Description" content={event.longdesc} />
+          <Meta title="Long Description" content={<ReactMarkdown source={event.longdesc} />} />
         </dl>
       </EventDetailWrapper>
       <VenueDetailWrapper>
