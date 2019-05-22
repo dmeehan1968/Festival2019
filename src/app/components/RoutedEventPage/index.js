@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import EventPage from 'app/components/EventPage'
+import NotFound from 'app/components/NotFound'
 
 export const RoutedEventPage = ({
   match: { params: { id: eventId }},
@@ -9,7 +10,12 @@ export const RoutedEventPage = ({
   ...props,
 }) => {
   eventId = Number(eventId)
-  return <EventPage event={events.find(event => event.id === eventId)} {...props} />
+  const event = events.find(event => event.id === eventId)
+  if (event) {
+    return <EventPage event={event} {...props} />
+  } else {
+    return <NotFound />
+  }
 }
 
 const mapStateToProps = state => ({
