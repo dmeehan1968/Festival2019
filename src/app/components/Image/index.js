@@ -124,12 +124,6 @@ const Image = ({
         />
       }
       <NoScript>
-        <div
-          style={{
-              width: '100%',
-              paddingBottom: `${Math.floor(100 / (width / height))}%`,
-          }}
-        />
         <img
           {...image}
           src={src()}
