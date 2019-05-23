@@ -3,14 +3,18 @@ import { generateMedia } from 'styled-media-query'
 
 import { modularScale, math, lighten, darken, opacify, transparentize } from 'polished'
 
+export const fontPrimary = '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif';
+export const fontSecondary = 'serif';
+
 export const colorBrandBlue = '#283e6b'
-export const colorPrimary = colorBrandBlue
+export const colorBrandOrange = '#f18823'
+
+export const colorPrimary = colorBrandOrange
 export const colorPrimaryLight = lighten(0.15, colorPrimary)
 export const colorPrimaryDark = darken(0.15, colorPrimary)
 export const colorPrimaryBg = opacify(0.2, colorPrimary)
 
-export const colorBrandOrange = '#f18823'
-export const colorAccent = colorBrandOrange
+export const colorAccent = colorBrandBlue
 export const colorAccentLight = lighten(0.15, colorAccent)
 export const colorAccentDark = darken(0.15, colorAccent)
 export const colorAccentBg = opacify(0.2, colorAccent)

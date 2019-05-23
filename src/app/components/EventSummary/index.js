@@ -133,9 +133,9 @@ export default styled(EventSummary)`
       }
 
       ${Checked} {
-        color: ${p=>p.theme.colorBrandOrange};
+        color: ${p=>p.theme.colorPrimary};
         &:hover {
-          color: ${p=>p.theme.colorAccentLight};
+          color: ${p=>p.theme.colorPrimaryLight};
         }
       }
 

@@ -30,7 +30,7 @@ import ScrollToTop from 'app/components/ScrollToTop'
 
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
-import 'styles/base.less'
+import BaseStyles from 'styles/base'
 
 import _GoogleAnalytics from 'app/components/GoogleAnalytics'
 const GoogleAnalytics = withRouter(_GoogleAnalytics)
@@ -121,7 +121,10 @@ const StyledApp = styled(App)`
 export default () => {
   return (
     <ThemeProvider theme={designSystem}>
-      <StyledApp />
+      <>
+        <BaseStyles />
+        <StyledApp />
+      </>
     </ThemeProvider>
   )
 }
