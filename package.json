@@ -37,7 +37,8 @@
       "src"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.js"
+      "<rootDir>/src/setupTests.js",
+      "./node_modules/jest-enzyme/lib/index.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -117,6 +118,7 @@
     "file-loader": "^3.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
+    "jest-enzyme": "^7.0.2",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.6.0",
