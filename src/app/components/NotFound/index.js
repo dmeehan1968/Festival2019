@@ -1,12 +1,18 @@
 import React from 'react'
 
-import styles from './NotFound.less'
+import styled from 'styled-components'
 
-export default () => {
+export const NotFound = ({
+  className,
+}) => {
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <h1>Not Found</h1>
       <p>The requested page could not be found.</p>
     </div>
   )
 }
+
+export default styled(NotFound)`
+
+`
