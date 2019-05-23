@@ -3,12 +3,10 @@ import { connect } from 'react-redux'
 import EventGrid from 'app/components/EventGrid'
 import useIsClient from 'app/helpers/useIsClient'
 
-import styles from './FavouriteEventsList.less'
-
 const FavouriteEventsList = ({
   events = [],
   favourites = [],
-  className = styles.container,
+  className,
 }) => {
   const isClient = useIsClient()
 
