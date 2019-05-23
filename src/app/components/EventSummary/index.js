@@ -2,23 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import path from 'path'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import useIsClient from 'app/helpers/useIsClient'
-import styles from './EventSummary.less'
 import placeholderImage from 'static/Placeholder.png'
 import ReactGA from 'react-ga'
 
 import Image from 'app/components/Image'
 
-export default ({
+const EventSummary = ({
   id,
   title,
   subtitle,
   preferred_image: image,
   isFavourite = false,
   setFavourite = (id, checked) => { console.log(id, checked) },
-  className = styles.container,
-  classNameFavourite = styles.favourite,
+  className,
 }) => {
   const isClient = useIsClient()
 
@@ -28,6 +27,8 @@ export default ({
       height: 500,
       width: 500,
     }
+
+  const Label = isFavourite ? Checked : Unchecked
 
   return (
     <article className={className}>
@@ -40,12 +41,12 @@ export default ({
           width={image.width}
         />
       </Link>
-      <div className={styles.meta}>
+      <Meta>
         {title && <h2><Link to={`/events/${id}`}>{title}</Link></h2>}
         {subtitle && <h3>{subtitle}</h3>}
         {isClient && (
-          <div className={classNameFavourite}>
-            <label className={isFavourite ? styles.checked : styles.unchecked}>
+          <Favourite>
+            <Label>
               <input
                 type="checkbox"
                 onChange={e => {
@@ -63,10 +64,96 @@ export default ({
               />
               <FontAwesomeIcon icon="heart" />
               <span>Favourite</span>
-            </label>
-          </div>
+            </Label>
+          </Favourite>
         )}
-      </div>
+      </Meta>
     </article>
   )
 }
+
+export const Meta = styled.div``
+export const Favourite = styled.div``
+export const Checked = styled.label``
+export const Unchecked = styled.label``
+
+export default styled(EventSummary)`
+  min-height: 5em;
+  display: inline-block;
+  margin-bottom: ${p=>p.theme.spaceXs};
+  position: relative;
+  background-color: ${p=>p.theme.colorOverlay};
+  border: @--line-xs solid ${p=>p.theme.colorGray2};
+  z-index: 0;
+  break-inside: avoid-column;
+  width: 100%;
+
+  ${Meta} {
+
+    display: grid;
+    grid-template-areas:  "title fav"
+                          "subtitle fav";
+    grid-column-gap: ${p=>p.theme.spaceMd};
+    align-items: center;
+    padding: ${p=>p.theme.spaceXs} ${p=>p.theme.spaceMd};
+    background-color: ${p=>p.theme.colorBrandBlue};
+    width: 100%;
+
+    h2 {
+      grid-area: title;
+    }
+
+    h3 {
+      grid-area: subtitle;
+    }
+
+    h2, h3 {
+      font-size: ${p=>p.theme.textSm};
+      color: ${p=>p.theme.colorForeground};
+      text-shadow: 0px 0px 0.1em ${p=>p.theme.colorBlack};
+      margin-bottom: 0;
+    }
+
+    h3 {
+      font-size: ${p=>p.theme.textXs};
+      font-weight: normal;
+    }
+
+    ${Favourite} {
+      grid-area: fav;
+      justify-self: end;
+      font-size: ${p=>p.theme.textLg};
+
+      ${Checked}, ${Unchecked} {
+        cursor: pointer;
+      }
+
+      input[type="checkbox"] {
+        display: none;
+      }
+
+      ${Checked} {
+        color: ${p=>p.theme.colorBrandOrange};
+        &:hover {
+          color: ${p=>p.theme.colorAccentLight};
+        }
+      }
+
+      ${Unchecked} {
+        color: ${p=>p.theme.colorGray4};
+        &:hover {
+          color: ${p=>p.theme.colorGray3};
+        }
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+  }
+
+  a, a:visited {
+    color: ${p=>p.theme.colorWhite};
+  }
+`
