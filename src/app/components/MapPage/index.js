@@ -4,14 +4,15 @@ import { Helmet } from 'react-helmet'
 
 import VenueMap from 'app/components/VenueMap'
 
-import styles from './MapPage.less'
+import styled from 'styled-components'
 
-const MapPage = ({
+export const MapPage = ({
   venues,
+  className,
 }) => {
 
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <Helmet>
         <title>Venues</title>
       </Helmet>
@@ -29,4 +30,8 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapPage)
+export const ConnectedMapPage = connect(mapStateToProps, mapDispatchToProps)(MapPage)
+
+export default styled(ConnectedMapPage)`
+  height: 100%;
+`
