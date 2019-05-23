@@ -69,14 +69,15 @@ const babelLoader = {
         '@babel/preset-react',
       ],
       plugins: [
-        // [
-          // 'babel-plugin-styled-components',
-          // {
-            // ssr: false,
-            // minify: false,
-            // raw: false,
-        //   }
-        // ],
+        [
+          'babel-plugin-styled-components',
+          {
+            ssr: true,
+            displayName: true,
+            minify: true,
+            transpileTemplateLiterals: true,
+          }
+        ],
       ],
     },
   },
