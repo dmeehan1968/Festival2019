@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const EventWrapper = styled.section`
+  height: 100%;
+  overflow: auto;
   background-color: ${props=>props.theme.colorForeground};
   padding: ${props=>props.theme.spaceMd};
   ${p=>p.theme.media.greaterThan('desktop')`
