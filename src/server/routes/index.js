@@ -20,7 +20,7 @@ export function get(req, res, next) {
   return fetchData(db, imagePath)
     .then(getStore)
     .then(renderPage.bind(null, req.url, routerContext, res.locals))
-    .then(page => res.send(page))
+    .then(({ status, content }) => res.status(status || 200).send(content))
     .catch(next)
 }
 
@@ -118,5 +118,5 @@ const renderPage = (url, context, locals, store) => {
     sheet.seal()
   }
 
-  return response
+  return { status: context.status, content: response }
 }
