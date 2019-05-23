@@ -30,16 +30,19 @@ import ScrollToTop from 'app/components/ScrollToTop'
 
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
-import 'styles/base.less'
+import BaseStyles from 'styles/base'
+
+import useIsClient from 'app/helpers/useIsClient'
 
 import _GoogleAnalytics from 'app/components/GoogleAnalytics'
 const GoogleAnalytics = withRouter(_GoogleAnalytics)
 
 const TabIcon = styled(FontAwesomeIcon)`
-  font-size: ${p=>p.theme.textLg}
+  font-size: ${p=>p.theme.textLg};
+  display: ${p=>p.visible === 'true' ? 'inline' : 'none' };
 `
 const TabLabel = styled.div`
-  font-size: ${({theme: { textSm }}) => textSm}
+  font-size: ${({theme: { textSm }}) => textSm};
 `
 
 const FestivalNavBar = styled(NavBar)`
@@ -57,6 +60,8 @@ const FestivalNavBar = styled(NavBar)`
 export const App = ({
   className,
 }) => {
+  const isClient = useIsClient()
+
   return (
     <div className={className}>
       <GoogleAnalytics />
@@ -76,13 +81,13 @@ export const App = ({
       <footer>
         <TabBar>
           <Link to="/">
-            <TabBarItem icon={<TabIcon icon="th" />} label="Events" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="th" />} label="Events" />
           </Link>
           <Link to="/map">
-            <TabBarItem icon={<TabIcon icon="map-marked-alt" />} label="Map" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="map-marked-alt" />} label="Map" />
           </Link>
           <Link to="/favourites">
-            <TabBarItem icon={<TabIcon icon="heart" />} label="Favourites" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="heart" />} label="Favourites" />
           </Link>
         </TabBar>
       </footer>
@@ -121,7 +126,10 @@ const StyledApp = styled(App)`
 export default () => {
   return (
     <ThemeProvider theme={designSystem}>
-      <StyledApp />
+      <>
+        <BaseStyles />
+        <StyledApp />
+      </>
     </ThemeProvider>
   )
 }

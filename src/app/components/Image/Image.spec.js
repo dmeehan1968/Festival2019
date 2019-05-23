@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import ReactTestRenderer from 'react-test-renderer'
-import Image from '.'
+import Image, { PreserveAspectRatio, BackgroundColor }  from '.'
 
 describe('Image', () => {
 
@@ -12,11 +12,11 @@ describe('Image', () => {
   });
 
   it("preserves aspect ratio", () => {
-    expect(image.find('PreserveAspectRatio')).toHaveLength(1)
+    expect(image.find(PreserveAspectRatio)).toExist()
   });
 
   it("shows a background color", () => {
-    expect(image.find('BackgroundColor')).toHaveLength(1)
+    expect(image.find(BackgroundColor)).toExist()
   });
 
   it.skip("shows a low quality image", () => {

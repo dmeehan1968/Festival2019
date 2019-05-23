@@ -6,7 +6,7 @@ export default ({
   children,
   state = {},
   scripts = [],
-  css = [],
+  styles = [],
 }) => {
   const head = Helmet.renderStatic()
   return (
@@ -21,7 +21,13 @@ export default ({
         {head.script.toComponent()}
         {head.noscript.toComponent()}
         {head.style.toComponent()}
-        {css.map((href, key) => <link key={key} type="text/css" rel="stylesheet" href={href} />)}
+        {styles.map((style, key) => {
+          if (typeof style === 'string') {
+            return <link key={key} type="text/css" rel="stylesheet" href={style} />
+          } else {
+            return style
+          }
+        })}
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{

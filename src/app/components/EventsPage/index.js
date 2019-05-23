@@ -10,8 +10,6 @@ import SearchBar from 'app/components/SearchBar'
 import EventListFilters from 'app/components/EventListFilters'
 import FilteredEventList from 'app/components/FilteredEventList'
 
-import styles from './EventsPage.less'
-
 const useDebounce = (value, callback, delay = 500) => {
   const [debouncedSearchText, setDebouncedSearchText] = useState(value)
   useEffect(() => {
@@ -40,12 +38,13 @@ const Hamburger = styled(Menu)`
 const EventsPage = ({
   setTextFilter,
   textFilter,
+  className,
 }) => {
   const [showFilters, setShowFilters] = useState(false)
   const [debouncedSearchText, setDebouncedSearchText] = useDebounce(textFilter, setTextFilter)
 
   return (
-    <div className={styles.container}>
+    <div className={className}>
       <Helmet title="Events" />
       {/* <NavBarAction id="nav-bar-right-action">
         <Hamburger icon="bars" onClick={()=>setShowFilters(!showFilters)}/>
@@ -76,4 +75,10 @@ const mapDispatchToProps = dispatch => ({
   setTextFilter: text => dispatch(setTextFilter(text))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventsPage)
+const ConnectedEventPage = connect(mapStateToProps, mapDispatchToProps)(EventsPage)
+
+export default styled(ConnectedEventPage)`
+  padding: ${p=>p.theme.spaceMd};
+  height: 100%;
+  overflow: auto;
+`

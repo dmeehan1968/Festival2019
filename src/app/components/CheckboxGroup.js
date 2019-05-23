@@ -1,6 +1,4 @@
 import React from 'react'
-import stringifyClassnames from 'app/helpers/stringifyClassnames'
-import styles from './CheckboxGroup.less'
 import crypto from 'crypto'
 
 export default ({
@@ -20,7 +18,7 @@ export default ({
   const hash = crypto.createHash('sha1').update(currentDate+random).digest('hex').slice(-8)
 
   return (
-    <fieldset className={stringifyClassnames(styles.options, className)}>
+    <fieldset className={className}>
       <legend>{title}</legend>
       <div>Select: <a href="#" onClick={onSelectAll}>All</a> / <a href="#" onClick={onSelectNone}>None</a></div>
       {options.map(option => {
