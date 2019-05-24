@@ -6,6 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import sharp from 'sharp'
 import path from 'path'
 import fs from 'fs'
+import { DateTime } from 'luxon'
 
 import App from 'app/components/App'
 import reducers, { setEvent, setEvents, setDates } from 'app/ducks'
@@ -61,10 +62,19 @@ const checkImageDimensions = (imagePath, events) => {
 
 }
 
+const mapDatesToISO = dates => {
+  return dates.map(date => {
+    return {
+      ...date,
+      date: DateTime.fromSQL(date.date, { zone: process.env.DB_TIMEZONE || 'Europe/London' }).toString(),
+    }
+  })
+}
+
 const fetchData = (db, imagePath) => {
   const requests = {
     events: db.models.events.findAll().then(sequelizeArrayToJSON).then(checkImageDimensions.bind(null, imagePath)),
-    dates: db.models.dates.findAll().then(sequelizeArrayToJSON),
+    dates: db.models.dates.findAll().then(sequelizeArrayToJSON).then(mapDatesToISO),
     venues: db.models.venues.scope('venuesmap').findAll().then(sequelizeArrayToJSON),
     disciplines: db.models.tags.scope('disciplines').findAll().then(sequelizeArrayToJSON),
     regions: db.models.tags.scope('regions').findAll().then(sequelizeArrayToJSON),
