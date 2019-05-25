@@ -7,6 +7,7 @@ import sharp from 'sharp'
 import path from 'path'
 import fs from 'fs'
 import { DateTime } from 'luxon'
+import { ServerStyleSheet } from 'styled-components'
 
 import App from 'app/components/App'
 import reducers, { setEvent, setEvents, setDates } from 'app/ducks'
@@ -20,7 +21,7 @@ export function get(req, res, next) {
   return fetchData(db, imagePath)
     .then(getStore)
     .then(renderPage.bind(null, req.url, routerContext, res.locals))
-    .then(page => res.send(page))
+    .then(({ status, content }) => res.status(status || 200).send(content))
     .catch(next)
 }
 
@@ -107,22 +108,34 @@ const getStore = (data) => {
 
 const renderPage = (url, context, locals, store) => {
   const { filters, favourites, ...initialState } = store.getState()
+  const sheet = new ServerStyleSheet()
+  let response
 
-  const content = ReactDOMServer.renderToString((
-    <Provider store={store}>
-      <StaticRouter location={url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  ))
+  try {
+    const content = ReactDOMServer.renderToString(
+      sheet.collectStyles(
+        <Provider store={store}>
+          <StaticRouter location={url} context={context}>
+            <App />
+          </StaticRouter>
+        </Provider>
+      )
+    )
+    const styles = sheet.getStyleElement()
+    response = '<!doctype html>' + ReactDOMServer.renderToString(
+      <Html
+        state={initialState}
+        scripts={locals.getPathsByType('js')}
+        styles={[ ...styles, ...locals.getPathsByType('css') ]}
+      >
+        {content}
+      </Html>
+    )
+  } catch (error) {
+    throw error
+  } finally {
+    sheet.seal()
+  }
 
-  return '<!doctype html>' + ReactDOMServer.renderToString(
-    <Html
-      state={initialState}
-      scripts={locals.getPathsByType('js')}
-      css={locals.getPathsByType('css')}
-    >
-      {content}
-    </Html>
-  )
+  return { status: context.status, content: response }
 }

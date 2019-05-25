@@ -5,7 +5,7 @@ import useIsClient from 'app/helpers/useIsClient'
 // import EventList from 'app/components/EventList'
 import EventGrid from 'app/components/EventGrid'
 
-import styles from './FilteredEventList.less'
+import styled from 'styled-components'
 
 const filterEvent = (filters, event) => {
 
@@ -67,7 +67,7 @@ const FilteredEventList = ({
   dates,
   disciplines,
   regions,
-  className = styles.container,
+  className,
  }) => {
   filters = {
     ...filters,
@@ -110,4 +110,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilteredEventList)
+export const ConnectedFilteredEventList = connect(mapStateToProps, mapDispatchToProps)(FilteredEventList)
+
+export default styled(ConnectedFilteredEventList)`
+  height: 100%;
+`

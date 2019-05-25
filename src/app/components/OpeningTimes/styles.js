@@ -7,8 +7,8 @@ export const Table = styled.table`
   border-spacing: ${props=>props.theme.lineXs};
 
   thead td {
-    background-color: ${props=>props.theme.colorPrimary};
-    color: ${props=>readableColor(props.theme.colorPrimary)};
+    background-color: ${props=>props.theme.colorAccent};
+    color: ${props=>readableColor(props.theme.colorAccent)};
   }
 
   td {
