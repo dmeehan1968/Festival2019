@@ -62,7 +62,7 @@ const babelLoader = {
             useBuiltIns: 'usage',
             corejs: '3.0.1',
             targets: '> 0.25%, not dead', // client
-            modules: 'cjs',
+            modules: false,
             debug: false,
           }
         ],
