@@ -12,7 +12,7 @@ import filter from 'redux-storage-decorator-filter'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
 const rootReducer = storage.reducer(reducers)
-const engine = filter(createEngine('root'), [ 'filters', 'favourites' ])
+const engine = filter(createEngine('root'), [ 'filters', 'favourites', 'gdpr' ])
 const middleware = storage.createMiddleware(engine)
 
 import { DateTime } from 'luxon'

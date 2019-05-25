@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -32,10 +33,12 @@ import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
 import BaseStyles from 'styles/base'
 
-import useIsClient from 'app/helpers/useIsClient'
-
 import _GoogleAnalytics from 'app/components/GoogleAnalytics'
 const GoogleAnalytics = withRouter(_GoogleAnalytics)
+
+import CookieNotice from 'app/components/CookieNotice'
+import { setCookieConsent } from 'app/ducks'
+import useIsClient from 'app/helpers/useIsClient'
 
 const TabIcon = styled(FontAwesomeIcon)`
   font-size: ${p=>p.theme.textLg};
@@ -59,7 +62,13 @@ const FestivalNavBar = styled(NavBar)`
 
 export const App = ({
   className,
+  cookieConsent,
+  setCookieConsent,
 }) => {
+  const handleDismiss = () => {
+    setCookieConsent(true)
+  }
+
   const isClient = useIsClient()
 
   return (
@@ -79,6 +88,13 @@ export const App = ({
         </Switch>
       </main>
       <footer>
+        { isClient && !cookieConsent &&
+          <CookieNotice
+            onDismiss={handleDismiss}
+            dismissText="Ok"
+            policy="http://10parishesfestival.org.uk/privacy"
+          />
+        }
         <TabBar>
           <Link to="/">
             <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="th" />} label="Events" />
@@ -123,12 +139,22 @@ const StyledApp = styled(App)`
 
 `
 
+const mapStateToProps = state => ({
+  cookieConsent: state.gdpr.cookieConsent,
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCookieConsent: consent => dispatch(setCookieConsent(consent)),
+})
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(StyledApp)
+
 export default () => {
   return (
     <ThemeProvider theme={designSystem}>
       <>
         <BaseStyles />
-        <StyledApp />
+        <ConnectedApp />
       </>
     </ThemeProvider>
   )

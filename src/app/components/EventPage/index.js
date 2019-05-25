@@ -16,7 +16,7 @@ import Carousel from 'app/components/Carousel'
 import styled from 'styled-components'
 
 const StyledImage = styled.img`
-  height: auto
+  height: auto;
   max-height: 100%;
   width: auto;
   max-width: 100%;
