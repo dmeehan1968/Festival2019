@@ -15,7 +15,24 @@ const rootReducer = storage.reducer(reducers)
 const engine = filter(createEngine('root'), [ 'filters', 'favourites' ])
 const middleware = storage.createMiddleware(engine)
 
-const store = createStore(rootReducer, window.__INITIAL_STATE__, composeWithDevTools(applyMiddleware(middleware)))
+import { DateTime } from 'luxon'
+
+const hydrateState = state => {
+  return ({
+    ...state,
+    dates: state.dates.map(date => ({ ...date, date: DateTime.fromISO(date.date) })),
+    events: state.events.map(event => ({
+      ...event,
+      opening_times: event.opening_times.map(openingTime => ({
+        ...openingTime,
+        start: DateTime.fromISO(openingTime.start),
+        end: DateTime.fromISO(openingTime.end),
+      }))
+    }))
+  })
+}
+
+const store = createStore(rootReducer, hydrateState(window.__INITIAL_STATE__), composeWithDevTools(applyMiddleware(middleware)))
 
 const loader = storage.createLoader(engine)
 

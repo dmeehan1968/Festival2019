@@ -66,14 +66,23 @@ const mapDatesToISO = dates => {
   return dates.map(date => {
     return {
       ...date,
-      date: DateTime.fromSQL(date.date, { zone: process.env.DB_TIMEZONE || 'Europe/London' }).toString(),
+      date: DateTime.fromSQL(date.date, { zone: process.env.DB_TIMEZONE || 'Europe/London' }),
     }
   })
 }
 
+const mapEventOpeningTimesToLocalTime = events => events.map(event => ({
+  ...event,
+  opening_times: event.opening_times.map(openingTime => ({
+    ...openingTime,
+    start: DateTime.fromMillis(openingTime.start.valueOf()).setZone(process.env.APP_TIMEZONE || 'Europe/London'),
+    end: DateTime.fromMillis(openingTime.end.valueOf()).setZone(process.env.APP_TIMEZONE || 'Europe/London'),
+  }))
+}))
+
 const fetchData = (db, imagePath) => {
   const requests = {
-    events: db.models.events.findAll().then(sequelizeArrayToJSON).then(checkImageDimensions.bind(null, imagePath)),
+    events: db.models.events.findAll().then(sequelizeArrayToJSON).then(mapEventOpeningTimesToLocalTime).then(checkImageDimensions.bind(null, imagePath)),
     dates: db.models.dates.findAll().then(sequelizeArrayToJSON).then(mapDatesToISO),
     venues: db.models.venues.scope('venuesmap').findAll().then(sequelizeArrayToJSON),
     disciplines: db.models.tags.scope('disciplines').findAll().then(sequelizeArrayToJSON),

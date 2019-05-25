@@ -7,7 +7,6 @@ import Html from 'app/helpers/Html'
 import EventPage from 'app/components/EventPage'
 import serialize from 'serialize-javascript'
 import Sequelize from 'sequelize'
-import moment from 'moment'
 
 import Cookies from 'cookies'
 import * as storage from 'redux-storage'
@@ -38,7 +37,7 @@ const getEvents = (db, filters, dates) => {
     dates: filters.dates.map(dateId => {
       const date = dates.find(date => date.id === dateId)
       if (date) {
-        return moment.utc(date.date)
+        return date.date
       }
       throw new Error('no matching date')
     })
@@ -57,7 +56,7 @@ const filterEvents = (filters, events) => {
     if (!filters.regions.length && !filters.disciplines.length && !filters.dates.length) {
       return true
     }
-    
+
     if (!event.venue || !event.venue.regions) {
       return false
     }
@@ -82,13 +81,8 @@ const filterEvents = (filters, events) => {
       return false
     }
 
-    const include = event.opening_times.map(open => ({
-      ...open,
-      start: moment.utc(open.start),
-      end: moment.utc(open.end),
-    }))
-    .filter(open => {
-      return filters.dates.filter(date => open.start.isSame(date, 'day')).length > 0
+    const include = event.opening_times.filter(open => {
+      return filters.dates.filter(date => open.start.hasSame(date, 'day')).length > 0
     })
     .length > 0
     return include

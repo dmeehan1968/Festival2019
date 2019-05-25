@@ -26,14 +26,13 @@ export default {
    rules: loaders.client,
   },
   plugins: [
-   new DotEnv(),
-   new ManifestPlugin(),
-   new CleanWebpackPlugin({ verbose: true }),
-   new MiniCssExtractPlugin({
+    new DotEnv(),
+    new ManifestPlugin(),
+    new CleanWebpackPlugin({ verbose: true }),
+    new MiniCssExtractPlugin({
       filename: 'client.[name].css',
       chunkFilename: '[id].css',
-  }),
-  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    }),
   ],
   ...resolve,
   stats: 'normal',

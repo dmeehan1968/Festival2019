@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import useIsClient from 'app/helpers/useIsClient'
 
 // import EventList from 'app/components/EventList'
@@ -40,15 +39,10 @@ const filterEvent = (filters, event) => {
 
   if (filters.dates.length > 0 && event.opening_times.length > 0) {
 
-    if (event.opening_times.map(open => ({
-      ...open,
-      start: moment.utc(open.start),
-      end: moment.utc(open.end),
-    }))
-    .filter(open => {
-      return filters.dates.filter(date => open.start.isSame(date, 'day')).length > 0
-    })
-    .length === 0) {
+    if (event.opening_times.filter(open => {
+        return filters.dates.filter(date => open.start.hasSame(date, 'day')).length > 0
+      })
+      .length === 0) {
       return false
     }
 
@@ -80,7 +74,7 @@ const FilteredEventList = ({
     dates: filters.dates.map(dateId => {
       const date = dates.find(date => date.id === dateId)
       if (date) {
-        return moment.utc(date.date)
+        return date.date
       }
       throw new Error('no matching date')
     })
