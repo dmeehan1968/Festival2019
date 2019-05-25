@@ -30,6 +30,7 @@ export default function database(context) {
     host: context.dbhost,
     dialect: 'mysql',
     logging: false,
+    timezone: context.dbtimezone || 'Europe/London',
   })
 
   // NB: __dirname is relative to 'build' directory, due to babel

@@ -1,13 +1,15 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import DateTime from './DateTime'
-import moment from 'moment'
+import { DateTime as DT } from 'luxon'
 
 describe('DateTime', () => {
 
-  const sample = '2019-04-07 12:15:00'
+  const sample = '2019-09-07 12:15:00'
+  const date = DT.fromSQL(sample, { zone: 'Europe/London'})
+
   let wrapper
-  beforeEach(() => wrapper = shallow(<DateTime date={moment.utc(sample)} format="YYYY-MM-DD HH:mm:ss" />))
+  beforeEach(() => wrapper = shallow(<DateTime date={date} format="yyyy-MM-dd HH:mm:ss" />))
 
   it('should render a span', () => {
     expect(wrapper.find('span').length).toEqual(1)

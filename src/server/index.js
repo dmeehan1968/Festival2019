@@ -76,6 +76,7 @@ assert(process.env.DB_HOST, 'DB_HOST not defined in .env')
 assert(process.env.DB_SCHEMA, 'DB_SCHEMA not defined in .env')
 assert(process.env.DB_USER, 'DB_USER not defined in .env')
 assert(process.env.DB_PASS, 'DB_PASS not defined in .env')
+assert(process.env.DB_TIMEZONE, 'DB_TIMEZONE not defined in .env')
 
 boot({
   port: process.env.PORT,
@@ -83,6 +84,7 @@ boot({
   dbschema: process.env.DB_SCHEMA,
   dbuser: process.env.DB_USER,
   dbpass: process.env.DB_PASS,
+  dbtimezone: process.env.DB_TIMEZONE,
 })
   .then(listen)
   .then(log)

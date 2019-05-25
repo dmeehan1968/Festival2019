@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import stringifyClassnames from 'app/helpers/stringifyClassnames'
 import CheckboxGroup from 'app/components/CheckboxGroup'
 import DateTime from 'app/components/DateTime'
-import moment from 'moment'
 
 const EventListFilters = ({
   className,
@@ -18,10 +17,6 @@ const EventListFilters = ({
   setDateFilter,
   onSubmit,
 }) => {
-
-  const mappedDates = useMemo(() => {
-    return dates.map(date=>({ ...date, date: moment(date.date)}))
-  }, [ dates ])
 
   const [ selectedRegions, setSelectedRegions ] = useState(filters.regions)
   const [ selectedDisciplines, setSelectedDisciplines ] = useState(filters.disciplines)
@@ -75,7 +70,7 @@ const EventListFilters = ({
   }
 
   const formatDate = (date) => {
-    return <DateTime date={date} format="ddd Do MMM YYYY" />
+    return <DateTime date={date} format="EEE d MMM yyyy" />
   }
 
   return (
@@ -101,7 +96,7 @@ const EventListFilters = ({
       <CheckboxGroup
         className="options"
         title="Dates"
-        options={mappedDates}
+        options={dates}
         selected={selectedDates}
         onChange={handleDateChange}
         labelKey="date"

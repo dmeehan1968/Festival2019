@@ -6,7 +6,7 @@ export default ({ start, end, format }) => {
     <span className="datetimerange">
       <DateTime date={start} format={format} />
       &nbsp;-&nbsp;
-      <DateTime date={end} format={format} />
+      <DateTime date={end} format={format+' (ZZZZ)'} />
     </span>
   )
 }
