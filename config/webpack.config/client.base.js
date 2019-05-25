@@ -11,6 +11,7 @@ import DotEnv from 'dotenv-webpack'
 export default {
   name: 'client',
   target: 'web',
+  devtool: 'none',
   entry: {
     bundle: [
       path.join(paths.srcClient, 'index.js'),
