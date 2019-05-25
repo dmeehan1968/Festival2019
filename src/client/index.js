@@ -7,7 +7,11 @@ import reducers, { setEvents } from 'app/ducks'
 import { BrowserRouter } from 'react-router-dom'
 
 import * as storage from 'redux-storage'
-import createEngine from 'redux-storage-engine-localstorage'
+
+// Use 'src' directly, not package build products
+// See https://github.com/dmeehan1968/Festival2019/issues/17#issuecomment-495922400
+import createEngine from 'redux-storage-engine-localstorage/src'
+
 import filter from 'redux-storage-decorator-filter'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
