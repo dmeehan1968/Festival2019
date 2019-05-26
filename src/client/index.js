@@ -19,18 +19,21 @@ const rootReducer = storage.reducer(reducers)
 const engine = filter(createEngine('root'), [ 'filters', 'favourites', 'gdpr' ])
 const middleware = storage.createMiddleware(engine)
 
-import { DateTime } from 'luxon'
+import { utcDateFromSQLDate } from 'app/helpers/dateTime'
 
 const hydrateState = state => {
   return ({
     ...state,
-    dates: state.dates.map(date => ({ ...date, date: DateTime.fromISO(date.date) })),
+    dates: state.dates.map(date => ({
+      ...date,
+      date: new Date(date.date)
+    })),
     events: state.events.map(event => ({
       ...event,
       opening_times: event.opening_times.map(openingTime => ({
         ...openingTime,
-        start: DateTime.fromISO(openingTime.start),
-        end: DateTime.fromISO(openingTime.end),
+        start: new Date(openingTime.start),
+        end: new Date(openingTime.end),
       }))
     }))
   })
