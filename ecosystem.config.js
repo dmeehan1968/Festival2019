@@ -1,5 +1,4 @@
-const homeDir = '/home/replicated/beta.10parishesfestival.org.uk'
-const logDir = '/home/replicated/logs/beta.10parishesfestival.org.uk/pm2'
+const homeDir = '/home/replicated/2019.10parishesfestival.org.uk'
 module.exports = {
   apps : [{
     name: 'Festival2019',
