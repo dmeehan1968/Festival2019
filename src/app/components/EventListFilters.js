@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import stringifyClassnames from 'app/helpers/stringifyClassnames'
 import CheckboxGroup from 'app/components/CheckboxGroup'
 import DateTime from 'app/components/DateTime'
+import { longDateStringFromDate } from 'app/helpers/dateTime'
 
 const EventListFilters = ({
   className,
@@ -70,7 +71,7 @@ const EventListFilters = ({
   }
 
   const formatDate = (date) => {
-    return <DateTime date={date} format="EEE d MMM yyyy" />
+    return <DateTime date={date} formatter={longDateStringFromDate} />
   }
 
   return (
