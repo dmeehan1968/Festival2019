@@ -43,6 +43,14 @@ const KeepAliveMiddleware = (timeout = 5, max = 1000) => {
 }
 
 function routes(context) {
+  context.app.use((req, res, next) => {
+    if (!req.secure && process.env.NODE_ENV === 'production') {
+      res.redirect('https://' + req.headers['host'] + req.originalUrl)
+      res.end()
+      return
+    }
+    next()
+  })
   context.app.use(compression())
   context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
