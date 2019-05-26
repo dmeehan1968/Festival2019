@@ -109,6 +109,7 @@
     "babel-plugin-styled-components": "^1.10.0",
     "clean-webpack-plugin": "^2.0.2",
     "clinic": "^4.0.3",
+    "copy-webpack-plugin": "^5.0.3",
     "css-hot-loader": "^1.4.4",
     "css-loader": "^2.1.1",
     "dotenv-webpack": "^1.7.0",

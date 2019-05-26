@@ -7,6 +7,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import resolve from './resolve'
 import DotEnv from 'dotenv-webpack'
+import CopyPlugin from 'copy-webpack-plugin'
 
 export default {
   name: 'client',
@@ -34,6 +35,12 @@ export default {
       filename: 'client.[name].css',
       chunkFilename: '[id].css',
     }),
+    new CopyPlugin([
+      {
+        from: paths.favicons,
+        to: paths.clientBuild,
+      }
+    ]),
   ],
   ...resolve,
   stats: 'normal',

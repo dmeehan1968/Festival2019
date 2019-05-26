@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -35,6 +36,8 @@ import BaseStyles from 'styles/base'
 
 import _GoogleAnalytics from 'app/components/GoogleAnalytics'
 const GoogleAnalytics = withRouter(_GoogleAnalytics)
+
+import FavIcons from 'app/components/FavIcons'
 
 import CookieNotice from 'app/components/CookieNotice'
 import { setCookieConsent } from 'app/ducks'
@@ -74,9 +77,11 @@ export const App = ({
   return (
     <div className={className}>
       <GoogleAnalytics />
+      <FavIcons />
       <header>
         <FestivalNavBar title="10 Parishes Festival" />
       </header>
+      <Helmet titleTemplate="%s | 10 Parishes Festival" />
       <main>
         <ScrollToTop />
         <Switch>
