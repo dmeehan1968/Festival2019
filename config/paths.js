@@ -21,4 +21,5 @@ export default {
   publicPath,
   manifestPath: path.join(clientBuild, 'manifest.json'),
   nodeModules: resolve('node_modules'),
+  favicons: path.join(src, 'static/favicons')
 }
