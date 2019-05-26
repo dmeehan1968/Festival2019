@@ -138,7 +138,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           <Meta title="Age Info" content={event.ageinfo} />
           <Meta title="Opening Times" content={<OpeningTimes dates={dates} times={event.opening_times}/>} />
           <Meta title="Further Info" content={event.furtherinfo} />
-          <Meta title="Long Description" content={<ReactMarkdown source={event.longdesc} />} />
+          <Meta title="Long Description" content={event.longdesc && <ReactMarkdown source={event.longdesc} />} />
         </dl>
       </EventDetailWrapper>
       <VenueDetailWrapper>
