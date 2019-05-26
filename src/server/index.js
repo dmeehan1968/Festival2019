@@ -46,6 +46,9 @@ function routes(context) {
   context.app.use(compression())
   context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
+  context.app.use('/favicon.ico', (req, res, next) => {
+    res.redirect(path.join('static', req.originalUrl))
+  })
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
   context.app.use('/App', ExpressImageMiddleware({
     basePath: context.app.get('imagePath'),
