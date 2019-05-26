@@ -371,15 +371,24 @@ describe("EventPage", () => {
       });
 
       it("has telephone", () => {
-        expect(wrapper.find('Meta[title="Telephone"]').prop('content')).toEqual(expected.contact.telephone)
+        const telElement = wrapper.find('Meta[title="Telephone"]').prop('content')
+        expect(React.isValidElement(telElement)).toBeTruthy()
+        expect(telElement.type).toEqual('a')
+        expect(telElement.props['href']).toEqual('tel:' + expected.contact.telephone)
       });
 
       it("has email", () => {
-        expect(wrapper.find('Meta[title="Email"]').prop('content')).toEqual(expected.contact.email)
+        const emailElement = wrapper.find('Meta[title="Email"]').prop('content')
+        expect(React.isValidElement(emailElement)).toBeTruthy()
+        expect(emailElement.type).toEqual('a')
+        expect(emailElement.props['href']).toEqual('mailto:' + expected.contact.email)
       });
 
       it("has website", () => {
-        expect(wrapper.find('Meta[title="Web"]').prop('content')).toEqual(expected.contact.website)
+        const websiteElement = wrapper.find('Meta[title="Web"]').prop('content')
+        expect(React.isValidElement(websiteElement)).toBeTruthy()
+        expect(websiteElement.type).toEqual('a')
+        expect(websiteElement.props['href']).toEqual(expected.contact.website)
       });
 
       it("has booking contact", () => {

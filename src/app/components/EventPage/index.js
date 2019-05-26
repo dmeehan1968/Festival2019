@@ -130,9 +130,9 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           <Meta title="About the Event" content={event.shortdesc} />
           <Meta title="Event Type" content={event.eventtypes.map(e => e.description).join(', ')} />
           <Meta title="Disciplines" content={event.disciplines.map(d => d.description).join(', ')} />
-          <Meta title="Telephone" content={event.contact.telephone} />
-          <Meta title="Email" content={event.contact.email} />
-          <Meta title="Web" content={event.contact.website} />
+          <Meta title="Telephone" content={event.contact.telephone && <a href={`tel:${event.contact.telephone}`}>{event.contact.telephone}</a>} />
+          <Meta title="Email" content={event.contact.email && <a href={`mailto:${event.contact.email}`}>{event.contact.email}</a>} />
+          <Meta title="Web" content={event.contact.website && <a href={event.contact.website} target="_blank">{event.contact.website}</a>} />
           <Meta title="Booking Contact" content={event.bookingcontact && <BookingContact contact={event.bookingcontact} />} />
           <Meta title="Booking Info" content={event.charginginfo} />
           <Meta title="Age Info" content={event.ageinfo} />
