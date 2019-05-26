@@ -6,6 +6,7 @@ module.exports = {
     script: `${homeDir}/build/server/server.bundle.js`,
     cwd: homeDir,
     interpreter: '/home/replicated/.nvm/versions/node/v11.9.0/bin/node',
+    log_date_format : "YYYY-MM-DD HH:mm Z",
 
     // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
     instances: 1,
