@@ -82,10 +82,7 @@ describe("EventPage", () => {
     });
 
     it("shows no long description", () => {
-      const longDescriptionElement = wrapper.find('Meta[title="Long Description"]').prop('content')
-      expect(React.isValidElement(longDescriptionElement))
-      expect(longDescriptionElement.type.name).toEqual('ReactMarkdown')
-      expect(longDescriptionElement.props['source']).toBeUndefined()
+      expect(wrapper.find('Meta[title="Long Description"]').prop('content')).toBeUndefined()
     });
 
     it("shows no venue info", () => {
