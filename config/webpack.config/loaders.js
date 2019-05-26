@@ -50,7 +50,7 @@ const babelLoader = {
   test: /\.(js|jsx)$/,
   include: [
     paths.src,
-    require.resolve('redux-storage-engine-localstorage'),
+    require.resolve('redux-storage-engine-localstorage/src'),
   ],
   use: {
     loader: 'babel-loader',
