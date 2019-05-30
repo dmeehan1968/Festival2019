@@ -66,4 +66,17 @@ export default db => {
     order: [ 'title' ],
   })
 
+  db.models.events.addScope('sitemap', {
+    attributes: [ 'id' ],
+    include: [
+      {
+        association: 'event_notes',
+        attributes: [ 'created' ],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+    order: [ 'id' ],
+  })
 }
