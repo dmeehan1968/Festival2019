@@ -58,4 +58,11 @@ export default (db) => {
     foreignKey: 'event_id',
   })
 
+  db.models.events.belongsToMany(db.models.notes, {
+    through: db.models.notes_relatesto_events,
+    foreignKey: 'event_id',
+    otherKey: 'note_id',
+    as: 'event_notes'
+  })
+
 }

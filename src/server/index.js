@@ -54,6 +54,8 @@ function routes(context) {
     basePath: context.app.get('imagePath'),
     cachePath: paths.imageCache,
   }))
+  context.app.get('/robots.txt', require('server/routes/robots').get, webErrorHandler)
+  context.app.get('/sitemap.xml', require('server/routes/sitemap').get, webErrorHandler)
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
   context.app.get('/*', require('server/routes').get, webErrorHandler)
