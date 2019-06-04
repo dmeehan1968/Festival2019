@@ -192,7 +192,7 @@ describe("EventPage", () => {
          telephone: '01984 623563',
          mobile: '',
          email: 'moragberthon@hotmail.com',
-         website: 'http://example.com',
+         website: 'example.com',
          address1: 'Hellings Farm',
          address2: 'Bathealton',
          address3: '',
@@ -384,11 +384,11 @@ describe("EventPage", () => {
         expect(emailElement.props['href']).toEqual('mailto:' + expected.contact.email)
       });
 
-      it("has website", () => {
+      it("has website (auto-prefixed with http)", () => {
         const websiteElement = wrapper.find('Meta[title="Web"]').prop('content')
         expect(React.isValidElement(websiteElement)).toBeTruthy()
         expect(websiteElement.type).toEqual('a')
-        expect(websiteElement.props['href']).toEqual(expected.contact.website)
+        expect(websiteElement.props['href']).toEqual('http://' + expected.contact.website)
       });
 
       it("has booking contact", () => {

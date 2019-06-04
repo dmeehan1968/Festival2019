@@ -97,6 +97,13 @@ export const EventPage = ({ event = {}, dates = [] }) => {
     opening_times: event.opening_times || [],
   }
 
+  const autoHttpPrefix = (address) => {
+    if (!/^https?:\/\//.test(address)) {
+      return 'http://' + address
+    }
+    return address
+  }
+
   return (
     <EventWrapper>
       <Helmet>
@@ -132,7 +139,7 @@ export const EventPage = ({ event = {}, dates = [] }) => {
           <Meta title="Disciplines" content={event.disciplines.map(d => d.description).join(', ')} />
           <Meta title="Telephone" content={event.contact.telephone && <a href={`tel:${event.contact.telephone}`}>{event.contact.telephone}</a>} />
           <Meta title="Email" content={event.contact.email && <a href={`mailto:${event.contact.email}`}>{event.contact.email}</a>} />
-          <Meta title="Web" content={event.contact.website && <a href={event.contact.website} target="_blank">{event.contact.website}</a>} />
+          <Meta title="Web" content={event.contact.website && <a href={autoHttpPrefix(event.contact.website)} target="_blank">{event.contact.website}</a>} />
           <Meta title="Booking Contact" content={event.bookingcontact && <BookingContact contact={event.bookingcontact} />} />
           <Meta title="Booking Info" content={event.charginginfo} />
           <Meta title="Age Info" content={event.ageinfo} />
