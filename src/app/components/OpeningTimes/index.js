@@ -1,13 +1,12 @@
 import React from 'react'
-import moment from 'moment'
 import DateTime from 'app/components/DateTime'
 import DateTimeRange from 'app/components/DateTimeRange'
+import { dayDateStringFromDate, timeStringFromDate } from 'app/helpers/dateTime'
+import isSameDay from 'date-fns/is_same_day'
 
 import { Table } from './styles'
 
 export const OpeningTimes = ({ dates, times }) => {
-  dates = dates.map(date => ({ ...date, date: moment.utc(date.date) }))
-  times = times.map(time => ({ ...time, start: moment.utc(time.start), end: moment.utc(time.end) }))
 
   if (!times || times.length < 1) {
     return 'No Opening Times Specified'
@@ -24,10 +23,10 @@ export const OpeningTimes = ({ dates, times }) => {
       <tbody>
         {dates.map((d, i) => (
           <tr key={i}>
-            <td><DateTime date={d.date} format="ddd Do" /></td>
+            <td><DateTime date={d.date} formatter={dayDateStringFromDate} /></td>
             <td>
               {(() => {
-                const output = times.filter(t => t.start.isSame(d.date, 'day')).map((t, i) => <DateTimeRange key={i} start={t.start} end={t.end} format="HH:mm" />)
+                const output = times.filter(t => isSameDay(t.start,d.date)).map((t, i) => <DateTimeRange key={i} start={t.start} end={t.end} formatter={timeStringFromDate} />)
                 return output.length ? output : "Closed"
               })()}
             </td>

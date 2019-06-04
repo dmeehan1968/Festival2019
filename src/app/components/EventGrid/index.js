@@ -1,16 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import EventSummary from 'app/components/EventSummary'
 import { setFavourite } from 'app/ducks'
 
-import styles from './EventGrid.less'
-
-const EventGrid = ({
+export const EventGrid = ({
   events = [],
   favourites = [],
   setFavourite,
-  className = styles.container,
+  className,
 }) => {
   return (
     <section className={className}>
@@ -37,4 +36,10 @@ const mapDispatchToProps = dispatch => ({
   setFavourite: (id, checked) => dispatch(setFavourite(id, checked))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventGrid)
+const ConnectedEventGrid = connect(mapStateToProps, mapDispatchToProps)(EventGrid)
+
+export default styled(ConnectedEventGrid)`
+  line-height: 0;
+  column-gap: ${p=>p.theme.spaceXs};
+  column-width: 15rem;
+`

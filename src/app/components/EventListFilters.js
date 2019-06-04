@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import styles from './EventListFilters.less'
+import styled from 'styled-components'
 import stringifyClassnames from 'app/helpers/stringifyClassnames'
 import CheckboxGroup from 'app/components/CheckboxGroup'
 import DateTime from 'app/components/DateTime'
-import moment from 'moment'
+import { longDateStringFromDate } from 'app/helpers/dateTime'
 
 const EventListFilters = ({
   className,
@@ -18,10 +18,6 @@ const EventListFilters = ({
   setDateFilter,
   onSubmit,
 }) => {
-
-  const mappedDates = useMemo(() => {
-    return dates.map(date=>({ ...date, date: moment(date.date)}))
-  }, [ dates ])
 
   const [ selectedRegions, setSelectedRegions ] = useState(filters.regions)
   const [ selectedDisciplines, setSelectedDisciplines ] = useState(filters.disciplines)
@@ -75,13 +71,13 @@ const EventListFilters = ({
   }
 
   const formatDate = (date) => {
-    return <DateTime date={date} format="ddd Do MMM YYYY" />
+    return <DateTime date={date} formatter={longDateStringFromDate} />
   }
 
   return (
-    <form className={stringifyClassnames(styles.filters, className)} onSubmit={handleSubmit}>
+    <form className={className} onSubmit={handleSubmit}>
       <CheckboxGroup
-        className={styles.options}
+        className="options"
         title="Regions"
         options={regions}
         selected={selectedRegions}
@@ -90,7 +86,7 @@ const EventListFilters = ({
         onSelectNone={e => handleRegionSelect(e, false)}
       />
       <CheckboxGroup
-        className={styles.options}
+        className="options"
         title="Disciplines"
         options={disciplines}
         selected={selectedDisciplines}
@@ -99,9 +95,9 @@ const EventListFilters = ({
         onSelectNone={e => handleDisciplineSelect(e, false)}
       />
       <CheckboxGroup
-        className={styles.options}
+        className="options"
         title="Dates"
-        options={mappedDates}
+        options={dates}
         selected={selectedDates}
         onChange={handleDateChange}
         labelKey="date"
@@ -124,4 +120,38 @@ const mapStateToProps = state => ({
 import * as actionCreators from 'app/ducks/filters'
 const mapDispatchToProps = dispatch => bindActionCreators(actionCreators, dispatch)
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventListFilters)
+export const ConnectedEventListFilters = connect(mapStateToProps, mapDispatchToProps)(EventListFilters)
+
+export default styled(ConnectedEventListFilters)`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: ${p=>p.theme.spaceSm};
+  grid-row-gap: ${p=>p.theme.spaceSm};
+
+  .options {
+
+    background-color: ${p=>p.theme.colorForeground};
+    border: ${p=>p.theme.lineXs} solid ${p=>p.theme.colorForeground};
+    box-shadow: ${p=>p.theme.lineXs} ${p=>p.theme.lineXs} ${p=>p.theme.lineLg} 0 ${p=>p.theme.colorTint};
+    padding: ${p=>p.theme.spaceXs} ${p=>p.theme.spaceXs} ${p=>p.theme.spaceXs} ${p=>p.theme.spaceXs};
+    margin-top: ${p=>p.theme.spaceMd};
+    margin-bottom: ${p=>p.theme.spaceMd};
+
+    legend {
+      padding: ${p=>p.theme.spaceXs} ${p=>p.theme.spaceSm};
+      border: ${p=>p.theme.lineXs} solid ${p=>p.theme.colorForeground};
+      box-shadow: ${p=>p.theme.lineXs} ${p=>p.theme.lineXs} ${p=>p.theme.lineLg} 0 ${p=>p.theme.colorTint};
+      background-color: ${p=>p.theme.colorForeground};
+    }
+
+    label {
+      padding-left: ${p=>p.theme.spaceSm};
+    }
+
+    label:after {
+      content: "";
+      display: block;
+    }
+  }
+
+`

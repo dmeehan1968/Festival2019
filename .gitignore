@@ -2,4 +2,5 @@
 /build/
 /tmp/
 /.env
-/.imageCache
+/.imageCache/
+/public/

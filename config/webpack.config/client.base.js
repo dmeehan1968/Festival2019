@@ -7,10 +7,12 @@ import CleanWebpackPlugin from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import resolve from './resolve'
 import DotEnv from 'dotenv-webpack'
+import CopyPlugin from 'copy-webpack-plugin'
 
 export default {
   name: 'client',
   target: 'web',
+  devtool: 'none',
   entry: {
     bundle: [
       path.join(paths.srcClient, 'index.js'),
@@ -26,14 +28,19 @@ export default {
    rules: loaders.client,
   },
   plugins: [
-   new DotEnv(),
-   new ManifestPlugin(),
-   new CleanWebpackPlugin({ verbose: true }),
-   new MiniCssExtractPlugin({
+    new DotEnv(),
+    new ManifestPlugin(),
+    new CleanWebpackPlugin({ verbose: true }),
+    new MiniCssExtractPlugin({
       filename: 'client.[name].css',
       chunkFilename: '[id].css',
-  }),
-  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    }),
+    new CopyPlugin([
+      {
+        from: paths.favicons,
+        to: paths.clientBuild,
+      }
+    ]),
   ],
   ...resolve,
   stats: 'normal',

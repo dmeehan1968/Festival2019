@@ -46,11 +46,16 @@ function routes(context) {
   context.app.use(compression())
   context.app.use(KeepAliveMiddleware())
   context.app.use(paths.publicPath, express.static(paths.clientBuild))
+  context.app.use('/favicon.ico', (req, res, next) => {
+    res.redirect(path.join('static', req.originalUrl))
+  })
   context.app.use(manifest({ manifestPath: paths.manifestPath }))
   context.app.use('/App', ExpressImageMiddleware({
     basePath: context.app.get('imagePath'),
     cachePath: paths.imageCache,
   }))
+  context.app.get('/robots.txt', require('server/routes/robots').get, webErrorHandler)
+  context.app.get('/sitemap.xml', require('server/routes/sitemap').get, webErrorHandler)
   context.app.get('/api/events', require('server/routes/api/events').get, apiErrorHandler)
   context.app.get('/api/filters', require('server/routes/api/filters').get, apiErrorHandler)
   context.app.get('/*', require('server/routes').get, webErrorHandler)
@@ -76,6 +81,7 @@ assert(process.env.DB_HOST, 'DB_HOST not defined in .env')
 assert(process.env.DB_SCHEMA, 'DB_SCHEMA not defined in .env')
 assert(process.env.DB_USER, 'DB_USER not defined in .env')
 assert(process.env.DB_PASS, 'DB_PASS not defined in .env')
+assert(process.env.DB_TIMEZONE, 'DB_TIMEZONE not defined in .env')
 
 boot({
   port: process.env.PORT,
@@ -83,6 +89,7 @@ boot({
   dbschema: process.env.DB_SCHEMA,
   dbuser: process.env.DB_USER,
   dbpass: process.env.DB_PASS,
+  dbtimezone: process.env.DB_TIMEZONE,
 })
   .then(listen)
   .then(log)

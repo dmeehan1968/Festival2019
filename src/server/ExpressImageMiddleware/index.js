@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs'
 import os from 'os'
-import moment from 'moment'
 import imageResizeAndCache from './imageResizeAndCache'
 import clamp from './clamp'
 

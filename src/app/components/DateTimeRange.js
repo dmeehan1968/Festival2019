@@ -1,12 +1,13 @@
 import React from 'react'
 import DateTime from 'app/components/DateTime'
+import { timeStringFromDate } from 'app/helpers/dateTime'
 
-export default ({ start, end, format }) => {
+export default ({ start, end, formatter }) => {
   return (
     <span className="datetimerange">
-      <DateTime date={start} format={format} />
+      <DateTime date={start} formatter={formatter} />
       &nbsp;-&nbsp;
-      <DateTime date={end} format={format} />
+      <DateTime date={end} formatter={formatter} />
     </span>
   )
 }

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, Route, Switch, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Helmet from 'react-helmet'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -30,16 +32,23 @@ import ScrollToTop from 'app/components/ScrollToTop'
 
 import styled, { ThemeProvider } from 'styled-components'
 import * as designSystem from 'styles/designSystem.js'
-import 'styles/base.less'
+import BaseStyles from 'styles/base'
 
 import _GoogleAnalytics from 'app/components/GoogleAnalytics'
 const GoogleAnalytics = withRouter(_GoogleAnalytics)
 
+import FavIcons from 'app/components/FavIcons'
+
+import CookieNotice from 'app/components/CookieNotice'
+import { setCookieConsent } from 'app/ducks'
+import useIsClient from 'app/helpers/useIsClient'
+
 const TabIcon = styled(FontAwesomeIcon)`
-  font-size: ${p=>p.theme.textLg}
+  font-size: ${p=>p.theme.textLg};
+  display: ${p=>p.visible === 'true' ? 'inline' : 'none' };
 `
 const TabLabel = styled.div`
-  font-size: ${({theme: { textSm }}) => textSm}
+  font-size: ${({theme: { textSm }}) => textSm};
 `
 
 const FestivalNavBar = styled(NavBar)`
@@ -56,13 +65,23 @@ const FestivalNavBar = styled(NavBar)`
 
 export const App = ({
   className,
+  cookieConsent,
+  setCookieConsent,
 }) => {
+  const handleDismiss = () => {
+    setCookieConsent(true)
+  }
+
+  const isClient = useIsClient()
+
   return (
     <div className={className}>
       <GoogleAnalytics />
+      <FavIcons />
       <header>
         <FestivalNavBar title="10 Parishes Festival" />
       </header>
+      <Helmet titleTemplate="%s | 10 Parishes Festival" />
       <main>
         <ScrollToTop />
         <Switch>
@@ -74,15 +93,22 @@ export const App = ({
         </Switch>
       </main>
       <footer>
+        { isClient && !cookieConsent &&
+          <CookieNotice
+            onDismiss={handleDismiss}
+            dismissText="Ok"
+            policy="http://10parishesfestival.org.uk/privacy"
+          />
+        }
         <TabBar>
           <Link to="/">
-            <TabBarItem icon={<TabIcon icon="th" />} label="Events" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="th" />} label="Events" />
           </Link>
           <Link to="/map">
-            <TabBarItem icon={<TabIcon icon="map-marked-alt" />} label="Map" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="map-marked-alt" />} label="Map" />
           </Link>
           <Link to="/favourites">
-            <TabBarItem icon={<TabIcon icon="heart" />} label="Favourites" />
+            <TabBarItem icon={<TabIcon visible={isClient.toString()} icon="heart" />} label="Favourites" />
           </Link>
         </TabBar>
       </footer>
@@ -118,10 +144,23 @@ const StyledApp = styled(App)`
 
 `
 
+const mapStateToProps = state => ({
+  cookieConsent: state.gdpr.cookieConsent,
+})
+
+const mapDispatchToProps = dispatch => ({
+  setCookieConsent: consent => dispatch(setCookieConsent(consent)),
+})
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(StyledApp)
+
 export default () => {
   return (
     <ThemeProvider theme={designSystem}>
-      <StyledApp />
+      <>
+        <BaseStyles />
+        <ConnectedApp />
+      </>
     </ThemeProvider>
   )
 }

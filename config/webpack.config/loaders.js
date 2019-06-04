@@ -50,7 +50,7 @@ const babelLoader = {
   test: /\.(js|jsx)$/,
   include: [
     paths.src,
-    require.resolve('redux-storage-engine-localstorage'),
+    require.resolve('redux-storage-engine-localstorage/src'),
   ],
   use: {
     loader: 'babel-loader',
@@ -62,21 +62,22 @@ const babelLoader = {
             useBuiltIns: 'usage',
             corejs: '3.0.1',
             targets: '> 0.25%, not dead', // client
-            modules: 'cjs',
+            modules: false,
             debug: false,
           }
         ],
         '@babel/preset-react',
       ],
       plugins: [
-        // [
-          // 'babel-plugin-styled-components',
-          // {
-            // ssr: false,
-            // minify: false,
-            // raw: false,
-        //   }
-        // ],
+        [
+          'babel-plugin-styled-components',
+          {
+            ssr: true,
+            displayName: true,
+            minify: true,
+            transpileTemplateLiterals: true,
+          }
+        ],
       ],
     },
   },

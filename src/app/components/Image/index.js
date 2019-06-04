@@ -3,19 +3,17 @@ import ReactDOMServer from 'react-dom/server'
 import { Waypoint } from 'react-waypoint'
 import styled from 'styled-components'
 
-const Container = styled.div`
+export const Container = styled.div`
   position: relative;
   overflow: hidden;
 `
-Container.displayName = 'Container'
 
-const PreserveAspectRatio = styled.div`
+export const PreserveAspectRatio = styled.div`
   width: 100%;
   padding-bottom: ${p=>Math.floor(100 / p.aspectRatio)}%;
 `
-PreserveAspectRatio.displayName = 'PreserveAspectRatio'
 
-const Img = styled.img`
+export const Img = styled.img`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -28,18 +26,16 @@ const Img = styled.img`
   object-position: 50% 50%;
 `
 
-const BackgroundColor = styled.div`
+export const BackgroundColor = styled.div`
   background-color: ${p=>p.theme.colorGray2};
-  ${'' /* background-color: red; */}
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
 `
-BackgroundColor.displayName = 'BackgroundColor'
 
-const NoScript = ({
+export const NoScript = ({
   children,
 }) => {
   return (
@@ -54,7 +50,7 @@ const NoScript = ({
 // 1x1 transparent PNG
 // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=
 
-const Image = ({
+export const Image = ({
   src,
   lqip,
   height,
@@ -124,12 +120,6 @@ const Image = ({
         />
       }
       <NoScript>
-        <div
-          style={{
-              width: '100%',
-              paddingBottom: `${Math.floor(100 / (width / height))}%`,
-          }}
-        />
         <img
           {...image}
           src={src()}
@@ -150,7 +140,6 @@ const Image = ({
     </Container>
   )
 }
-Image.displayName = 'Image'
 
 export default Image
 

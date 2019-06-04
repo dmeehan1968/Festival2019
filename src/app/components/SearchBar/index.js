@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import styles from './SearchBar.less'
+import styled from 'styled-components'
 
-export default ({
+export const SearchBar = ({
   onClickFilterToggle = () => {},
   onSearch = () => {},
   searchText = '',
-  className = styles.container,
+  className,
   searchIconClass = "search",
   filterIconClass = "sliders-h",
 }) => {
@@ -22,3 +22,12 @@ export default ({
     </section>
   )
 }
+
+export default styled(SearchBar)`
+  display: grid;
+  grid-template-columns: ${p=>p.theme.textMd} calc(${p=>p.theme.textMd} * 10) ${p=>p.theme.textSm};
+  grid-column-gap: ${p=>p.theme.spaceXxs};
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+`

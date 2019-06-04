@@ -6,10 +6,12 @@ import { StaticRouter } from 'react-router-dom'
 import sharp from 'sharp'
 import path from 'path'
 import fs from 'fs'
+import { ServerStyleSheet } from 'styled-components'
 
 import App from 'app/components/App'
 import reducers, { setEvent, setEvents, setDates } from 'app/ducks'
 import Html from 'app/helpers/Html'
+import { utcDateFromSQLDate } from 'app/helpers/dateTime'
 
 export function get(req, res, next) {
   const db = req.app.get('db')
@@ -19,7 +21,7 @@ export function get(req, res, next) {
   return fetchData(db, imagePath)
     .then(getStore)
     .then(renderPage.bind(null, req.url, routerContext, res.locals))
-    .then(page => res.send(page))
+    .then(({ status, content }) => res.status(status || 200).send(content))
     .catch(next)
 }
 
@@ -61,10 +63,19 @@ const checkImageDimensions = (imagePath, events) => {
 
 }
 
+const mapDatesToISO = dates => {
+  return dates.map(date => {
+    return {
+      ...date,
+      date: utcDateFromSQLDate(date.date),
+    }
+  })
+}
+
 const fetchData = (db, imagePath) => {
   const requests = {
     events: db.models.events.findAll().then(sequelizeArrayToJSON).then(checkImageDimensions.bind(null, imagePath)),
-    dates: db.models.dates.findAll().then(sequelizeArrayToJSON),
+    dates: db.models.dates.findAll().then(sequelizeArrayToJSON).then(mapDatesToISO),
     venues: db.models.venues.scope('venuesmap').findAll().then(sequelizeArrayToJSON),
     disciplines: db.models.tags.scope('disciplines').findAll().then(sequelizeArrayToJSON),
     regions: db.models.tags.scope('regions').findAll().then(sequelizeArrayToJSON),
@@ -88,22 +99,34 @@ const getStore = (data) => {
 
 const renderPage = (url, context, locals, store) => {
   const { filters, favourites, ...initialState } = store.getState()
+  const sheet = new ServerStyleSheet()
+  let response
 
-  const content = ReactDOMServer.renderToString((
-    <Provider store={store}>
-      <StaticRouter location={url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>
-  ))
+  try {
+    const content = ReactDOMServer.renderToString(
+      sheet.collectStyles(
+        <Provider store={store}>
+          <StaticRouter location={url} context={context}>
+            <App />
+          </StaticRouter>
+        </Provider>
+      )
+    )
+    const styles = sheet.getStyleElement()
+    response = '<!doctype html>' + ReactDOMServer.renderToString(
+      <Html
+        state={initialState}
+        scripts={locals.getPathsByType('js')}
+        styles={[ ...styles, ...locals.getPathsByType('css') ]}
+      >
+        {content}
+      </Html>
+    )
+  } catch (error) {
+    throw error
+  } finally {
+    sheet.seal()
+  }
 
-  return '<!doctype html>' + ReactDOMServer.renderToString(
-    <Html
-      state={initialState}
-      scripts={locals.getPathsByType('js')}
-      css={locals.getPathsByType('css')}
-    >
-      {content}
-    </Html>
-  )
+  return { status: context.status, content: response }
 }

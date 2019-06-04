@@ -82,10 +82,7 @@ describe("EventPage", () => {
     });
 
     it("shows no long description", () => {
-      const longDescriptionElement = wrapper.find('Meta[title="Long Description"]').prop('content')
-      expect(React.isValidElement(longDescriptionElement))
-      expect(longDescriptionElement.type.name).toEqual('ReactMarkdown')
-      expect(longDescriptionElement.props['source']).toBeUndefined()
+      expect(wrapper.find('Meta[title="Long Description"]').prop('content')).toBeUndefined()
     });
 
     it("shows no venue info", () => {
@@ -195,7 +192,7 @@ describe("EventPage", () => {
          telephone: '01984 623563',
          mobile: '',
          email: 'moragberthon@hotmail.com',
-         website: 'http://example.com',
+         website: 'example.com',
          address1: 'Hellings Farm',
          address2: 'Bathealton',
          address3: '',
@@ -374,15 +371,24 @@ describe("EventPage", () => {
       });
 
       it("has telephone", () => {
-        expect(wrapper.find('Meta[title="Telephone"]').prop('content')).toEqual(expected.contact.telephone)
+        const telElement = wrapper.find('Meta[title="Telephone"]').prop('content')
+        expect(React.isValidElement(telElement)).toBeTruthy()
+        expect(telElement.type).toEqual('a')
+        expect(telElement.props['href']).toEqual('tel:' + expected.contact.telephone)
       });
 
       it("has email", () => {
-        expect(wrapper.find('Meta[title="Email"]').prop('content')).toEqual(expected.contact.email)
+        const emailElement = wrapper.find('Meta[title="Email"]').prop('content')
+        expect(React.isValidElement(emailElement)).toBeTruthy()
+        expect(emailElement.type).toEqual('a')
+        expect(emailElement.props['href']).toEqual('mailto:' + expected.contact.email)
       });
 
-      it("has website", () => {
-        expect(wrapper.find('Meta[title="Web"]').prop('content')).toEqual(expected.contact.website)
+      it("has website (auto-prefixed with http)", () => {
+        const websiteElement = wrapper.find('Meta[title="Web"]').prop('content')
+        expect(React.isValidElement(websiteElement)).toBeTruthy()
+        expect(websiteElement.type).toEqual('a')
+        expect(websiteElement.props['href']).toEqual('http://' + expected.contact.website)
       });
 
       it("has booking contact", () => {
