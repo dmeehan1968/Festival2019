@@ -45,7 +45,7 @@ export const get = (req, res) => {
             <Url
               key={event.id}
               base={base}
-              uri={`event/${event.id}`}
+              uri={`events/${event.id}`}
               lastmod={lastmod.valueOf() > 0 && lastmod || undefined}
               changefreq="monthly"
               priority={0.8}
