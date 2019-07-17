@@ -57,7 +57,7 @@ export default (src, query, options) => {
         lastModified: (new Date(result.lastModified)).toISOString(),
       }
       fs.appendFileSync(
-        path.join(options.cachePath, 'debug.log'),
+        path.join(options.cachePath, 'debug.csv'),
         Object.keys(data).sort().reduce((acc, key) => {
           return [
             ...acc,
