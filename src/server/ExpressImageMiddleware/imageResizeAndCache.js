@@ -49,12 +49,32 @@ export default (src, query, options) => {
   })
   .then(() => {
 
+    const debug = result => {
+      const data = {
+        _timestamp: (new Date()).toISOString(),
+        src,
+        ...result,
+        lastModified: (new Date(result.lastModified)).toISOString(),
+      }
+      fs.appendFileSync(
+        path.join(options.cachePath, 'debug.log'),
+        Object.keys(data).sort().reduce((acc, key) => {
+          return [
+            ...acc,
+            `"${data[key]}"`,
+          ]
+        }, []).join(',') + '\n'
+      )
+    }
     const hash = objectHash(diff)
 
     const result = {
       path: path.join(options.cachePath, hash + '.' + diff.format),
       type: diff.format,
       hash,
+      lastModified: undefined,
+      size: undefined,
+      status: undefined,
     }
 
     if (fs.existsSync(result.path)) {
@@ -66,6 +86,7 @@ export default (src, query, options) => {
       } else {
         result.lastModified = stat.mtimeMs
         result.size = stat.size
+        debug({ ...result, status: 'cached' })
         return result
       }
     }
@@ -82,6 +103,7 @@ export default (src, query, options) => {
         const stat = fs.statSync(result.path)
         result.lastModified = stat.mtimeMs
         result.size = stat.size
+        debug({ ...result, status: 'transformed' })
         return result
       })
   })
