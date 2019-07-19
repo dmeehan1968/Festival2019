@@ -55,7 +55,11 @@ export default (src, query, options) => {
         src,
         ...result,
         lastModified: (new Date(result.lastModified)).toISOString(),
+        quality: diff.quality,
+        height: diff.height,
+        width: diff.width,
       }
+      
       fs.appendFileSync(
         path.join(options.cachePath, 'debug.csv'),
         Object.keys(data).sort().reduce((acc, key) => {
