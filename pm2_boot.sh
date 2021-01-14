@@ -6,4 +6,4 @@ export APPDIR=/home/replicated/2019.10parishesfestival.org.uk
 
 cd $APPDIR
 
-npx pm2 start --env production
+npx pm2 start --env production --max-memory-restart 300M
